@@ -1,0 +1,6 @@
+.ui.search.centered-search {
+    display: flex;
+}
+.ui.search.centered-search > .ui.icon.input{
+    margin: auto;
+}
