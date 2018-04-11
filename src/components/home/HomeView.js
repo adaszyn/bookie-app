@@ -14,6 +14,7 @@ import {
 } from "semantic-ui-react";
 import {BookSearchContainer} from '../book-search/BookSearch';
 import "./HomeView.css";
+import bookieIcon from "../../assets/logo.svg"
 
 @observer
 export class HomeView extends Component {
@@ -31,7 +32,7 @@ export class HomeView extends Component {
             <Menu.Item as="a" header>
               <Image
                 size="mini"
-                src="/logo.png"
+                src={bookieIcon}
                 style={{ marginRight: "1.5em" }}
               />
               Bookie

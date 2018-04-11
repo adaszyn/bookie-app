@@ -1,0 +1,23 @@
+
+<svg width="243px" height="252px" viewBox="0 0 243 252" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.1 (51147) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#0097DD" offset="0%"></stop>
+            <stop stop-color="#005EB8" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#EEEEEE" offset="0%"></stop>
+            <stop stop-color="#D8D8D8" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="bookie-icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" fill="url(#linearGradient-1)" x="0" y="19" width="243" height="233"></rect>
+        <ellipse id="Oval" fill="#FFFFFF" cx="66.5" cy="138.5" rx="45.5" ry="75.5"></ellipse>
+        <ellipse id="Oval-2" fill="#000000" cx="88" cy="168" rx="13" ry="29"></ellipse>
+        <ellipse id="Oval" fill="#FFFFFF" cx="179.5" cy="138.5" rx="45.5" ry="75.5"></ellipse>
+        <ellipse id="Oval-2" fill="#000000" cx="201" cy="168" rx="13" ry="29"></ellipse>
+        <polygon id="Triangle" fill="url(#linearGradient-2)" points="228.649329 0 238 19 0 19"></polygon>
+    </g>
+</svg>
