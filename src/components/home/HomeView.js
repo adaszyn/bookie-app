@@ -25,7 +25,6 @@ export class HomeView extends Component {
                 src={logo}
                 style={{ marginRight: "1.5em" }}
               />
-              Bookie
             </Menu.Item>
 
             <BookSearchContainer />
