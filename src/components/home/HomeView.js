@@ -1,18 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-import {
-  Container,
-  Divider,
-  Dropdown,
-  Grid,
-  Header,
-  Image,
-  List,
-  Menu,
-  Segment
-} from "semantic-ui-react";
-import {BookSearchContainer} from '../book-search/BookSearch';
+import { Container, Dropdown, Header, Image, Menu } from "semantic-ui-react";
+import { BookSearchContainer } from "../book-search/BookSearch";
+import logo from "../../assets/logo_white.svg"
 import "./HomeView.css";
 
 @observer
@@ -31,12 +22,12 @@ export class HomeView extends Component {
             <Menu.Item as="a" header>
               <Image
                 size="mini"
-                src="/logo.png"
+                src={logo}
                 style={{ marginRight: "1.5em" }}
               />
               Bookie
             </Menu.Item>
-            
+
             <BookSearchContainer />
 
             <Dropdown item simple text="Dropdown">
@@ -57,6 +48,13 @@ export class HomeView extends Component {
               </Dropdown.Menu>
             </Dropdown>
           </Container>
+          <Menu.Menu position="right">
+            <Menu.Item
+              name="logout"
+              active
+              onClick={this.props.logOut}
+            />
+          </Menu.Menu>
         </Menu>
 
         <Container text style={{ marginTop: "7em" }}>
@@ -70,6 +68,7 @@ export class HomeView extends Component {
 }
 export const HomeViewContainer = inject(stores => {
   return {
-    store: stores.booksStore
+    store: stores.booksStore,
+    logOut: stores.authStore.logOut
   };
 })(HomeView);
