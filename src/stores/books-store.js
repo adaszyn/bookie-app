@@ -1,8 +1,8 @@
 import { action, observable } from "mobx";
-import { searchBooks } from "../services/books-search-service";
+import { searchGoogleBooks } from "../services/books-search-service";
 import debounce from 'debounce-promise';
 
-const searchBooksDebounced = debounce(searchBooks, 500)
+const searchBooksDebounced = debounce(searchGoogleBooks, 500)
 export class BooksStore {
   @observable header = "Hello";
   @observable searchPhrase = "";
