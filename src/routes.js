@@ -5,6 +5,7 @@ import { HomeViewContainer } from "./components/home/HomeView";
 import { PrivateRoute } from "./components/private-route/PrivateRoute";
 import { LoginFormContainer } from "./components/login/LoginForm";
 import DevTools from "mobx-react-devtools";
+import {SignUpFormContainer} from './components/signup/SignUpForm'
 
 @observer
 export class Routes extends Component {
@@ -22,6 +23,17 @@ export class Routes extends Component {
                   <Redirect to="/" />
                 ) : (
                   <LoginFormContainer />
+                )
+              }
+            />
+            <Route
+              exact
+              path="/signup"
+              render={() =>
+                this.props.isLoggedIn ? (
+                  <Redirect to="/" />
+                ) : (
+                  <SignUpFormContainer />
                 )
               }
             />

@@ -9,26 +9,42 @@ import {
   Segment
 } from "semantic-ui-react";
 import { inject, observer } from "mobx-react";
-import { Link } from "react-router-dom";
 import logo from "../../assets/logo_black.svg";
 
 @observer
-export class LoginForm extends Component {
+export class SignUpForm extends Component {
   state = {
     email: "",
-    password: ""
+    password: "",
+    repeatedPassword: "",
+    formError: ""
   };
   onEmailChange = ({ target: { value } }) => {
     this.setState({ email: value });
   };
   onPasswordChange = ({ target: { value } }) => {
+    if (this.state.repeatedPassword !== value) {
+      this.setState({ formError: "Passwords must match!" });
+    } else {
+      this.setState({ formError: "" });
+    }
     this.setState({ password: value });
+  };
+  onRepeatedPasswordChange = ({ target: { value } }) => {
+    if (value !== this.state.password) {
+      this.setState({ formError: "Passwords must match!" });
+    } else {
+      this.setState({ formError: "" });
+    }
+    this.setState({ repeatedPassword: value });
   };
   onSubmit = () => {
     this.props.onSubmit(this.state.email, this.state.password);
   };
 
   render() {
+    const submitDisabled =
+      this.state.formError !== "" || this.state.repeatedPassword === "";
     return (
       <div className="login-form">
         {/* //TODO: move styles to LoginForm.css   */}
@@ -67,14 +83,30 @@ export class LoginForm extends Component {
                   placeholder="Password"
                   type="password"
                 />
+                <Form.Input
+                  fluid
+                  icon="lock"
+                  value={this.state.repeatedPassword}
+                  onChange={this.onRepeatedPasswordChange}
+                  iconPosition="left"
+                  placeholder="Repeat password"
+                  type="password"
+                />
 
-                <Button onClick={this.onSubmit} color="teal" fluid size="large">
-                  Login
+                <Button
+                  disabled={submitDisabled}
+                  onClick={this.onSubmit}
+                  color="teal"
+                  fluid
+                  size="large"
+                >
+                  Sign up
                 </Button>
               </Segment>
             </Form>
-            <Message>
-              New to us? <Link to="/signup"> Sign Up</Link>
+            <Message style={{ color: "red" }}>
+              {this.props.errorMessage}
+              {this.state.formError}
             </Message>
           </Grid.Column>
         </Grid>
@@ -82,7 +114,7 @@ export class LoginForm extends Component {
     );
   }
 }
-export const LoginFormContainer = inject(stores => ({
-  onSubmit: stores.authStore.logIn,
-  isLoggedIn: stores.authStore.isLoggedIn
-}))(LoginForm);
+export const SignUpFormContainer = inject(stores => ({
+  onSubmit: stores.authStore.signUp,
+  errorMessage: stores.authStore.signUpErrorMessage
+}))(SignUpForm);

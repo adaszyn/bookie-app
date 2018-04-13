@@ -12,3 +12,14 @@ export async function authenticate(email, password) {
         config: { headers: {'Content-Type': 'multipart/form-data' }}
     })
 }
+export async function register(email, password) {
+    var bodyFormData = new FormData();
+    bodyFormData.set('email', email);
+    bodyFormData.set('password', password);
+    return Axios( {
+        method: 'post',
+        url: `${API_BASE}/register`,
+        data: bodyFormData,
+        config: { headers: {'Content-Type': 'multipart/form-data' }}
+    })
+}
