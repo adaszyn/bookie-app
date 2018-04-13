@@ -17,11 +17,11 @@ export class HomeView extends Component {
   render() {
     return (
       <div className="App">
-        <Menu fixed="top" inverted>
-          <Container>
-            <Menu.Item as="a" header>
+        <Menu fixed="top" inverted size="large">
+          <Container style={{padding: "5px 0"}}>
+            <Menu.Item as="a" header >
               <Image
-                size="mini"
+                size="tiny"
                 src={logo}
                 style={{ marginRight: "1.5em" }}
               />

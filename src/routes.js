@@ -12,7 +12,7 @@ export class Routes extends Component {
   render() {
     return (
       <div>
-        <DevTools />
+        {process.env.NODE_ENV === 'development' ? <DevTools /> : null}
         <BrowserRouter>
           <Fragment>
             <Route
