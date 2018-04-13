@@ -1,48 +1,52 @@
 import React, { Component, Fragment } from "react";
 import { inject, observer } from "mobx-react";
-import { Route, BrowserRouter, Redirect } from "react-router-dom";
+import { Route, BrowserRouter, Redirect, Switch } from "react-router-dom";
 import { HomeViewContainer } from "./components/home/HomeView";
 import { PrivateRoute } from "./components/private-route/PrivateRoute";
 import { LoginFormContainer } from "./components/login/LoginForm";
 import DevTools from "mobx-react-devtools";
-import {SignUpFormContainer} from './components/signup/SignUpForm'
+import { SignUpFormContainer } from "./components/signup/SignUpForm";
+import { NotFound } from "./components/not-found/NotFound";
 
 @observer
 export class Routes extends Component {
   render() {
     return (
       <div>
-        {process.env.NODE_ENV === 'development' ? <DevTools /> : null}
+        {process.env.NODE_ENV === "development" ? <DevTools /> : null}
         <BrowserRouter>
           <Fragment>
-            <Route
-              exact
-              path="/login"
-              render={() =>
-                this.props.isLoggedIn ? (
-                  <Redirect to="/" />
-                ) : (
-                  <LoginFormContainer />
-                )
-              }
-            />
-            <Route
-              exact
-              path="/signup"
-              render={() =>
-                this.props.isLoggedIn ? (
-                  <Redirect to="/" />
-                ) : (
-                  <SignUpFormContainer />
-                )
-              }
-            />
-            <PrivateRoute
-              authed={this.props.isLoggedIn}
-              exact
-              path="/"
-              component={HomeViewContainer}
-            />
+            <Switch>
+              <Route
+                exact
+                path="/login"
+                render={() =>
+                  this.props.isLoggedIn ? (
+                    <Redirect to="/" />
+                  ) : (
+                    <LoginFormContainer />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/signup"
+                render={() =>
+                  this.props.isLoggedIn ? (
+                    <Redirect to="/" />
+                  ) : (
+                    <SignUpFormContainer />
+                  )
+                }
+              />
+              <PrivateRoute
+                authed={this.props.isLoggedIn}
+                exact
+                path="/"
+                component={HomeViewContainer}
+              />
+              <Route path="*" component={NotFound} />
+            </Switch>
           </Fragment>
         </BrowserRouter>
       </div>
