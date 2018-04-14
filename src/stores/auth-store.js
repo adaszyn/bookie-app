@@ -1,5 +1,6 @@
 import { action, observable } from "mobx";
 import { authenticate, register } from "../services/api-service";
+import store from "store";
 
 export class AuthStore {
   @observable email = "";
@@ -7,6 +8,14 @@ export class AuthStore {
   @observable isLoggedIn = false;
   @observable loginErrorMessage = null;
   @observable signUpErrorMessage = null;
+
+  constructor () {
+    const token = store.get('session-token')
+    if (token) {
+        this.isLoggedIn = true;
+        this.token = token;
+    }
+  }
 
   @action
   logIn = (email, password) => {
@@ -19,6 +28,7 @@ export class AuthStore {
     if (response.status === 200) {
       this.token = response.data.sessionToken;
       this.isLoggedIn = true;
+      store.set('session-token', response.data.sessionToken);      
     } else {
       this.token = "";
       this.isLoggedIn = false;
@@ -31,6 +41,8 @@ export class AuthStore {
   @action
   logOut = () => {
     this.isLoggedIn = false;
+    this.token = "";
+    store.remove('session-token');
   };
   @action
   signUp = (email, password) => {
@@ -52,6 +64,7 @@ export class AuthStore {
       } else {
         this.token = response.data.sessionToken;
         this.isLoggedIn = true;
+        store.set('session-token', response.data.sessionToken);
       }
     } else {
       this.token = "";

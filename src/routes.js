@@ -41,7 +41,7 @@ export class Routes extends Component {
                   )
                 }
               />
-              <DashboardWrapper>
+              <DashboardWrapper logOut={this.props.logOut}>
                 <PrivateRoute
                   authed={this.props.isLoggedIn}
                   exact
@@ -66,6 +66,7 @@ export class Routes extends Component {
 }
 export const RoutesContainer = inject(stores => {
   return {
-    isLoggedIn: stores.authStore.isLoggedIn
+    isLoggedIn: stores.authStore.isLoggedIn,
+    logOut: stores.authStore.logOut
   };
 })(Routes);

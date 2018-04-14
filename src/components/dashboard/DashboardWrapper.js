@@ -21,7 +21,7 @@ export class DashboardWrapper extends Component {
             </Menu.Item>
           </Container>
           <Menu.Menu position="right">
-            <Menu.Item name="logout" active onClick={this.props.logOut} />
+            <Menu.Item name="logout" onClick={this.props.logOut} />
           </Menu.Menu>
         </Menu>
 
