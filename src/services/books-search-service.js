@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const LIMIT = 5;
+
 export async function searchGoogleBooks(searchPhrase) {
   try {
     const phraseEscaped = searchPhrase.split(" ").join("+");
@@ -7,7 +9,7 @@ export async function searchGoogleBooks(searchPhrase) {
       `https://www.googleapis.com/books/v1/volumes?q=${phraseEscaped}&key=AIzaSyDVy9lkJzUvrg6DFTgsO9q51uapMeuvfGA`
     );
 
-    return result.data.items.slice(0,5).map(result => ({
+    return result.data.items.slice(0,LIMIT).map(result => ({
       isbn10: ((result) => {
         var isbn10 = result.volumeInfo.industryIdentifiers.find(identifier => identifier.type === "ISBN_10")
         if(typeof isbn10 === 'undefined') return "";

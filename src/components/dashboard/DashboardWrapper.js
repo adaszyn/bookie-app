@@ -11,7 +11,13 @@ export class DashboardWrapper extends Component {
         <Menu fixed="top" inverted size="large">
           <Container style={{ padding: "5px 0" }}>
             <Menu.Item as="a" header>
-              <Image size="tiny" src={logo} style={{ marginRight: "1.5em" }} />
+              <Link to="/">
+                <Image
+                  size="tiny"
+                  src={logo}
+                  style={{ marginRight: "1.5em" }}
+                />
+              </Link>
             </Menu.Item>
 
             <BookSearchContainer />
