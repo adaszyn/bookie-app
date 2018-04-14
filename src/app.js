@@ -4,12 +4,15 @@ import { RoutesContainer } from "./routes";
 import { BooksStore } from "./stores/books-store";
 import { AuthStore } from "./stores/auth-store";
 import "semantic-ui-css/semantic.min.css";
+import {NotesStore} from './stores/notes-store'
 
-const booksStore = new BooksStore();
 const authStore = new AuthStore();
+const booksStore = new BooksStore();
+const notesStore = new NotesStore(authStore);
+const stores = {booksStore, notesStore, authStore};
 
 export const App = () => (
-  <Provider booksStore={booksStore} authStore={authStore}>
+  <Provider {...stores}>
     <RoutesContainer />
   </Provider>
 );

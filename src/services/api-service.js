@@ -9,6 +9,7 @@ export async function authenticate(email, password) {
         method: 'post',
         url: `${API_BASE}/login`,
         data: bodyFormData,
+        withCredentials: true,
         config: { headers: {'Content-Type': 'multipart/form-data' }}
     })
 }
@@ -20,6 +21,21 @@ export async function register(email, password) {
         method: 'post',
         url: `${API_BASE}/register`,
         data: bodyFormData,
+        withCredentials: true,        
         config: { headers: {'Content-Type': 'multipart/form-data' }}
+    })
+}
+export function logOut () {
+    return Axios( {
+        method: 'get',
+        url: `${API_BASE}/logout`,
+        withCredentials: true,        
+    })
+}
+export async function getNotes(token) {
+    return Axios( {
+        method: 'get',
+        url: `${API_BASE}/notes/`,
+        withCredentials: true,
     })
 }

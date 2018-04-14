@@ -1,5 +1,5 @@
 import { action, observable } from "mobx";
-import { authenticate, register } from "../services/api-service";
+import { authenticate, register, logOut } from "../services/api-service";
 import store from "store";
 
 export class AuthStore {
@@ -40,10 +40,14 @@ export class AuthStore {
   };
   @action
   logOut = () => {
+    logOut().then(this.logOutSuccess)
+  };
+  @action 
+  logOutSuccess = () => {
     this.isLoggedIn = false;
     this.token = "";
     store.remove('session-token');
-  };
+  }
   @action
   signUp = (email, password) => {
     register(email, password)

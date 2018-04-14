@@ -8,7 +8,7 @@ import DevTools from "mobx-react-devtools";
 import { SignUpFormContainer } from "./components/signup/SignUpForm";
 import { NotFound } from "./components/not-found/NotFound";
 import { DashboardWrapper } from "./components/dashboard/DashboardWrapper";
-import { NotesViewContainer } from "./components/notes/NotesViewContainer";
+import { NotesViewContainer } from "./components/notes/NotesView";
 
 @observer
 export class Routes extends Component {
