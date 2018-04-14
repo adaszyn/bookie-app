@@ -1,0 +1,775 @@
+{
+ "kind": "books#volumes",
+ "totalItems": 810,
+ "items": [
+  {
+   "kind": "books#volume",
+   "id": "4WwdMJKXzhEC",
+   "etag": "AZH7bRFIdBc",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/4WwdMJKXzhEC",
+   "volumeInfo": {
+    "title": "The Book",
+    "subtitle": "The Life Story of a Technology",
+    "authors": [
+     "Nicole Howard"
+    ],
+    "publisher": "Greenwood Publishing Group",
+    "publishedDate": "2005",
+    "description": "Introduces the history of the book, beginning with papyrus in ancient Egypt, through the development of the printing press, to current computer-based technologies, including its influence on societies and cultures around the world.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_10",
+      "identifier": "031333028X"
+     },
+     {
+      "type": "ISBN_13",
+      "identifier": "9780313330285"
+     }
+    ],
+    "readingModes": {
+     "text": true,
+     "image": true
+    },
+    "pageCount": 171,
+    "printType": "BOOK",
+    "categories": [
+     "History"
+    ],
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": true,
+    "contentVersion": "1.0.1.0.preview.3",
+    "panelizationSummary": {
+     "containsEpubBubbles": false,
+     "containsImageBubbles": false
+    },
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=4WwdMJKXzhEC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=4WwdMJKXzhEC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.se/books?id=4WwdMJKXzhEC&printsec=frontcover&dq=book&hl=&cd=1&source=gbs_api",
+    "infoLink": "http://books.google.se/books?id=4WwdMJKXzhEC&dq=book&hl=&source=gbs_api",
+    "canonicalVolumeLink": "https://books.google.com/books/about/The_Book.html?hl=&id=4WwdMJKXzhEC"
+   },
+   "saleInfo": {
+    "country": "SE",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "SE",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.se/books/download/The_Book-sample-epub.acsm?id=4WwdMJKXzhEC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.se/books/download/The_Book-sample-pdf.acsm?id=4WwdMJKXzhEC&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=4WwdMJKXzhEC&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "Introduces the history of the book, beginning with papyrus in ancient Egypt, through the development of the printing press, to current computer-based technologies, including its influence on societies and cultures around the world."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "Z8e2mfFJa-4C",
+   "etag": "ni7piOqbN8M",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/Z8e2mfFJa-4C",
+   "volumeInfo": {
+    "title": "The Book of the Navajo",
+    "authors": [
+     "Raymond Friday Locke"
+    ],
+    "publisher": "Holloway House Publishing",
+    "publishedDate": "2001",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_10",
+      "identifier": "0876875002"
+     },
+     {
+      "type": "ISBN_13",
+      "identifier": "9780876875001"
+     }
+    ],
+    "readingModes": {
+     "text": false,
+     "image": true
+    },
+    "pageCount": 496,
+    "printType": "BOOK",
+    "categories": [
+     "History"
+    ],
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": false,
+    "contentVersion": "preview-1.0.0",
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=Z8e2mfFJa-4C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=Z8e2mfFJa-4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.se/books?id=Z8e2mfFJa-4C&printsec=frontcover&dq=book&hl=&cd=2&source=gbs_api",
+    "infoLink": "http://books.google.se/books?id=Z8e2mfFJa-4C&dq=book&hl=&source=gbs_api",
+    "canonicalVolumeLink": "https://books.google.com/books/about/The_Book_of_the_Navajo.html?hl=&id=Z8e2mfFJa-4C"
+   },
+   "saleInfo": {
+    "country": "SE",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "SE",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED",
+    "epub": {
+     "isAvailable": false
+    },
+    "pdf": {
+     "isAvailable": false
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=Z8e2mfFJa-4C&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "zobsj8npWeAC",
+   "etag": "5oKay96y/F8",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/zobsj8npWeAC",
+   "volumeInfo": {
+    "title": "The Nature of the Book",
+    "subtitle": "Print and Knowledge in the Making",
+    "authors": [
+     "Adrian Johns"
+    ],
+    "publisher": "University of Chicago Press",
+    "publishedDate": "1998-01",
+    "description": "Discusses how books were written, printed, and distributed in early modern England; the relationships among authors, printers, booksellers, and government officials; and the impact of technological innovation.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_10",
+      "identifier": "0226401227"
+     },
+     {
+      "type": "ISBN_13",
+      "identifier": "9780226401225"
+     }
+    ],
+    "readingModes": {
+     "text": false,
+     "image": true
+    },
+    "pageCount": 753,
+    "printType": "BOOK",
+    "categories": [
+     "Language Arts & Disciplines"
+    ],
+    "averageRating": 4.0,
+    "ratingsCount": 2,
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": true,
+    "contentVersion": "0.0.4.0.preview.1",
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=zobsj8npWeAC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=zobsj8npWeAC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.se/books?id=zobsj8npWeAC&printsec=frontcover&dq=book&hl=&cd=3&source=gbs_api",
+    "infoLink": "http://books.google.se/books?id=zobsj8npWeAC&dq=book&hl=&source=gbs_api",
+    "canonicalVolumeLink": "https://books.google.com/books/about/The_Nature_of_the_Book.html?hl=&id=zobsj8npWeAC"
+   },
+   "saleInfo": {
+    "country": "SE",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "SE",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED",
+    "epub": {
+     "isAvailable": false
+    },
+    "pdf": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.se/books/download/The_Nature_of_the_Book-sample-pdf.acsm?id=zobsj8npWeAC&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=zobsj8npWeAC&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "Discusses how books were written, printed, and distributed in early modern England; the relationships among authors, printers, booksellers, and government officials; and the impact of technological innovation."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "E3M-DwAAQBAJ",
+   "etag": "odVqAsKl6n8",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/E3M-DwAAQBAJ",
+   "volumeInfo": {
+    "title": "Fire and Fury",
+    "subtitle": "Inside the Trump White House",
+    "authors": [
+     "Michael Wolff"
+    ],
+    "publisher": "Henry Holt and Company",
+    "publishedDate": "2018-01-05",
+    "description": "#1 New York Times Bestseller With extraordinary access to the West Wing, Michael Wolff reveals what happened behind-the-scenes in the first nine months of the most controversial presidency of our time in Fire and Fury: Inside the Trump White House. Since Donald Trump was sworn in as the 45th President of the United States, the country—and the world—has witnessed a stormy, outrageous, and absolutely mesmerizing presidential term that reflects the volatility and fierceness of the man elected Commander-in-Chief. This riveting and explosive account of Trump’s administration provides a wealth of new details about the chaos in the Oval Office, including: -- What President Trump’s staff really thinks of him -- What inspired Trump to claim he was wire-tapped by President Obama -- Why FBI director James Comey was really fired -- Why chief strategist Steve Bannon and Trump’s son-in-law Jared Kushner couldn’t be in the same room -- Who is really directing the Trump administration’s strategy in the wake of Bannon’s firing -- What the secret to communicating with Trump is -- What the Trump administration has in common with the movie The Producers Never before in history has a presidency so divided the American people. Brilliantly reported and astoundingly fresh, Fire and Fury shows us how and why Donald Trump has become the king of discord and disunion. “Essential reading.”—Michael D’Antonio, author of Never Enough: Donald Trump and the Pursuit of Success, CNN.com “Not since Harry Potter has a new book caught fire in this way...[Fire and Fury] is indeed a significant achievement, which deserves much of the attention it has received.”—The Economist",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_13",
+      "identifier": "9781250158079"
+     },
+     {
+      "type": "ISBN_10",
+      "identifier": "1250158079"
+     }
+    ],
+    "readingModes": {
+     "text": true,
+     "image": false
+    },
+    "pageCount": 336,
+    "printType": "BOOK",
+    "categories": [
+     "Political Science"
+    ],
+    "averageRating": 3.5,
+    "ratingsCount": 64,
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": true,
+    "contentVersion": "1.11.11.0.preview.2",
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=E3M-DwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=E3M-DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.se/books?id=E3M-DwAAQBAJ&printsec=frontcover&dq=book&hl=&cd=4&source=gbs_api",
+    "infoLink": "https://play.google.com/store/books/details?id=E3M-DwAAQBAJ&source=gbs_api",
+    "canonicalVolumeLink": "https://market.android.com/details?id=book-E3M-DwAAQBAJ"
+   },
+   "saleInfo": {
+    "country": "SE",
+    "saleability": "FOR_SALE",
+    "isEbook": true,
+    "listPrice": {
+     "amount": 220.23,
+     "currencyCode": "SEK"
+    },
+    "retailPrice": {
+     "amount": 154.16,
+     "currencyCode": "SEK"
+    },
+    "buyLink": "https://play.google.com/store/books/details?id=E3M-DwAAQBAJ&rdid=book-E3M-DwAAQBAJ&rdot=1&source=gbs_api",
+    "offers": [
+     {
+      "finskyOfferType": 1,
+      "listPrice": {
+       "amountInMicros": 2.2023E8,
+       "currencyCode": "SEK"
+      },
+      "retailPrice": {
+       "amountInMicros": 1.5416E8,
+       "currencyCode": "SEK"
+      }
+     }
+    ]
+   },
+   "accessInfo": {
+    "country": "SE",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.se/books/download/Fire_and_Fury-sample-epub.acsm?id=E3M-DwAAQBAJ&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": false
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=E3M-DwAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "#1 New York Times Bestseller With extraordinary access to the West Wing, Michael Wolff reveals what happened behind-the-scenes in the first nine months of the most controversial presidency of our time in Fire and Fury: Inside the Trump ..."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "Yzt4Mwo8BbkC",
+   "etag": "3UoyWk59sAo",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/Yzt4Mwo8BbkC",
+   "volumeInfo": {
+    "title": "The Time Machine",
+    "authors": [
+     "H.G. Wells"
+    ],
+    "publisher": "Simon and Schuster",
+    "publishedDate": "2011-05-31",
+    "description": "The Time Traveller, a dreamer obsessed with traveling through time, builds himself a time machine and, much to his surprise, travels over 800,000 years into the future. He lands in the year 802701: the world has been transformed by a society living in apparent harmony and bliss, but as the Traveler stays in the future he discovers a hidden barbaric and depraved subterranean class. Wells's transparent commentary on the capitalist society was an instant bestseller and launched the time-travel genre. The Time Machine inspired the international bestseller The Map of Time by Félix J. Palma. As a gift to our readers, we are including the first three chapters of The Map of Time in this ebook edition.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_10",
+      "identifier": "1451658869"
+     },
+     {
+      "type": "ISBN_13",
+      "identifier": "9781451658866"
+     }
+    ],
+    "readingModes": {
+     "text": true,
+     "image": false
+    },
+    "pageCount": 176,
+    "printType": "BOOK",
+    "categories": [
+     "Fiction"
+    ],
+    "averageRating": 4.0,
+    "ratingsCount": 666,
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": true,
+    "contentVersion": "2.32.24.0.preview.2",
+    "panelizationSummary": {
+     "containsEpubBubbles": false,
+     "containsImageBubbles": false
+    },
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=Yzt4Mwo8BbkC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=Yzt4Mwo8BbkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.se/books?id=Yzt4Mwo8BbkC&printsec=frontcover&dq=book&hl=&cd=5&source=gbs_api",
+    "infoLink": "http://books.google.se/books?id=Yzt4Mwo8BbkC&dq=book&hl=&source=gbs_api",
+    "canonicalVolumeLink": "https://books.google.com/books/about/The_Time_Machine.html?hl=&id=Yzt4Mwo8BbkC"
+   },
+   "saleInfo": {
+    "country": "SE",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "SE",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.se/books/download/The_Time_Machine-sample-epub.acsm?id=Yzt4Mwo8BbkC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": false
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=Yzt4Mwo8BbkC&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "The Time Machine inspired the international bestseller The Map of Time by Félix J. Palma. As a gift to our readers, we are including the first three chapters of The Map of Time in this ebook edition."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "yi2dTyIGA5cC",
+   "etag": "aw98CbXQ3y0",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/yi2dTyIGA5cC",
+   "volumeInfo": {
+    "title": "Old Books and New Histories",
+    "subtitle": "An Orientation to Studies in Book and Print Culture",
+    "authors": [
+     "Leslie Howsam"
+    ],
+    "publisher": "University of Toronto Press",
+    "publishedDate": "2006",
+    "description": "Studies in the culture and history of the book are a burgeoning academic specialty. Intriguing, rigorous, and vital, they are nevertheless rooted within three major academic disciplines - history, literary studies, and bibliography - that focus respectively upon the book as a cultural transaction, a literary text, and a material artefact. Old Books and New Histories serves as a guide to this rich but sometimes confusing territory, explaining how different scholarly approaches to what may appear to be the same entity can lead to divergent questions and contradictory answers. Rather than introduce the events and turning points in the history of book culture, or debates among its theorists, Leslie Howsam uses an array of books and articles to offer an orientation to the field in terms of disciplinary boundaries and interdisciplinary tensions. Howsam's analysis maps studies of book and print culture onto the disciplinary structure of the North American and European academic world. Old Books and New Histories is also an engaged statement of the historical perspective of the book. In the final analysis, the lesson of studies in book and print culture is that texts change, books are mutable, and readers ultimately make of books what they need.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_13",
+      "identifier": "9780802094384"
+     },
+     {
+      "type": "ISBN_10",
+      "identifier": "0802094384"
+     }
+    ],
+    "readingModes": {
+     "text": true,
+     "image": true
+    },
+    "pageCount": 111,
+    "printType": "BOOK",
+    "categories": [
+     "History"
+    ],
+    "averageRating": 4.0,
+    "ratingsCount": 1,
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": false,
+    "contentVersion": "0.0.1.0.preview.3",
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=yi2dTyIGA5cC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=yi2dTyIGA5cC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.se/books?id=yi2dTyIGA5cC&printsec=frontcover&dq=book&hl=&cd=6&source=gbs_api",
+    "infoLink": "http://books.google.se/books?id=yi2dTyIGA5cC&dq=book&hl=&source=gbs_api",
+    "canonicalVolumeLink": "https://books.google.com/books/about/Old_Books_and_New_Histories.html?hl=&id=yi2dTyIGA5cC"
+   },
+   "saleInfo": {
+    "country": "SE",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "SE",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.se/books/download/Old_Books_and_New_Histories-sample-epub.acsm?id=yi2dTyIGA5cC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": false
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=yi2dTyIGA5cC&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "Howsam&#39;s analysis maps studies of book and print culture onto the disciplinary structure of the North American and European academic world. Old Books and New Histories is also an engaged statement of the historical perspective of the book."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "hdKzFlaqWT8C",
+   "etag": "SrWHCMGjFw4",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/hdKzFlaqWT8C",
+   "volumeInfo": {
+    "title": "The Book of Tempeh",
+    "authors": [
+     "William Shurtleff",
+     "Akiko Aoyagi"
+    ],
+    "publisher": "Soyinfo Center",
+    "publishedDate": "1979",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_10",
+      "identifier": "0060140097"
+     },
+     {
+      "type": "ISBN_13",
+      "identifier": "9780060140090"
+     }
+    ],
+    "readingModes": {
+     "text": false,
+     "image": true
+    },
+    "pageCount": 245,
+    "printType": "BOOK",
+    "categories": [
+     "Bean curd"
+    ],
+    "averageRating": 4.5,
+    "ratingsCount": 3,
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": false,
+    "contentVersion": "preview-1.0.0",
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=hdKzFlaqWT8C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=hdKzFlaqWT8C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.se/books?id=hdKzFlaqWT8C&printsec=frontcover&dq=book&hl=&cd=7&source=gbs_api",
+    "infoLink": "http://books.google.se/books?id=hdKzFlaqWT8C&dq=book&hl=&source=gbs_api",
+    "canonicalVolumeLink": "https://books.google.com/books/about/The_Book_of_Tempeh.html?hl=&id=hdKzFlaqWT8C"
+   },
+   "saleInfo": {
+    "country": "SE",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "SE",
+    "viewability": "ALL_PAGES",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED",
+    "epub": {
+     "isAvailable": false
+    },
+    "pdf": {
+     "isAvailable": false
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=hdKzFlaqWT8C&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "Beautifully illustrated and immensely informative, &quot;The Book of Tempeh&quot; showcases this hearty, versatile ingredient in a host of delectable recipes. Copyright © Libri GmbH. All rights reserved."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "Y7sOAAAAIAAJ",
+   "etag": "kytv8m6vq88",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/Y7sOAAAAIAAJ",
+   "volumeInfo": {
+    "title": "Alice's Adventures in Wonderland",
+    "authors": [
+     "Lewis Carroll"
+    ],
+    "publishedDate": "1920",
+    "description": "In the most renowned novel by English author Lewis Carroll, restless young Alice literally stumbles into adventure when she follows the hurried, time-obsessed White Rabbit down a hole and into a fantastical realm where animals are quite verbose, logic is in short supply, and royalty tends to be exceedingly unpleasant. Each playfully engaging chapter presents absurd scenarios involving an unforgettable cast of characters, including the grinning Cheshire Cat and the short-tempered Queen of Hearts, and every stop on Alice's peculiar journey is marked by sharp social satire and wondrously witty wordplay.",
+    "industryIdentifiers": [
+     {
+      "type": "OTHER",
+      "identifier": "STANFORD:36105004896523"
+     }
+    ],
+    "readingModes": {
+     "text": true,
+     "image": true
+    },
+    "pageCount": 200,
+    "printType": "BOOK",
+    "categories": [
+     "Children's stories"
+    ],
+    "averageRating": 4.0,
+    "ratingsCount": 1675,
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": false,
+    "contentVersion": "1.4.4.0.full.3",
+    "panelizationSummary": {
+     "containsEpubBubbles": false,
+     "containsImageBubbles": false
+    },
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=Y7sOAAAAIAAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=Y7sOAAAAIAAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.se/books?id=Y7sOAAAAIAAJ&printsec=frontcover&dq=book&hl=&cd=8&source=gbs_api",
+    "infoLink": "https://play.google.com/store/books/details?id=Y7sOAAAAIAAJ&source=gbs_api",
+    "canonicalVolumeLink": "https://market.android.com/details?id=book-Y7sOAAAAIAAJ"
+   },
+   "saleInfo": {
+    "country": "SE",
+    "saleability": "FREE",
+    "isEbook": true,
+    "buyLink": "https://play.google.com/store/books/details?id=Y7sOAAAAIAAJ&rdid=book-Y7sOAAAAIAAJ&rdot=1&source=gbs_api"
+   },
+   "accessInfo": {
+    "country": "SE",
+    "viewability": "ALL_PAGES",
+    "embeddable": true,
+    "publicDomain": true,
+    "textToSpeechPermission": "ALLOWED",
+    "epub": {
+     "isAvailable": true,
+     "downloadLink": "http://books.google.se/books/download/Alice_s_Adventures_in_Wonderland.epub?id=Y7sOAAAAIAAJ&hl=&output=epub&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": true,
+     "downloadLink": "http://books.google.se/books/download/Alice_s_Adventures_in_Wonderland.pdf?id=Y7sOAAAAIAAJ&hl=&output=pdf&sig=ACfU3U0LJuWczqOh8hN2H4-DDF1Ym-Vr7g&source=gbs_api"
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=Y7sOAAAAIAAJ&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "FULL_PUBLIC_DOMAIN",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "In the most renowned novel by English author Lewis Carroll, restless young Alice literally stumbles into adventure when she follows the hurried, time-obsessed White Rabbit down a hole and into a fantastical realm where animals are quite ..."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "lSMGAAAAQAAJ",
+   "etag": "lUy4yBkx36w",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/lSMGAAAAQAAJ",
+   "volumeInfo": {
+    "title": "Jane Eyre",
+    "authors": [
+     "Charlotte Brontë"
+    ],
+    "publishedDate": "1864",
+    "description": "Bronte’s novel about a shy, quiet governess who becomes a tutor in a great house and falls in love with its lonely and mysterious master is one of the great classics of English literature. Unique in its attention to the thoughts and feelings of a female protagonist, Jane Eyre was ahead of its time as a proto-feminist text. When it was published in 1847, however, Bronte was attacked by critics for what they felt was anti-Christian sentiment in her unflinching critique of the oppressions of Victorian society.",
+    "industryIdentifiers": [
+     {
+      "type": "OTHER",
+      "identifier": "OXFORD:590121570"
+     }
+    ],
+    "readingModes": {
+     "text": true,
+     "image": true
+    },
+    "pageCount": 480,
+    "printType": "BOOK",
+    "averageRating": 4.0,
+    "ratingsCount": 2404,
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": false,
+    "contentVersion": "0.3.7.0.full.3",
+    "panelizationSummary": {
+     "containsEpubBubbles": false,
+     "containsImageBubbles": false
+    },
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=lSMGAAAAQAAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=lSMGAAAAQAAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.se/books?id=lSMGAAAAQAAJ&pg=PP1&dq=book&hl=&cd=9&source=gbs_api",
+    "infoLink": "https://play.google.com/store/books/details?id=lSMGAAAAQAAJ&source=gbs_api",
+    "canonicalVolumeLink": "https://market.android.com/details?id=book-lSMGAAAAQAAJ"
+   },
+   "saleInfo": {
+    "country": "SE",
+    "saleability": "FREE",
+    "isEbook": true,
+    "buyLink": "https://play.google.com/store/books/details?id=lSMGAAAAQAAJ&rdid=book-lSMGAAAAQAAJ&rdot=1&source=gbs_api"
+   },
+   "accessInfo": {
+    "country": "SE",
+    "viewability": "ALL_PAGES",
+    "embeddable": true,
+    "publicDomain": true,
+    "textToSpeechPermission": "ALLOWED",
+    "epub": {
+     "isAvailable": true,
+     "downloadLink": "http://books.google.se/books/download/Jane_Eyre.epub?id=lSMGAAAAQAAJ&hl=&output=epub&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": true,
+     "downloadLink": "http://books.google.se/books/download/Jane_Eyre.pdf?id=lSMGAAAAQAAJ&hl=&output=pdf&sig=ACfU3U3yNAgK8ch4UbKK8L09C_IuK9VVYw&source=gbs_api"
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=lSMGAAAAQAAJ&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "FULL_PUBLIC_DOMAIN",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "Unique in its attention to the thoughts and feelings of a female protagonist, Jane Eyre was ahead of its time as a proto-feminist text."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "2iI9BAAAQBAJ",
+   "etag": "zUNsZFSosVE",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/2iI9BAAAQBAJ",
+   "volumeInfo": {
+    "title": "Proofs from THE BOOK",
+    "authors": [
+     "Martin Aigner",
+     "Günter M. Ziegler"
+    ],
+    "publisher": "Springer",
+    "publishedDate": "2014-08-06",
+    "description": "This revised and enlarged fifth edition features four new chapters, which contain highly original and delightful proofs for classics such as the spectral theorem from linear algebra, some more recent jewels like the non-existence of the Borromean rings and other surprises. From the Reviews \"... Inside PFTB (Proofs from The Book) is indeed a glimpse of mathematical heaven, where clever insights and beautiful ideas combine in astonishing and glorious ways. There is vast wealth within its pages, one gem after another. ... Aigner and Ziegler... write: \"... all we offer is the examples that we have selected, hoping that our readers will share our enthusiasm about brilliant ideas, clever insights and wonderful observations.\" I do. ... \" Notices of the AMS, August 1999 \"... This book is a pleasure to hold and to look at: ample margins, nice photos, instructive pictures and beautiful drawings ... It is a pleasure to read as well: the style is clear and entertaining, the level is close to elementary, the necessary background is given separately and the proofs are brilliant. ...\" LMS Newsletter, January 1999 \"Martin Aigner and Günter Ziegler succeeded admirably in putting together a broad collection of theorems and their proofs that would undoubtedly be in the Book of Erdös. The theorems are so fundamental, their proofs so elegant and the remaining open questio ns so intriguing that every mathematician, regardless of speciality, can benefit from reading this book. ... \" SIGACT News, December 2011.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_13",
+      "identifier": "9783662442050"
+     },
+     {
+      "type": "ISBN_10",
+      "identifier": "3662442051"
+     }
+    ],
+    "readingModes": {
+     "text": false,
+     "image": true
+    },
+    "pageCount": 308,
+    "printType": "BOOK",
+    "categories": [
+     "Mathematics"
+    ],
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": true,
+    "contentVersion": "preview-1.0.0",
+    "panelizationSummary": {
+     "containsEpubBubbles": false,
+     "containsImageBubbles": false
+    },
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=2iI9BAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=2iI9BAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.se/books?id=2iI9BAAAQBAJ&printsec=frontcover&dq=book&hl=&cd=10&source=gbs_api",
+    "infoLink": "https://play.google.com/store/books/details?id=2iI9BAAAQBAJ&source=gbs_api",
+    "canonicalVolumeLink": "https://market.android.com/details?id=book-2iI9BAAAQBAJ"
+   },
+   "saleInfo": {
+    "country": "SE",
+    "saleability": "FOR_SALE",
+    "isEbook": true,
+    "listPrice": {
+     "amount": 483.78,
+     "currencyCode": "SEK"
+    },
+    "retailPrice": {
+     "amount": 338.65,
+     "currencyCode": "SEK"
+    },
+    "buyLink": "https://play.google.com/store/books/details?id=2iI9BAAAQBAJ&rdid=book-2iI9BAAAQBAJ&rdot=1&source=gbs_api",
+    "offers": [
+     {
+      "finskyOfferType": 1,
+      "listPrice": {
+       "amountInMicros": 4.8378E8,
+       "currencyCode": "SEK"
+      },
+      "retailPrice": {
+       "amountInMicros": 3.3865E8,
+       "currencyCode": "SEK"
+      }
+     }
+    ]
+   },
+   "accessInfo": {
+    "country": "SE",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+    "epub": {
+     "isAvailable": false
+    },
+    "pdf": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.se/books/download/Proofs_from_THE_BOOK-sample-pdf.acsm?id=2iI9BAAAQBAJ&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=2iI9BAAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "&quot; I do. ... &quot; Notices of the AMS, August 1999 &quot;... This book is a pleasure to hold and to look at: ample margins, nice photos, instructive pictures and beautiful drawings ."
+   }
+  }
+ ]
+}
