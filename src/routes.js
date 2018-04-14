@@ -7,6 +7,8 @@ import { LoginFormContainer } from "./components/login/LoginForm";
 import DevTools from "mobx-react-devtools";
 import { SignUpFormContainer } from "./components/signup/SignUpForm";
 import { NotFound } from "./components/not-found/NotFound";
+import { DashboardWrapper } from "./components/dashboard/DashboardWrapper";
+import { NotesViewContainer } from "./components/notes/NotesViewContainer";
 
 @observer
 export class Routes extends Component {
@@ -39,12 +41,21 @@ export class Routes extends Component {
                   )
                 }
               />
-              <PrivateRoute
-                authed={this.props.isLoggedIn}
-                exact
-                path="/"
-                component={HomeViewContainer}
-              />
+              <DashboardWrapper>
+                <PrivateRoute
+                  authed={this.props.isLoggedIn}
+                  exact
+                  path="/"
+                  component={HomeViewContainer}
+                />
+                <PrivateRoute
+                  authed={this.props.isLoggedIn}
+                  exact
+                  path="/notes"
+                  component={NotesViewContainer}
+                />
+              </DashboardWrapper>
+
               <Route path="*" component={NotFound} />
             </Switch>
           </Fragment>
