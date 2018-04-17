@@ -16,7 +16,7 @@ export class HomeView extends Component {
   render() {
     return (
       <div>
-      <Header as="h1">Welcome to Bookie!</Header>
+      <Header as="h1">Recent Notes</Header>
       <Grid>
         {this.props.notes.map(note => (
           <Grid.Column computer={5} key={note.id}>
@@ -29,14 +29,16 @@ export class HomeView extends Component {
             </Link></Grid.Column>
         ))}
       </Grid>
+      <Header as="h1">All Books</Header>
       <Grid>         
         {sampleBooks.items.map(book => (
         <Grid.Column computer={5} key={book.id}>
-          <BookCard key={book.id}
+          <Link to={"/books/"+book.id} key={book.id}><BookCard key={book.id}
             title={book.volumeInfo.title}
             description={book.volumeInfo.title}
             thumbnail={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : null}
-          /></Grid.Column>
+          />
+          </Link></Grid.Column>
         ))}
       </Grid>
       </div>

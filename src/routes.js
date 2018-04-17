@@ -9,6 +9,7 @@ import { SignUpFormContainer } from "./components/signup/SignUpForm";
 import { NotFound } from "./components/not-found/NotFound";
 import { DashboardWrapper } from "./components/dashboard/DashboardWrapper";
 import { NotesViewContainer } from "./components/notes/NotesView";
+import { BookViewContainer } from "./components/book/BookView";
 
 @observer
 export class Routes extends Component {
@@ -53,6 +54,12 @@ export class Routes extends Component {
                   exact
                   path="/notes/:id"
                   component = {NotesViewContainer}
+                />
+                <PrivateRoute
+                  authed={this.props.isLoggedIn}
+                  exact
+                  path="/books/:id"
+                  component = {BookViewContainer}
                 />
               </DashboardWrapper>
 
