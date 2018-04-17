@@ -19,7 +19,7 @@ export class HomeView extends Component {
         <Header as="h1">Welcome to Bookie App!</Header>
         <div className="ui equal width row">
            {this.props.notes.map(note => (
-            <Link to="/notes"><NoteCard key={note.id} className="padded column"
+            <Link to="/notes"><NoteCard key={note.id} className= "column"
               title={note.bookId}
               meta={note.date_modified}
               description={note.content}
@@ -27,7 +27,7 @@ export class HomeView extends Component {
         ))}</div>
         <div className="ui equal width row">
         {sampleBooks.items.map(book => (
-          <BookCard key={book.id} className="padded column"
+          <BookCard key={book.id} className="column"
             title={book.volumeInfo.title}
             description={book.volumeInfo.title}
             thumbnail={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : null}
