@@ -22,9 +22,6 @@ export class DashboardWrapper extends Component {
 
             <BookSearchContainer />
 
-            <Menu.Item name="notes">
-              <Link to="/notes">Notes</Link>
-            </Menu.Item>
           </Container>
           <Menu.Menu position="right">
             <Menu.Item name="logout" onClick={this.props.logOut} />

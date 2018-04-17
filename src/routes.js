@@ -51,8 +51,8 @@ export class Routes extends Component {
                 <PrivateRoute
                   authed={this.props.isLoggedIn}
                   exact
-                  path="/notes"
-                  component={NotesViewContainer}
+                  path="/notes/:id"
+                  component = {NotesViewContainer}
                 />
               </DashboardWrapper>
 
@@ -64,6 +64,7 @@ export class Routes extends Component {
     );
   }
 }
+
 export const RoutesContainer = inject(stores => {
   return {
     isLoggedIn: stores.authStore.isLoggedIn,
