@@ -7,13 +7,13 @@ import { LoginFormContainer } from "./components/login/LoginForm";
 import DevTools from "mobx-react-devtools";
 import { SignUpFormContainer } from "./components/signup/SignUpForm";
 import { NotFound } from "./components/not-found/NotFound";
-import { DashboardWrapper } from "./components/dashboard/DashboardWrapper";
 import { NotesViewContainer } from "./components/notes/NotesView";
 import { BookViewContainer } from "./components/book/BookView";
 
 @observer
 export class Routes extends Component {
   render() {
+    const logOut = this.props.logOut;
     return (
       <div>
         {process.env.NODE_ENV === "development" ? <DevTools /> : null}
@@ -42,27 +42,33 @@ export class Routes extends Component {
                   )
                 }
               />
-              <DashboardWrapper logOut={this.props.logOut}>
-                <PrivateRoute
-                  authed={this.props.isLoggedIn}
-                  exact
-                  path="/"
-                  component={HomeViewContainer}
-                />
-                <PrivateRoute
-                  authed={this.props.isLoggedIn}
-                  exact
-                  path="/notes/:id"
-                  component={NotesViewContainer}
-                />
-                <PrivateRoute
-                  authed={this.props.isLoggedIn}
-                  exact
-                  path="/books/:id"
-                  component={BookViewContainer}
-                />
-                <Route path="*" component={NotFound} />
-              </DashboardWrapper>
+              <PrivateRoute
+                authed={this.props.isLoggedIn}
+                exact
+                logOut={logOut}
+                path="/"
+                component={HomeViewContainer}
+              />
+              <PrivateRoute
+                authed={this.props.isLoggedIn}
+                exact
+                logOut={logOut}
+                path="/notes/:id"
+                component={NotesViewContainer}
+              />
+              <PrivateRoute
+                authed={this.props.isLoggedIn}
+                exact
+                logOut={logOut}
+                path="/books/:id"
+                component={BookViewContainer}
+              />
+              <PrivateRoute
+                logOut={logOut}
+                authed={this.props.isLoggedIn}
+                path="*"
+                component={NotFound}
+              />
             </Switch>
           </Fragment>
         </BrowserRouter>
