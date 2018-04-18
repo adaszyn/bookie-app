@@ -1,8 +1,7 @@
 import { action, observable } from "mobx";
+import { debounce } from "underscore";
 import { searchGoogleBooks } from "../services/books-search-service";
-import debounce from 'debounce-promise';
 
-const searchBooksDebounced = debounce(searchGoogleBooks, 500)
 export class BooksStore {
   @observable header = "Hello";
   @observable searchPhrase = "";
@@ -14,10 +13,15 @@ export class BooksStore {
   setSearchPhrase(phrase) {
     this.searchPhrase = phrase;
     this.isSearching = true;
-    searchBooksDebounced(phrase).then(results => {
-      this.isSearching = false;
-      this.searchResults = results;
-    });
+    this.searchBooksDebounced(phrase);
+  }
+  searchBooksDebounced = debounce(this.searchBooks, 500)
+  @action
+  searchBooks (phrase) {
+    searchGoogleBooks(phrase).then(results => {
+        this.isSearching = false;
+        this.searchResults = results;
+      });
   }
   @action
   addBook(book) {

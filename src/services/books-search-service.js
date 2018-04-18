@@ -11,12 +11,12 @@ export async function searchGoogleBooks(searchPhrase) {
 
     return result.data.items.slice(0,LIMIT).map(result => ({
       isbn10: ((result) => {
-        var isbn10 = result.volumeInfo.industryIdentifiers.find(identifier => identifier.type === "ISBN_10")
+        var isbn10 = result.volumeInfo.industryIdentifiers.find(identifier => identifier.type === "ISBN_10").identifier
         if(typeof isbn10 === 'undefined') return "";
         else return isbn10;
       })(result), 
       isbn13: ((result) => {
-        var isbn13 = result.volumeInfo.industryIdentifiers.find(identifier => identifier.type === "ISBN_13")
+        var isbn13 = result.volumeInfo.industryIdentifiers.find(identifier => identifier.type === "ISBN_13").identifier
         if(typeof isbn13 === 'undefined') return "";
         else return isbn13;
       })(result), 
@@ -29,15 +29,7 @@ export async function searchGoogleBooks(searchPhrase) {
         if(result.volumeInfo.imageLinks){
           return result.volumeInfo.imageLinks.thumbnail;
         } else return "";
-      })(result), 
-      price: ((result) => {
-        var saleInfo = result.saleInfo;
-        if(typeof saleInfo !== 'undefined' && typeof saleInfo.retailPrice !== 'undefined'){
-          return saleInfo.retailPrice.amount + "," + saleInfo.retailPrice.currencyCode;
-        } else {
-          return "";
-        }
-      })(result)
+      })(result),
     }));
   } catch(exception){
       console.log(exception);
