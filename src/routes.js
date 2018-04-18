@@ -53,17 +53,16 @@ export class Routes extends Component {
                   authed={this.props.isLoggedIn}
                   exact
                   path="/notes/:id"
-                  component = {NotesViewContainer}
+                  component={NotesViewContainer}
                 />
                 <PrivateRoute
                   authed={this.props.isLoggedIn}
                   exact
                   path="/books/:id"
-                  component = {BookViewContainer}
+                  component={BookViewContainer}
                 />
+                <Route path="*" component={NotFound} />
               </DashboardWrapper>
-
-              <Route path="*" component={NotFound} />
             </Switch>
           </Fragment>
         </BrowserRouter>
