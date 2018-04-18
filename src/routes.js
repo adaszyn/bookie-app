@@ -9,6 +9,7 @@ import { SignUpFormContainer } from "./components/signup/SignUpForm";
 import { NotFound } from "./components/not-found/NotFound";
 import { DashboardWrapper } from "./components/dashboard/DashboardWrapper";
 import { NotesViewContainer } from "./components/notes/NotesView";
+import { BookViewContainer } from "./components/book/BookView";
 
 @observer
 export class Routes extends Component {
@@ -51,8 +52,14 @@ export class Routes extends Component {
                 <PrivateRoute
                   authed={this.props.isLoggedIn}
                   exact
-                  path="/notes"
-                  component={NotesViewContainer}
+                  path="/notes/:id"
+                  component = {NotesViewContainer}
+                />
+                <PrivateRoute
+                  authed={this.props.isLoggedIn}
+                  exact
+                  path="/books/:id"
+                  component = {BookViewContainer}
                 />
               </DashboardWrapper>
 
@@ -64,6 +71,7 @@ export class Routes extends Component {
     );
   }
 }
+
 export const RoutesContainer = inject(stores => {
   return {
     isLoggedIn: stores.authStore.isLoggedIn,

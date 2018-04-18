@@ -62,7 +62,7 @@ export class SignUpForm extends Component {
         >
           <Grid.Column style={{ maxWidth: 450 }}>
             <Header as="h2" color="teal" textAlign="center">
-              <Image src={logo} /> Log-in to your account
+              <Image src={logo} /> Create your account
             </Header>
             <Form size="large">
               <Segment stacked>

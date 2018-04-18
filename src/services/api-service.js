@@ -39,3 +39,11 @@ export async function getNotes(token) {
         withCredentials: true,
     })
 }
+
+export async function getNote(token, id) {
+    return Axios( {
+        method: 'get',
+        url: `${API_BASE}/notes/${id}`,
+        withCredentials: true,
+    })
+}
