@@ -5,11 +5,15 @@ import { observer, inject } from "mobx-react";
 @observer
 export class NotesView extends Component {
   componentDidMount() {
-    console.log('getting note')
     this.props.getNote(this.props.match.params.id);
   }
   renderNote(note) {
-    return <div key={note.id}><p>{note.dateModified}</p><p>{note.content}</p></div>;
+    return (
+      <div key={note.id}>
+        <p>{note.dateModified}</p>
+        <p>{note.content}</p>
+      </div>
+    );
   }
   render() {
     return (
@@ -17,7 +21,9 @@ export class NotesView extends Component {
         <Breadcrumb>
           <Breadcrumb.Section>Home</Breadcrumb.Section>
           <Breadcrumb.Divider> > </Breadcrumb.Divider>
-          <Breadcrumb.Section>Book {this.props.note.bookId} </Breadcrumb.Section>
+          <Breadcrumb.Section>
+            Book {this.props.note.bookId}{" "}
+          </Breadcrumb.Section>
           <Breadcrumb.Divider> > </Breadcrumb.Divider>
           <div class="active section">Note {this.props.note.id}</div>
         </Breadcrumb>
