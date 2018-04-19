@@ -15,8 +15,8 @@ import logo from "../../assets/logo_black.svg";
 @observer
 export class LoginForm extends Component {
   state = {
-    email: "",
-    password: ""
+    email: "admin@admin.com",
+    password: "admin"
   };
   onEmailChange = ({ target: { value } }) => {
     this.setState({ email: value });
@@ -45,8 +45,11 @@ export class LoginForm extends Component {
           verticalAlign="middle"
         >
           <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as="h2" color="teal" textAlign="center">
-              <Image src={logo} /> Log-in to your account
+            <Header as="h3" color="teal" textAlign="center">
+              <Image src={logo} size="tiny" style={{ width: "140px" }} />
+              <br />
+              <br />
+              Log-in to your account
             </Header>
             <Form size="large">
               <Segment stacked>
