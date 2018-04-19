@@ -1,33 +1,68 @@
-# Bookie App
+![Logo](https://raw.githubusercontent.com/adaszyn/bookie-app/master/logo.png)
 
+## Project Description
 
-A README file (in English) in your Git repository detailing:
+Bookie is a web-based editor for keeping notes or bookmarks for books that individuals are currently reading. The application uses [Google Books API](https://developers.google.com/books/) and [Bookie API](https://github.com/vshivam/bookie-api/) for authentication. 
 
-## Short description of your project -
-
-Bookie is a web-based editor for keeping notes or bookmarks for books that individuals are currently reading.
-
-## What you have done - 
+## Done  
 
 We have completed the following things thus far: 
 
-- Routing 
-- Using MobX for state management 
-- Login Functionality 
-- Not found page 
-- Implementing Google Books API
-- Implementing Dashboard View for browsing your books
-- Implementing Notes View for browsing the notes from the books you've read 
+- Project setup
+    - React.js 
+    - MobX for state management
+- Views
+    - Login
+    - Sign Up 
+    - Not found page 
+    - Search Bar
+    - Book details
+    - Notes
+    - Recent notes
+- API integration
+    - Google Books API search call 
+    - Bookie API calls (login, sign up, notes)
 - Logo Created
 
-## What you still plan to do:
+## To do
+- Notes management (creating, editing, adding)
+- Using in-browser persistent storage to keep notes (offline mode)
+- Notes export (PDF, epub)
 
+## Your project file structure:
 
-## Your project file structure (short description/purpose of each file):
+### Components 
+```
+src/components/
+├── about
+│   └── About.js (about page)
+├── book
+│   └── BookView.js (detailed book view)
+├── book-card
+│   └── BookCard.js
+├── book-search
+│   └── BookSearch.js
+├── dashboard
+│   └── DashboardWrapper.js
+├── home
+│   └──  HomeView.js
+├── login
+│   └── LoginForm.js
+├── note-card
+│   └── NoteCard.js
+├── note-create
+│   └── NoteCreateView.js
+├── notes
+│   └── NotesView.js
+├── not-found
+│   └── NotFound.js
+├── private-route (restricting access to confidential data)
+│   └── PrivateRoute.js
+└── signup
+    └── SignUpForm.js
 
-### Components  : 
-
-Contains all the sub-components for the application 
+```
+Each module exports one dumb react component. Additionally, some modules export container components. Using `mobx-react` library and React Context API we inject properties of preconfigured mobx stores.  
 
 ### Services :
 
@@ -37,8 +72,8 @@ Defines the interface for calling the authentication API.
 #### books-search-services.js
 Defines the interface for calling the Google Books API. 
 
-### Stores : 
-There are 3 store classes for managing the state of the displayed books, authenticated user and the notes taken.
+### Stores
+There are three store classes for managing the state of the displayed books, authenticated user and the notes taken.
 
 Each file in the folder defines the class and its methods for setting the state for the given entity.
 
