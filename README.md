@@ -2,7 +2,7 @@
 
 ## Project Description
 
-Bookie is a web-based editor for keeping notes or bookmarks for books that individuals are currently reading. The application uses [Google Books API](https://developers.google.com/books/) and [Bookie API](https://github.com/vshivam/bookie-api/) for authentication. 
+[Bookie](https://bookie.adaszyn.site/) is a web-based editor for keeping notes or bookmarks for books that individuals are currently reading. The application uses [Google Books API](https://developers.google.com/books/) and [Bookie API](https://github.com/vshivam/bookie-api/) for authentication. 
 
 ## Done  
 
