@@ -10,7 +10,7 @@ export class DashboardWrapper extends Component {
       <div className="App">
         <Menu fixed="top" inverted size="large">
           <Container style={{ padding: "5px 0" }}>
-            <Menu.Item as="a" header>
+            <Menu.Item header>
                 <Image
                   as={Link} to='/'
                   size="tiny"

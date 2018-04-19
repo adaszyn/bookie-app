@@ -25,7 +25,7 @@ export class NotesView extends Component {
             Book {this.props.note.bookId}{" "}
           </Breadcrumb.Section>
           <Breadcrumb.Divider> > </Breadcrumb.Divider>
-          <div class="active section">Note {this.props.note.id}</div>
+          <div className="active section">Note {this.props.note.id}</div>
         </Breadcrumb>
         <Header as="h1">Note {this.props.note.id}</Header>
         {this.renderNote(this.props.note)}

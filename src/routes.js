@@ -9,6 +9,7 @@ import { SignUpFormContainer } from "./components/signup/SignUpForm";
 import { NotFound } from "./components/not-found/NotFound";
 import { NotesViewContainer } from "./components/notes/NotesView";
 import { BookViewContainer } from "./components/book/BookView";
+import { NoteCreateViewContainer } from "./components/note-create/NoteCreateView";
 
 @observer
 export class Routes extends Component {
@@ -60,9 +61,17 @@ export class Routes extends Component {
                 authed={this.props.isLoggedIn}
                 exact
                 logOut={logOut}
+                path="/books/:id/create"
+                component={NoteCreateViewContainer}
+              />
+              <PrivateRoute
+                authed={this.props.isLoggedIn}
+                exact
+                logOut={logOut}
                 path="/books/:id"
                 component={BookViewContainer}
               />
+
               <PrivateRoute
                 logOut={logOut}
                 authed={this.props.isLoggedIn}

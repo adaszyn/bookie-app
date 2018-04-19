@@ -7,37 +7,41 @@ import { Link } from "react-router-dom";
 
 @observer
 export class BookView extends Component {
+  componentWillReceiveProps(newProps) {
+    const bookId = this.props.match.params.id;
+    const newBookId = newProps.match.params.id;
+    if (bookId !== newBookId) {
+      newProps.fetchBookById(newBookId);
+    }
+  }
   componentDidMount() {
     this.props.getAllNotes();
+    this.props.fetchBookById(this.props.match.params.id);
   }
   render() {
+    const book = this.props.books.get(this.props.match.params.id);
+    if (this.props.bookFetchError) {
+      return <p>{this.props.bookFetchError}</p>;        
+    }
+    if (!book) {
+      return <p>Book loading</p>;
+    }
     return (
       <Grid>
         <Grid.Row>
           <Breadcrumb>
             <Breadcrumb.Section>Home</Breadcrumb.Section>
             <Breadcrumb.Divider> > </Breadcrumb.Divider>
-            <div class="active section">Book {this.props.match.params.id} </div>
+            <div className="active section">Book {book.id} </div>
           </Breadcrumb>
         </Grid.Row>
 
         <Grid.Column computer={5}>
-          <BookCard
-            key={this.props.match.params.id}
-            thumbnail="http://books.google.com/books/content?id=4WwdMJKXzhEC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-          />
+          <BookCard key={this.props.match.params.id} thumbnail={book.image} />
         </Grid.Column>
         <Grid.Column computer={9}>
           <Header as="h1">The Book </Header>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum{" "}
-          </p>
+          <p>{book.fullDescription}</p>
         </Grid.Column>
 
         {this.props.notes.map(note => (
@@ -59,6 +63,9 @@ export class BookView extends Component {
 export const BookViewContainer = inject(stores => {
   return {
     notes: stores.notesStore.notes,
-    getAllNotes: stores.notesStore.getAllNotes
+    getAllNotes: stores.notesStore.getAllNotes,
+    fetchBookById: stores.booksStore.fetchBookById,
+    books: stores.booksStore.books,
+    bookFetchError: stores.booksStore.bookFetchError,
   };
 })(BookView);
