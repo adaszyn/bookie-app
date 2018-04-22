@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Breadcrumb, Header } from "semantic-ui-react";
+import { Grid, Breadcrumb, Header, Button } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { BookCard } from "../book-card/BookCard";
 import { NoteCard } from "../note-card/NoteCard";
@@ -20,12 +20,14 @@ export class BookView extends Component {
   }
   render() {
     const book = this.props.books.get(this.props.match.params.id);
+
     if (this.props.bookFetchError) {
-      return <p>{this.props.bookFetchError}</p>;        
+      return <p>{this.props.bookFetchError}</p>;
     }
     if (!book) {
       return <p>Book loading</p>;
     }
+    const notes = this.props.notesByBookId[book.isbn10] || [];
     return (
       <Grid>
         <Grid.Row>
@@ -44,7 +46,7 @@ export class BookView extends Component {
           <p>{book.fullDescription}</p>
         </Grid.Column>
 
-        {this.props.notes.map(note => (
+        {notes.map(note => (
           <Grid.Column computer={5} key={note.id}>
             <Link to={"/notes/" + note.id} key={note.id}>
               <NoteCard
@@ -56,16 +58,19 @@ export class BookView extends Component {
             </Link>
           </Grid.Column>
         ))}
+        <Link to={`/books/${book.isbn10}/create`}>
+        <Button>Create new note.</Button>
+        </Link>
       </Grid>
     );
   }
 }
 export const BookViewContainer = inject(stores => {
   return {
-    notes: stores.notesStore.notes,
+    notesByBookId: stores.notesStore.notesByBookId,
     getAllNotes: stores.notesStore.getAllNotes,
     fetchBookById: stores.booksStore.fetchBookById,
     books: stores.booksStore.books,
-    bookFetchError: stores.booksStore.bookFetchError,
+    bookFetchError: stores.booksStore.bookFetchError
   };
 })(BookView);

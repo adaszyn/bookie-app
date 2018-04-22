@@ -2,7 +2,7 @@ import Axios from "axios";
 
 const API_BASE = "https://api.adaszyn.site/bookie";
 export async function authenticate(email, password) {
-    var bodyFormData = new FormData();
+    const bodyFormData = new FormData();
     bodyFormData.set('email', email);
     bodyFormData.set('password', password);
     return Axios( {
@@ -14,7 +14,7 @@ export async function authenticate(email, password) {
     })
 }
 export async function register(email, password) {
-    var bodyFormData = new FormData();
+    const bodyFormData = new FormData();
     bodyFormData.set('email', email);
     bodyFormData.set('password', password);
     return Axios( {
@@ -47,3 +47,38 @@ export async function getNote(token, id) {
         withCredentials: true,
     })
 }
+
+export async function getNotesByBookId(id) {
+    return Axios( {
+        method: 'get',
+        url: `${API_BASE}/book/${id}`,
+        withCredentials: true,
+    })
+}
+export async function createNote (bookId, content, isFav) {
+    const data = new FormData();
+    data.set('bookId', bookId);
+    data.set('content', content);
+    data.set('isFav', isFav);
+    return Axios({
+        method: "post",
+        data: data,
+        url: `${API_BASE}/notes/`,
+        withCredentials: true,        
+    })
+}
+
+export async function updateNote (noteId, bookId, content, isFav) {
+    const data = new FormData();
+    data.set('bookId', bookId);
+    data.set('content', content);
+    data.set('isFav', isFav);
+    return Axios({
+        method: "put",
+        data: data,
+        url: `${API_BASE}/notes/${noteId}`,
+        withCredentials: true,        
+    })
+}
+
+

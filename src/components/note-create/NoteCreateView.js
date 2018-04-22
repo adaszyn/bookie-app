@@ -13,11 +13,17 @@ export class NoteCreateView extends Component {
       note
     });
   };
+  onSubmit = () => {
+    const bookId = this.props.match.params.id;
+    this.props
+      .saveNote(bookId, this.state.note.toString("markdown"), true)
+      .then(() => this.props.history.push(`/books/${bookId}/`));
+  };
   render() {
     return (
       <div>
         <RichTextEditor value={this.state.note} onChange={this.onNoteChange} />
-        <Button onClick={this.props.saveNote}>Save</Button>
+        <Button onClick={this.onSubmit}>Save</Button>
       </div>
     );
   }
