@@ -8,6 +8,5 @@ export const BookCard = ({ title, description, thumbnail }) => (
       <Card.Header>{title}</Card.Header>
       <Card.Description>{description}</Card.Description>
     </Card.Content>
-    <Card.Content extra />
   </Card>
 );

@@ -5,7 +5,7 @@ import { chunk } from "lodash";
 
 export class Carousel extends Component {
   state = {
-    chunks: [[]],
+    chunks: chunk(this.props.items, 3),
     selectedChunkIndex: 0
   };
   componentWillReceiveProps = ({ items, perPage }) => {
@@ -30,6 +30,7 @@ export class Carousel extends Component {
     }
   };
   render() {
+      console.log(this.props.items)
     const { renderItem, style, itemKey } = this.props;
     const { Column, Row } = Grid;
     const canClickNext =
