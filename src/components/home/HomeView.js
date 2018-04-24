@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-import { Grid, Header } from "semantic-ui-react";
+import { Grid, Header , Divider} from "semantic-ui-react";
 import "./HomeView.css";
 import { BookCard } from "../book-card/BookCard";
 import { NoteCard } from "../note-card/NoteCard";
 import sampleBooks from "./sample-books.json";
+import { Carousel } from "../carousel/Carousel";
 
 @observer
 export class HomeView extends Component {
@@ -16,20 +17,25 @@ export class HomeView extends Component {
     return (
       <div>
         <Header as="h1">Recent Notes</Header>
-        <Grid>
-          {this.props.notes.map(note => (
-            <Grid.Column computer={5} key={note.id}>
-              <Link to={"/notes/" + note.id} key={note.id}>
-                <NoteCard
-                  key={note.id}
-                  title={note.bookId}
-                  meta={note.date_modified}
-                  description={note.content}
-                />
-              </Link>
-            </Grid.Column>
-          ))}
-        </Grid>
+        <Divider />
+        <Carousel
+        style={{minHeight: "220px"}}
+          items={this.props.notes}
+          renderItem={note => (
+            <Link to={"/notes/" + note.id} key={note.id}>
+              <NoteCard
+                key={note.id}
+                title={note.bookId}
+                isFav={note.isFav}
+                meta={note.date_modified}
+                description={note.content}
+              />
+            </Link>
+          )}
+          itemKey={"id"}
+          perPage={3}
+        />
+        <Divider />
         <Header as="h1">All Books</Header>
         <Grid>
           {sampleBooks.items.map(book => (
@@ -56,6 +62,6 @@ export class HomeView extends Component {
 export const HomeViewContainer = inject(stores => {
   return {
     notes: stores.notesStore.notes,
-    getAllNotes: stores.notesStore.getAllNotes,
+    getAllNotes: stores.notesStore.getAllNotes
   };
 })(HomeView);
