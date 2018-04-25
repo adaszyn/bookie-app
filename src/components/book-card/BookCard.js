@@ -13,10 +13,10 @@ const getFormattedDescription = description => {
 export const BookCard = ({ title, description, thumbnail, numberOfNotes }) => (
   <Card style={{'height': '100%'}}>
     <Card.Content>
-      <Card.Header sub="true">{title}</Card.Header>
+      <Card.Header>{title}</Card.Header>
     </Card.Content>
     <Image src={thumbnail}/>
-    <Card.Content extra="true" textAlign="right">
+    <Card.Content extra textAlign="right">
       <Grid>
         <Grid.Column width="12" textAlign="left"> <Card.Meta> {numberOfNotes} notes  </Card.Meta> </Grid.Column>
         <Grid.Column width="4" textAlign="right"> <Icon name='trash'/> </Grid.Column>
