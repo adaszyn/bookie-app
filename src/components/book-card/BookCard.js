@@ -1,12 +1,26 @@
 import React from "react";
-import { Card, Image } from "semantic-ui-react";
+import { Grid, Card, Image, Icon } from "semantic-ui-react";
 
-export const BookCard = ({ title, description, thumbnail }) => (
+const getFormattedDescription = description => {
+  if(description == null) return;
+  const words = description.split(" ");
+  if (words.length > 4) {
+    return words.slice(0, 10).join(" ") + " ...";
+  }
+  return description;
+};
+
+export const BookCard = ({ title, description, thumbnail, numberOfNotes }) => (
   <Card>
-    <Image src={thumbnail} />
     <Card.Content>
-      <Card.Header>{title}</Card.Header>
-      <Card.Description>{description}</Card.Description>
+      <Card.Header sub="true">{title}</Card.Header>
+    </Card.Content>
+    <Image src={thumbnail}/>
+    <Card.Content extra="true" textAlign="right">
+      <Grid>
+        <Grid.Column width="12" textAlign="left"> <Card.Meta> {numberOfNotes} notes  </Card.Meta> </Grid.Column>
+        <Grid.Column width="4" textAlign="right"> <Icon name='trash'/> </Grid.Column>
+      </Grid>
     </Card.Content>
   </Card>
 );

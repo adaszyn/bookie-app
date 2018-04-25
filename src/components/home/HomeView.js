@@ -44,12 +44,17 @@ export class HomeView extends Component {
                 <BookCard
                   key={book.id}
                   title={book.volumeInfo.title}
-                  description={book.volumeInfo.title}
+                  description={
+                    book.volumeInfo.description
+                      ? book.volumeInfo.description
+                      : null
+                  }
                   thumbnail={
                     book.volumeInfo.imageLinks
                       ? book.volumeInfo.imageLinks.thumbnail
                       : null
                   }
+                  numberOfNotes={5}
                 />
               </Link>
             </Grid.Column>

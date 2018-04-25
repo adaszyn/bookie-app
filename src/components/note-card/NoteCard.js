@@ -18,8 +18,10 @@ export const NoteCard = ({ title, description, meta, isFav }) => (
         {getFormattedDescription(description)}
       </Card.Description>
     </Card.Content>
-    <Card.Content extra>
+    <Card.Content extra textAlign="right">
+      <Icon name="tags" />
       <Icon name="heart" color={isFav ? "red" : "grey"} />
+      <Icon name="trash"/>
     </Card.Content>
   </Card>
 );
