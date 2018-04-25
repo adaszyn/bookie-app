@@ -4,14 +4,20 @@ import PropTypes from "prop-types";
 import { chunk } from "lodash";
 
 export class Carousel extends Component {
-  state = {
-    chunks: chunk(this.props.items, 3),
-    selectedChunkIndex: 0
-  };
+  constructor(props) {
+    super(props);
+    const chunks = chunk(props.items, 3);
+    this.state = {
+      chunks: chunks.length === 0 ? [[]] : chunks,
+      selectedChunkIndex: 0
+    };
+  }
   componentWillReceiveProps = ({ items, perPage }) => {
+    const chunks = chunk(items, 3);
+
     if (items !== this.props.items) {
       this.setState({
-        chunks: chunk(items, perPage)
+        chunks: chunks.length === 0 ? [[]] : chunks,
       });
     }
   };
@@ -30,7 +36,6 @@ export class Carousel extends Component {
     }
   };
   render() {
-      console.log(this.props.items)
     const { renderItem, style, itemKey } = this.props;
     const { Column, Row } = Grid;
     const canClickNext =
