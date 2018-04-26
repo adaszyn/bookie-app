@@ -40,9 +40,10 @@ export class HomeView extends Component {
         <Grid>
           {sampleBooks.items.map(book => (
             <Grid.Column computer={5} key={book.id}>
-              <Link to={"/books/" + book.id} key={book.id}>
+            {/*  <Link to={"/books/" + book.id} key={book.id}> */}
                 <BookCard
                   key={book.id}
+                  bookId={book.id}
                   title={book.volumeInfo.title}
                   description={
                     book.volumeInfo.description
@@ -56,7 +57,7 @@ export class HomeView extends Component {
                   }
                   numberOfNotes={5}
                 />
-              </Link>
+             {/*  </Link> */}
             </Grid.Column>
           ))}
         </Grid>
