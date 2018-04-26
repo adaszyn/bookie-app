@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Icon, Popup } from "semantic-ui-react";
 import {TagsEditor} from "../tags-editor/TagsEditor";
+import { ConfirmPopup } from "../confirm-popup/ConfirmPopup";
 
 const getFormattedDescription = description => {
   const words = description.split(" ");
@@ -29,7 +30,7 @@ export const NoteCard = ({ title, description, meta, isFav, tags }) => (
         </Popup.Content>
       </Popup>
       <Icon name="heart" color={isFav ? "red" : "grey"} />
-      <Icon name="trash"/>
+      <ConfirmPopup title="Delete note ?"/>
     </Card.Content>
   </Card>
 );
