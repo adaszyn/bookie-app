@@ -29,6 +29,7 @@ export class HomeView extends Component {
                 isFav={note.isFav}
                 meta={note.date_modified}
                 description={note.content}
+                tags={"tag1,tag2,tag3"}
               />
             </Link>
           )}
@@ -40,7 +41,6 @@ export class HomeView extends Component {
         <Grid>
           {sampleBooks.items.map(book => (
             <Grid.Column computer={5} key={book.id}>
-            {/*  <Link to={"/books/" + book.id} key={book.id}> */}
                 <BookCard
                   key={book.id}
                   bookId={book.id}
@@ -57,7 +57,6 @@ export class HomeView extends Component {
                   }
                   numberOfNotes={5}
                 />
-             {/*  </Link> */}
             </Grid.Column>
           ))}
         </Grid>
