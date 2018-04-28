@@ -14,10 +14,14 @@ export class ConfirmPopup extends Component {
   }
 
   onPopupConfirm = () => {
+		if(typeof this.props.onConfirm !== 'undefined')
+  		this.props.onConfirm();
     this.setDeletePopupVisibility(false);
   }
 
   onPopupCancel = () => {
+  	if(typeof this.props.onCancel !== 'undefined')
+  		this.props.onCancel();
     this.setDeletePopupVisibility(false);
   }
 	

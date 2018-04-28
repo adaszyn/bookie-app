@@ -56,11 +56,12 @@ export async function getNotesByBookId(id) {
     withCredentials: true
   });
 }
-export async function createNote(bookId, content, isFav) {
+export async function createNote(bookId, content, isFav, tags) {
   const data = new FormData();
   data.set("bookId", bookId);
   data.set("content", content);
   data.set("isFav", isFav);
+  data.set("tags", tags);
   return Axios({
     method: "post",
     data: data,
@@ -69,13 +70,26 @@ export async function createNote(bookId, content, isFav) {
   });
 }
 
-export async function updateNote(noteId, bookId, content, isFav) {
+export async function updateNote(noteId, bookId, content, isFav, tags) {
   const data = new FormData();
   data.set("bookId", bookId);
   data.set("content", content);
   data.set("isFav", isFav);
+  data.set('tags', tags);
   return Axios({
     method: "put",
+    data: data,
+    url: `${API_BASE}/notes/${noteId}`,
+    withCredentials: true
+  });
+}
+
+export async function deleteNote(noteId, bookId) {
+  console.log(noteId, bookId);
+  const data = new FormData();
+  data.set("bookId", bookId);
+  return Axios({
+    method: "delete",
     data: data,
     url: `${API_BASE}/notes/${noteId}`,
     withCredentials: true

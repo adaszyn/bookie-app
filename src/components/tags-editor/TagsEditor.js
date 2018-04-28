@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Label, Input, Icon, Divider} from 'semantic-ui-react';
+import {Header, Label, Input, Icon, Divider} from 'semantic-ui-react';
 
 export class TagsEditor extends Component {
 
@@ -30,15 +30,17 @@ export class TagsEditor extends Component {
 			updatedArray.splice(updatedArray.indexOf(tag), 1);
 			this.updateTagsArrayInState(updatedArray);
 		}
-	};
+		this.props.onTagRemoved(tag, updatedArray);
+	}
 
 	onTagAdded = () => {
 		const updatedArray = this.state.tags.slice();
 		updatedArray.push(this.state.textInput);
+		this.props.onTagAdded(this.state.textInput, updatedArray);
 		this.setState({
 			tags: updatedArray,
 			textInput: ''
-		})
+		});
 	}
 	
 	onInputChange = e => {
@@ -54,13 +56,16 @@ export class TagsEditor extends Component {
 
 		return (
 			<div>
+				<Header> Tags </Header>
 				{tags.map((tag, idx) => {
-					return (<Label key={idx} style={tagStyle}> 
-						<Icon 
-						name="delete" 
-						onClick={() => this.onTagRemoved(tag)} /> 
-							{tag} 
-					</Label>)
+					return (
+						<Label key={idx} style={tagStyle}> 
+							<Icon 
+							name="delete" 
+							onClick={() => this.onTagRemoved(tag)} /> 
+								{tag} 
+					</Label>
+					)
 				})}
 				<Divider/>
 				 <Input

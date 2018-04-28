@@ -5,6 +5,7 @@ import {
   getNotesByBookId,
   createNote,
   updateNote,
+  deleteNote
 } from "../services/api-service";
 
 export class NotesStore {
@@ -17,6 +18,7 @@ export class NotesStore {
   @observable loading = false;
   @observable notesFetchError = null;
   @observable notesCreating = false;
+  @observable notesUpdating = false;
   @observable notesUpdating = false;
   @computed
   get notesByBookId() {
@@ -92,9 +94,9 @@ export class NotesStore {
     this.notesCreating = false;
   };
   @action
-  updateNote = (bookId, content, isFav) => {
+  updateNote = (noteId, bookId, content, isFav, tags) => {
     this.notesCreating = true;
-    return updateNote(bookId, content, isFav)
+    return updateNote(noteId, bookId, content, isFav, tags)
       .then(this.updateNoteSuccess)
       .then(this.getAllNotes)
       .catch(this.updateNoteFail);
@@ -107,5 +109,20 @@ export class NotesStore {
   updateNoteFail = () => {
     this.notesUpdating = false;
   };
-
+  @action
+  deleteNoteSuccess = () => {
+    this.noteDeleting = false;
+  };
+  @action
+  deleteNoteFail = () => {
+    this.noteDeleting = false;
+  };
+  @action
+  deleteNote = (noteId, bookId) => {
+    this.noteDeleting = true;
+    return deleteNote(noteId, bookId)
+      .then(this.deleteNoteSuccess)
+      .then(this.getAllNotes)
+      .catch(this.deleteNoteFail)
+  };
 }
