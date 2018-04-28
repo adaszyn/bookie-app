@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Icon } from "semantic-ui-react";
+import { Card, Icon, List } from "semantic-ui-react";
 
 const getFormattedDescription = description => {
   const words = description.split(" ");
@@ -22,4 +22,13 @@ export const NoteCard = ({ title, description, meta, isFav }) => (
       <Icon name="heart" color={isFav ? "red" : "grey"} />
     </Card.Content>
   </Card>
+);
+
+export const NoteList = ({ title, meta, isFav }) => (
+    <List.Item>
+      <List.Content>
+      <Icon name="heart" color={isFav ? "red" : "grey"}  />
+        {title} - {meta}
+      </List.Content>
+    </List.Item>
 );

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-import { Grid, Header , Divider} from "semantic-ui-react";
+import { Grid, Header , Divider, List} from "semantic-ui-react";
 import "./HomeView.css";
 import { BookCard } from "../book-card/BookCard";
-import { NoteCard } from "../note-card/NoteCard";
+import { NoteCard, NoteList } from "../note-card/NoteCard";
 import sampleBooks from "./sample-books.json";
 import { Carousel } from "../carousel/Carousel";
 
@@ -19,7 +19,7 @@ export class HomeView extends Component {
         <Header as="h1">Recent Notes</Header>
         <Divider />
         <Carousel
-        style={{minHeight: "220px"}}
+        style={{minHeight: "280px"}}
           items={this.props.notes}
           renderItem={note => (
             <Link to={"/notes/" + note.id} key={note.id}>
@@ -27,7 +27,7 @@ export class HomeView extends Component {
                 key={note.id}
                 title={note.bookId}
                 isFav={note.isFav}
-                meta={note.date_modified}
+                meta={note.dateModified}
                 description={note.content}
               />
             </Link>
@@ -35,6 +35,17 @@ export class HomeView extends Component {
           itemKey={"id"}
           perPage={3}
         />
+        <List style={{maxHeight: "280px", overflow: "scroll"}}>
+          {this.props.notes.map(note => (
+            <Link to={"/notes/" + note.id} key={note.id}>
+              <NoteList
+                key={note.id}
+                title={note.bookId}
+                isFav={note.isFav}
+                meta={note.dateModified}
+              />
+            </Link>
+        ))}</List>
         <Divider />
         <Header as="h1">All Books</Header>
         <Grid>
