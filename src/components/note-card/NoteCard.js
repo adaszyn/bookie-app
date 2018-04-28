@@ -11,6 +11,15 @@ const getFormattedDescription = description => {
   return description;
 };
 
+const getTagsArray = (tags) => {
+  return tags.split(',').map((tag, idx) => {
+    return {
+      key: idx,
+      tag: tag
+    }
+  });
+}
+
 export const NoteCard = ({ title, description, meta, isFav, tags }) => (
   <Card style={{ height: "100%" }}>
     <Card.Content>
@@ -26,7 +35,7 @@ export const NoteCard = ({ title, description, meta, isFav, tags }) => (
         trigger={<Icon name="tags" onClick={(e) => {e.preventDefault()}}/>}
         position="bottom left">
         <Popup.Content>
-          <TagsEditor tags={tags}/>
+          <TagsEditor tags={getTagsArray(tags)}/>
         </Popup.Content>
       </Popup>
       <Icon name="heart" color={isFav ? "red" : "grey"} />
