@@ -1,5 +1,7 @@
 import React from "react";
-import { Card, Icon, List } from "semantic-ui-react";
+import { Card, Icon, List, Popup } from "semantic-ui-react";
+import {TagsEditor} from "../tags-editor/TagsEditor";
+import { ConfirmPopup } from "../confirm-popup/ConfirmPopup";
 
 const getFormattedDescription = description => {
   const words = description.split(" ");
@@ -9,7 +11,11 @@ const getFormattedDescription = description => {
   return description;
 };
 
-export const NoteCard = ({ title, description, meta, isFav }) => (
+const getTagsArray = (tags) => {
+  return tags.split(',');
+}
+
+export const NoteCard = ({ title, description, meta, isFav, tags }) => (
   <Card style={{ height: "100%" }}>
     <Card.Content>
       <Card.Header>{title}</Card.Header>
@@ -18,8 +24,17 @@ export const NoteCard = ({ title, description, meta, isFav }) => (
         {getFormattedDescription(description)}
       </Card.Description>
     </Card.Content>
-    <Card.Content extra>
+    <Card.Content extra textAlign="right">
+      <Popup
+        on="click"
+        trigger={<Icon name="tags" onClick={(e) => {e.preventDefault()}}/>}
+        position="bottom left">
+        <Popup.Content>
+          <TagsEditor tags={getTagsArray(tags)}/>
+        </Popup.Content>
+      </Popup>
       <Icon name="heart" color={isFav ? "red" : "grey"} />
+      <ConfirmPopup title="Delete note ?"/>
     </Card.Content>
   </Card>
 );

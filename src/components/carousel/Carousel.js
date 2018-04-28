@@ -49,6 +49,7 @@ export class Carousel extends Component {
               style={{ visibility: canClickPrev ? "visible" : "hidden" }}
               onClick={this.onPrevious}
               name="arrow left"
+              link
             />
           </Column>
           <Column verticalAlign="middle" style={{ height: "100%" }} width={14}>
@@ -67,6 +68,7 @@ export class Carousel extends Component {
               onClick={this.onNext}
               style={{ visibility: canClickNext ? "visible" : "hidden" }}
               name="arrow right"
+              link
             />
           </Column>
         </Row>
