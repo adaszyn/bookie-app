@@ -61,11 +61,11 @@ export class TagsEditor extends Component {
 					return (
 						<Label key={idx} style={tagStyle}> 
 							<Icon 
-							name="delete" 
-							onClick={() => this.onTagRemoved(tag)} /> 
-								{tag} 
-					</Label>
-					)
+								link
+								name="remove" 
+								onClick={() => this.onTagRemoved(tag)}/>  
+							{tag} 
+						</Label>)
 				})}
 				<Divider/>
 				 <Input
