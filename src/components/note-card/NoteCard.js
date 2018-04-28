@@ -12,12 +12,7 @@ const getFormattedDescription = description => {
 };
 
 const getTagsArray = (tags) => {
-  return tags.split(',').map((tag, idx) => {
-    return {
-      key: idx,
-      tag: tag
-    }
-  });
+  return tags.split(',');
 }
 
 export const NoteCard = ({ title, description, meta, isFav, tags }) => (
