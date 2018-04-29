@@ -66,6 +66,10 @@ export class HomeView extends Component {
                   isFav={note.isFav}
                   meta={note.dateModified}
                   description={note.content}
+                  tags={note.tags}
+                  onTagsUpdated = {(tags) => this.onTagsUpdated(note.id, tags)}
+                  onFavToggle = {() => this.onFavToggle(note.id)}
+                  onDelete = {() => this.onDeleteNote(note.id)}
                 />
               </Link>
             )}
