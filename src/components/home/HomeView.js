@@ -5,8 +5,6 @@ import { Grid, Header , Divider, Icon, Menu, List} from "semantic-ui-react";
 import "./HomeView.css";
 import { BookCard } from "../book-card/BookCard";
 import { NoteCard, NoteList } from "../note-card/NoteCard";
-import sampleBooks from "./sample-books.json";
->>>>>>> b9deff05a20cc527a26dccde154c2d1e01320045
 import { Carousel } from "../carousel/Carousel";
 
 @observer
