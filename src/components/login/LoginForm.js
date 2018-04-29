@@ -79,6 +79,9 @@ export class LoginForm extends Component {
             <Message>
               New to us? <Link to="/signup"> Sign Up</Link>
             </Message>
+            {this.props.errorMessage && <Message style={{ color: "red" }}>
+              {this.props.errorMessage}
+            </Message>}
           </Grid.Column>
         </Grid>
       </div>
@@ -87,5 +90,6 @@ export class LoginForm extends Component {
 }
 export const LoginFormContainer = inject(stores => ({
   onSubmit: stores.authStore.logIn,
-  isLoggedIn: stores.authStore.isLoggedIn
+  isLoggedIn: stores.authStore.isLoggedIn,
+  errorMessage: stores.authStore.loginErrorMessage,
 }))(LoginForm);

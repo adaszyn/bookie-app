@@ -30,6 +30,9 @@ export class AuthStore {
       this.isLoggedIn = true;
       store.set('session-token', response.data.sessionToken);      
     } else {
+      if (response.status === 401) {
+        this.loginErrorMessage = "Wrong username or password.";       
+      }
       this.token = "";
       this.isLoggedIn = false;
     }

@@ -7,6 +7,7 @@ import "semantic-ui-css/semantic.min.css";
 import { NotesStore } from "./stores/notes-store";
 import store from "store";
 import Axios from "axios";
+import {API_BASE} from './services/api-service';
 
 const authStore = new AuthStore();
 const notesStore = new NotesStore(authStore);
@@ -14,10 +15,11 @@ const booksStore = new BooksStore(notesStore);
 const stores = { booksStore, notesStore, authStore };
 
 Axios.interceptors.response.use(null, function(error) {
-  if (error.response.status === 401) {
+  const isLoginRequest =  error.request.responseURL === API_BASE + "/login";
+  if (!isLoginRequest && error.response.status === 401) {
     store.remove("session-token");
     authStore.isLoggedIn = false;
-    return Promise.resolve(error);
+    return Promise.reject(error);
   }
   return Promise.reject(error);
 });
