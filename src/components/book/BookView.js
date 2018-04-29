@@ -62,7 +62,7 @@ export class BookView extends Component {
         </Grid.Row>
 
         <Grid.Column computer={5}>
-          <BookCard key={this.props.match.params.id} thumbnail={book.image} />
+          <BookCard bookId={this.props.match.params.id} key={this.props.match.params.id} thumbnail={book.image} />
         </Grid.Column>
         <Grid.Column computer={9}>
           <Header as="h1">The Book </Header>
