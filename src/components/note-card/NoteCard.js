@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Icon, Popup } from "semantic-ui-react";
+import { Card, Icon, List, Popup } from "semantic-ui-react";
 import {TagsEditor} from "../tags-editor/TagsEditor";
 import { ConfirmPopup } from "../confirm-popup/ConfirmPopup";
 
@@ -64,3 +64,12 @@ export class NoteCard extends React.Component{
     );
   }
 }
+
+export const NoteList = ({ title, meta, isFav }) => (
+    <List.Item>
+      <List.Content>
+      <Icon name="heart" color={isFav ? "red" : "grey"}  />
+        {title} - {meta}
+      </List.Content>
+    </List.Item>
+);

@@ -1,18 +1,23 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-import { Grid, Header , Divider} from "semantic-ui-react";
+import { Grid, Header , Divider, Icon, Menu, List} from "semantic-ui-react";
 import "./HomeView.css";
 import { BookCard } from "../book-card/BookCard";
-import { NoteCard } from "../note-card/NoteCard";
+import { NoteCard, NoteList } from "../note-card/NoteCard";
 import sampleBooks from "./sample-books.json";
 import { Carousel } from "../carousel/Carousel";
 
 @observer
 export class HomeView extends Component {
+  state = {
+    activeItem: "th-btn"
+  }
   componentDidMount() {
     this.props.getAllNotes();
   }
+  
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   onTagsUpdated = (id, tags) => {
     const note = this.props.notes.find(note => note.id === id);
@@ -36,21 +41,48 @@ export class HomeView extends Component {
     return this.props.notes.filter( note => note.bookId === bookId).length;
   }
 
+
   render() {
     return (
       <div>
         <Header as="h1">Recent Notes</Header>
-        <Divider />
-        <Carousel
-          style={{minHeight: "220px"}}
-          items={this.props.notes}
-          renderItem={note => (
+
+        <Menu>
+          <Menu.Item name='th-btn' active={this.state.activeItem === 'th-btn'} onClick={this.handleItemClick}>
+            <Icon name = 'th'/>Grid
+          </Menu.Item>
+          <Menu.Item name='list-btn' active={this.state.activeItem === 'list-btn'} onClick={this.handleItemClick}>
+            <Icon name = 'list'/>List
+          </Menu.Item>
+        </Menu>
+        {this.state.activeItem === 'th-btn' ? 
+          <Carousel
+            style={{minHeight: "280px", display:"block"}}
+            items={this.props.notes}
+            renderItem={note => (
+              <Link to={"/notes/" + note.id} key={note.id}>
+                <NoteCard
+                  key={note.id}
+                  title={note.bookId}
+                  isFav={note.isFav}
+                  meta={note.dateModified}
+                  description={note.content}
+                />
+              </Link>
+            )}
+            itemKey={"id"}
+            perPage={3}
+          /> : 
+          <List
+            style={{maxHeight: "280px", display:"block", overflow: "scroll"}}>
+            {this.props.notes.map(note => (
+
             <Link to={"/notes/" + note.id} key={note.id}>
-              <NoteCard
+              <NoteList
                 key={note.id}
                 title={note.bookId}
                 isFav={note.isFav}
-                meta={note.date_modified}
+                meta={note.dateModified}
                 description={note.content}
                 tags={note.tags}
                 onTagsUpdated = {(tags) => this.onTagsUpdated(note.id, tags)}
@@ -58,10 +90,9 @@ export class HomeView extends Component {
                 onDelete = {() => this.onDeleteNote(note.id)}
               />
             </Link>
-          )}
-          itemKey={"id"}
-          perPage={3}
-        />
+          ))}/>
+          </List> 
+        }
         <Divider />
         <Header as="h1">All Books</Header>
         <Grid>
