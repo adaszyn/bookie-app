@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Breadcrumb, Header, Button } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
+import { Link } from "react-router-dom";
 import RichTextEditor from "react-rte";
 
 @observer
@@ -40,10 +41,12 @@ export class NotesView extends Component {
     return (
       <div>
         <Breadcrumb>
-          <Breadcrumb.Section>Home</Breadcrumb.Section>
+          <Breadcrumb.Section><Link to="/">Home</Link></Breadcrumb.Section>
           <Breadcrumb.Divider> > </Breadcrumb.Divider>
           <Breadcrumb.Section>
-            Book {this.props.note.bookId}{" "}
+            <Link to={"/books/" + this.props.note.bookId}>
+              Book {this.props.note.bookId}{" "}
+            </Link>
           </Breadcrumb.Section>
           <Breadcrumb.Divider> > </Breadcrumb.Divider>
           <div className="active section">Note {this.props.note.id}</div>

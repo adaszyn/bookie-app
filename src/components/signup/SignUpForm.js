@@ -9,6 +9,7 @@ import {
   Segment
 } from "semantic-ui-react";
 import { inject, observer } from "mobx-react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/logo_black.svg";
 
 @observer
@@ -110,6 +111,9 @@ export class SignUpForm extends Component {
             <Message style={{ color: "red" }}>
               {this.props.errorMessage}
               {this.state.formError}
+            </Message>
+            <Message>
+              Back to <Link to="/login"> Log In</Link>
             </Message>
           </Grid.Column>
         </Grid>
