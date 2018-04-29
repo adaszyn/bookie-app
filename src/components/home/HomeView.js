@@ -110,7 +110,7 @@ export class HomeView extends Component {
           {this.renderNotes()}
         <Divider />
           {!!this.props.books.length && <Header as="h1">All Books</Header>}
-        <Grid>
+        <Grid stackable>
           {this.props.books.map(book => (
             <Grid.Column computer={5} key={book.id}>
                 <BookCard
