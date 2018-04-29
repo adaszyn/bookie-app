@@ -74,7 +74,7 @@ export class HomeView extends Component {
             perPage={3}
           /> : 
           <List
-            style={{maxHeight: "280px", display:"block", overflow: "scroll"}}>
+            style={{maxHeight: "280px", display:"block", overflow: "auto"}}>
             {this.props.notes.map(note => (
 
             <Link to={"/notes/" + note.id} key={note.id}>
@@ -90,7 +90,7 @@ export class HomeView extends Component {
                 onDelete = {() => this.onDeleteNote(note.id)}
               />
             </Link>
-          ))}/>
+          ))}
           </List> 
         }
         <Divider />

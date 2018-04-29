@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Icon, List, Popup } from "semantic-ui-react";
+import {Grid, Card, Icon, List, Popup } from "semantic-ui-react";
 import {TagsEditor} from "../tags-editor/TagsEditor";
 import { ConfirmPopup } from "../confirm-popup/ConfirmPopup";
 
@@ -68,8 +68,12 @@ export class NoteCard extends React.Component{
 export const NoteList = ({ title, meta, isFav }) => (
     <List.Item>
       <List.Content>
-      <Icon name="heart" color={isFav ? "red" : "grey"}  />
-        {title} - {meta}
+      <Grid>
+        <Grid.Column computer={1}><Icon name="heart" color={isFav ? "red" : "grey"}  /></Grid.Column>
+        <Grid.Column computer={3}>{title}</Grid.Column>
+        <Grid.Column computer={7}>{meta}</Grid.Column>
+        <Grid.Column computer={3}><ConfirmPopup onConfirm={() => this.onConfirmDelete() } title="Delete note ?" /></Grid.Column>
+      </Grid>
       </List.Content>
     </List.Item>
 );
