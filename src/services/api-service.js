@@ -56,12 +56,14 @@ export async function getNotesByBookId(id) {
     withCredentials: true
   });
 }
-export async function createNote(bookId, content, isFav, tags) {
+export async function createNote(bookId, title, content, isFav, tags) {
   const data = new FormData();
   data.set("bookId", bookId);
+  data.set("title", title)
   data.set("content", content);
   data.set("isFav", isFav);
   data.set("tags", tags);
+  console.log(bookId + title + content + isFav + tags);
   return Axios({
     method: "post",
     data: data,

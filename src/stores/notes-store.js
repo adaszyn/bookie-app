@@ -84,9 +84,9 @@ export class NotesStore {
     console.error(error);
   };
   @action
-  saveNote = (bookId, content, isFav) => {
+  saveNote = (bookId, title, content, isFav, tags) => {
     this.notesCreating = true;
-    return createNote(bookId, content, isFav)
+    return createNote(bookId, title, content, isFav, tags)
       .then(this.saveNoteSuccess)
       .then(this.getAllNotes)
       .catch(this.saveNoteFail);

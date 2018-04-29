@@ -62,10 +62,14 @@ export class HomeView extends Component {
               <Link to={"/notes/" + note.id} key={note.id}>
                 <NoteCard
                   key={note.id}
-                  title={note.bookId}
+                  title={note.title}
                   isFav={note.isFav}
                   meta={note.dateModified}
                   description={note.content}
+                  tags={note.tags}
+                  onTagsUpdated = {(tags) => this.onTagsUpdated(note.id, tags)}
+                  onFavToggle = {() => this.onFavToggle(note.id)}
+                  onDelete = {() => this.onDeleteNote(note.id)}
                 />
               </Link>
             )}
