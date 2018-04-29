@@ -40,12 +40,65 @@ export class HomeView extends Component {
     return this.props.notes.filter( note => note.bookId === bookId).length;
   }
 
+  renderNotesCarousel = () => {
+    return <Carousel
+        style={{minHeight: "280px", display:"block"}}
+        items={this.props.notes}
+        renderItem={note => (
+            <Link to={"/notes/" + note.id} key={note.id}>
+                <NoteCard
+                    key={note.id}
+                    title={note.bookId}
+                    isFav={note.isFav}
+                    meta={note.dateModified}
+                    description={note.content}
+                    tags={note.tags}
+                    onTagsUpdated = {(tags) => this.onTagsUpdated(note.id, tags)}
+                    onFavToggle = {() => this.onFavToggle(note.id)}
+                    onDelete = {() => this.onDeleteNote(note.id)}
+                />
+            </Link>
+        )}
+        itemKey={"id"}
+        perPage={3}
+    />
+  }
+  renderNotesList = () => {
+    return  <List
+        style={{maxHeight: "280px", display:"block", overflow: "auto"}}>
+        {this.props.notes.map(note => (
+
+            <Link to={"/notes/" + note.id} key={note.id}>
+                <NoteList
+                    key={note.id}
+                    title={note.bookId}
+                    isFav={note.isFav}
+                    meta={note.dateModified}
+                    description={note.content}
+                    tags={note.tags}
+                    onTagsUpdated = {(tags) => this.onTagsUpdated(note.id, tags)}
+                    onFavToggle = {() => this.onFavToggle(note.id)}
+                    onDelete = {() => this.onDeleteNote(note.id)}
+                />
+            </Link>
+        ))}
+    </List>
+  }
+  renderNotes = () => {
+    if (this.props.notes.length === 0) {
+      return <Header as="h3">No notes available.</Header>
+    }
+    if (this.state.activeItem === 'th-btn') {
+      return this.renderNotesCarousel()
+    }
+    return this.renderNotesList()
+
+  }
 
   render() {
     return (
       <div>
         <Header as="h1">Recent Notes</Header>
-
         <Menu>
           <Menu.Item name='th-btn' active={this.state.activeItem === 'th-btn'} onClick={this.handleItemClick}>
             <Icon name='h'/>Grid
@@ -54,50 +107,9 @@ export class HomeView extends Component {
             <Icon name = 'list'/>List
           </Menu.Item>
         </Menu>
-        {this.state.activeItem === 'th-btn' ? 
-          <Carousel
-            style={{minHeight: "280px", display:"block"}}
-            items={this.props.notes}
-            renderItem={note => (
-              <Link to={"/notes/" + note.id} key={note.id}>
-                <NoteCard
-                  key={note.id}
-                  title={note.bookId}
-                  isFav={note.isFav}
-                  meta={note.dateModified}
-                  description={note.content}
-                  tags={note.tags}
-                  onTagsUpdated = {(tags) => this.onTagsUpdated(note.id, tags)}
-                  onFavToggle = {() => this.onFavToggle(note.id)}
-                  onDelete = {() => this.onDeleteNote(note.id)}
-                />
-              </Link>
-            )}
-            itemKey={"id"}
-            perPage={3}
-          /> : 
-          <List
-            style={{maxHeight: "280px", display:"block", overflow: "auto"}}>
-            {this.props.notes.map(note => (
-
-            <Link to={"/notes/" + note.id} key={note.id}>
-              <NoteList
-                key={note.id}
-                title={note.bookId}
-                isFav={note.isFav}
-                meta={note.dateModified}
-                description={note.content}
-                tags={note.tags}
-                onTagsUpdated = {(tags) => this.onTagsUpdated(note.id, tags)}
-                onFavToggle = {() => this.onFavToggle(note.id)}
-                onDelete = {() => this.onDeleteNote(note.id)}
-              />
-            </Link>
-          ))}
-          </List> 
-        }
+          {this.renderNotes()}
         <Divider />
-        <Header as="h1">All Books</Header>
+          {!!this.props.books.length && <Header as="h1">All Books</Header>}
         <Grid>
           {this.props.books.map(book => (
             <Grid.Column computer={5} key={book.id}>
