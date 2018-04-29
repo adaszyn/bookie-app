@@ -16,13 +16,37 @@ export class HomeView extends Component {
   componentDidMount() {
     this.props.getAllNotes();
   }
+  
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  onTagsUpdated = (id, tags) => {
+    const note = this.props.notes.find(note => note.id === id);
+    if(typeof tags === 'undefined')
+      tags = '';
+    this.props.updateNote(note.id, note.bookId, note.content, note.isFav, tags);
+  }
+
+  onFavToggle = id => {
+    const note = this.props.notes.find(note => note.id === id);
+    note.isFav = !note.isFav;
+    this.props.updateNote(note.id, note.bookId, note.content, note.isFav, note.tags);
+  }
+
+  onDeleteNote = id => {
+    const note = this.props.notes.find(note => note.id === id);
+    this.props.deleteNote(note.id, note.bookId);
+  }
+
+  getNumberOfNotesByBookId = bookId => {
+    return this.props.notes.filter( note => note.bookId === bookId).length;
+  }
+
 
   render() {
     return (
       <div>
         <Header as="h1">Recent Notes</Header>
-        <Divider />
+
         <Menu>
           <Menu.Item name='th-btn' active={this.state.activeItem === 'th-btn'} onClick={this.handleItemClick}>
             <Icon name = 'th'/>Grid
@@ -52,6 +76,7 @@ export class HomeView extends Component {
           <List
             style={{maxHeight: "280px", display:"block", overflow: "scroll"}}>
             {this.props.notes.map(note => (
+
             <Link to={"/notes/" + note.id} key={note.id}>
               <NoteList
                 key={note.id}
@@ -59,7 +84,10 @@ export class HomeView extends Component {
                 isFav={note.isFav}
                 meta={note.dateModified}
                 description={note.content}
-                tags={"tag1,tag2,tag3"}
+                tags={note.tags}
+                onTagsUpdated = {(tags) => this.onTagsUpdated(note.id, tags)}
+                onFavToggle = {() => this.onFavToggle(note.id)}
+                onDelete = {() => this.onDeleteNote(note.id)}
               />
             </Link>
           ))}/>
@@ -84,7 +112,7 @@ export class HomeView extends Component {
                       ? book.volumeInfo.imageLinks.thumbnail
                       : null
                   }
-                  numberOfNotes={5}
+                  numberOfNotes={this.getNumberOfNotesByBookId(book.id)}
                 />
             </Grid.Column>
           ))}
@@ -96,6 +124,8 @@ export class HomeView extends Component {
 export const HomeViewContainer = inject(stores => {
   return {
     notes: stores.notesStore.notes,
-    getAllNotes: stores.notesStore.getAllNotes
+    getAllNotes: stores.notesStore.getAllNotes,
+    updateNote: stores.notesStore.updateNote,
+    deleteNote: stores.notesStore.deleteNote
   };
 })(HomeView);
