@@ -38,13 +38,13 @@ export class BooksStore {
     searchGoogleBooks(phrase).then(results => {
       this.isSearching = false;
       this.searchResults = results.map(result =>
-        ({...omit(result, "fullDescription"), key: result.isbn13})
+        ({...omit(result, "fullDescription"), key: result.isbn10})
       );
     });
   }
   @action
   addBook(book) {
-    this.books.set(book.id, book);
+    this.books.set(book.isbn10, book);
   }
   @action
   setHeader(header) {

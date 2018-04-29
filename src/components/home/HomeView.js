@@ -48,7 +48,7 @@ export class HomeView extends Component {
 
         <Menu>
           <Menu.Item name='th-btn' active={this.state.activeItem === 'th-btn'} onClick={this.handleItemClick}>
-            <Icon name = 'th'/>Grid
+            <Icon name='h'/>Grid
           </Menu.Item>
           <Menu.Item name='list-btn' active={this.state.activeItem === 'list-btn'} onClick={this.handleItemClick}>
             <Icon name = 'list'/>List
@@ -99,11 +99,11 @@ export class HomeView extends Component {
             <Grid.Column computer={5} key={book.id}>
                 <BookCard
                   key={book.id}
-                  bookId={book.id}
+                  bookId={book.isbn10}
                   title={book.title}
                   description={book.description}
                   thumbnail={book.image}
-                  numberOfNotes={this.getNumberOfNotesByBookId(book.id)}
+                  numberOfNotes={this.getNumberOfNotesByBookId(book.isbn10)}
                 />
             </Grid.Column>
   ))}

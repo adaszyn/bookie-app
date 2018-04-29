@@ -43,7 +43,6 @@ export async function searchGoogleBooks(searchPhrase) {
       .filter(book => book.isbn10)
       .slice(0, LIMIT);
   } catch (exception) {
-      console.log(exception)
     return Promise.reject("Search exception", exception);
   }
 }

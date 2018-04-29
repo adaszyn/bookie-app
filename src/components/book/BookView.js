@@ -19,6 +19,7 @@ export class BookView extends Component {
     }
   }
   componentDidMount() {
+    console.log('fetching')
     this.props.getAllNotes();
     this.props.fetchBookById(this.props.match.params.id);
   }
@@ -43,7 +44,6 @@ export class BookView extends Component {
   }
   render() {
     const book = this.props.books.get(this.props.match.params.id);
-
     if (this.props.bookFetchError) {
       return <p>{this.props.bookFetchError}</p>;
     }
