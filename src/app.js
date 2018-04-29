@@ -9,8 +9,8 @@ import store from "store";
 import Axios from "axios";
 
 const authStore = new AuthStore();
-const booksStore = new BooksStore();
 const notesStore = new NotesStore(authStore);
+const booksStore = new BooksStore(notesStore);
 const stores = { booksStore, notesStore, authStore };
 
 Axios.interceptors.response.use(null, function(error) {

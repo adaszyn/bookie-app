@@ -1,4 +1,4 @@
-import { action, observable } from "mobx";
+import { action, observable, observe , computed} from "mobx";
 import { debounce, omit } from "underscore";
 import {
   searchGoogleBooks,
@@ -14,6 +14,18 @@ export class BooksStore {
 
   @observable bookFetchError = null;
 
+  constructor(notesStore) {
+    this.notesStore = notesStore;
+    observe(this.notesStore, "bookIds", ({ newValue }) => {
+      newValue.forEach(this.fetchBookById);
+    });
+  }
+
+  @computed
+  get booksList () {
+      return Array.from(this.books.values())
+  }
+
   @action
   setSearchPhrase(phrase) {
     this.searchPhrase = phrase;
@@ -25,7 +37,9 @@ export class BooksStore {
   searchBooks(phrase) {
     searchGoogleBooks(phrase).then(results => {
       this.isSearching = false;
-      this.searchResults = results.map(result => omit(result, 'fullDescription'))
+      this.searchResults = results.map(result =>
+        ({...omit(result, "fullDescription"), key: result.isbn13})
+      );
     });
   }
   @action

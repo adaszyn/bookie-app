@@ -31,6 +31,9 @@ function formatBookResponse(result) {
 export async function searchGoogleBooks(searchPhrase) {
   try {
     const phraseEscaped = searchPhrase.split(" ").join("+");
+    if (phraseEscaped === "") {
+        return Promise.resolve([]);
+    }
     const result = await axios.get(
       `https://www.googleapis.com/books/v1/volumes?q=${phraseEscaped}&key=${TOKEN}`
     );
@@ -40,7 +43,7 @@ export async function searchGoogleBooks(searchPhrase) {
       .filter(book => book.isbn10)
       .slice(0, LIMIT);
   } catch (exception) {
-    console.log(exception);
+      console.log(exception)
     return Promise.reject("Search exception", exception);
   }
 }
@@ -53,7 +56,6 @@ export async function searchBookByID(id) {
     const book = result.data.items[0];
     return book && formatBookResponse(book);
   } catch (exception) {
-    console.log(exception);
     return Promise.reject("Search exception", exception);
   }
 }

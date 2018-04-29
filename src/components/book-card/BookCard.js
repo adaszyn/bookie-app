@@ -20,7 +20,6 @@ export class BookCard extends React.Component {
     const title = this.props.title;
     const thumbnail = this.props.thumbnail;
     const numberOfNotes = this.props.numberOfNotes;
-    const description = this.props.description;
 
     return (
       <Card link style={{'height': '100%'}} href={"/books/" + bookId}>

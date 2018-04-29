@@ -20,6 +20,12 @@ export class NotesStore {
   @observable notesCreating = false;
   @observable notesUpdating = false;
   @observable notesUpdating = false;
+
+
+  constructor(authStore) {
+    this.authStore = authStore;
+  }
+
   @computed
   get notesByBookId() {
     return this.notes.reduce((byId, note) => {
@@ -31,9 +37,9 @@ export class NotesStore {
       return byId;
     }, {});
   }
-
-  constructor(authStore) {
-    this.authStore = authStore;
+  @computed
+  get bookIds () {
+      return new Set(this.notes.map(note => note.bookId))
   }
 
   @action

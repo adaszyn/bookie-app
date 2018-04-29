@@ -5,7 +5,6 @@ import { Grid, Header , Divider} from "semantic-ui-react";
 import "./HomeView.css";
 import { BookCard } from "../book-card/BookCard";
 import { NoteCard } from "../note-card/NoteCard";
-import sampleBooks from "./sample-books.json";
 import { Carousel } from "../carousel/Carousel";
 
 @observer
@@ -65,26 +64,18 @@ export class HomeView extends Component {
         <Divider />
         <Header as="h1">All Books</Header>
         <Grid>
-          {sampleBooks.items.map(book => (
+          {this.props.books.map(book => (
             <Grid.Column computer={5} key={book.id}>
                 <BookCard
                   key={book.id}
                   bookId={book.id}
-                  title={book.volumeInfo.title}
-                  description={
-                    book.volumeInfo.description
-                      ? book.volumeInfo.description
-                      : null
-                  }
-                  thumbnail={
-                    book.volumeInfo.imageLinks
-                      ? book.volumeInfo.imageLinks.thumbnail
-                      : null
-                  }
+                  title={book.title}
+                  description={book.description}
+                  thumbnail={book.image}
                   numberOfNotes={this.getNumberOfNotesByBookId(book.id)}
                 />
             </Grid.Column>
-          ))}
+  ))}
         </Grid>
       </div>
     );
@@ -95,6 +86,7 @@ export const HomeViewContainer = inject(stores => {
     notes: stores.notesStore.notes,
     getAllNotes: stores.notesStore.getAllNotes,
     updateNote: stores.notesStore.updateNote,
-    deleteNote: stores.notesStore.deleteNote
+    deleteNote: stores.notesStore.deleteNote,
+    books: stores.booksStore.booksList
   };
 })(HomeView);

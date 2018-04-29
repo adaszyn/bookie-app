@@ -3,7 +3,7 @@ import { Popup, Divider, Icon, Button } from 'semantic-ui-react';
 
 export class ConfirmPopup extends Component {
 
- 	state = {
+  state = {
     isOpen: false
   }
 
@@ -26,7 +26,6 @@ export class ConfirmPopup extends Component {
   }
 	
 	render(){
-		const position = this.props.position;
 		const title = this.props.title ? (this.props.title) : "Are You Sure ?";
 		const message = this.props.message ? (this.props.message) : null;
 

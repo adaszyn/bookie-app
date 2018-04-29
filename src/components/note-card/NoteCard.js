@@ -14,7 +14,7 @@ export class NoteCard extends React.Component{
   };
 
   getTagsArray = tags => {
-    if(tags === '') return [];
+    if(!tags) return [];
     return tags.split(',');
   }
 
