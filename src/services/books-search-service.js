@@ -22,7 +22,9 @@ function formatBookResponse(result) {
     isbn10: getISBN10(result),
     isbn13: getISBN13(result),
     title: result.volumeInfo.title,
-    description: trimText(result.volumeInfo.description, 20),
+    authors: result.volumeInfo.authors,
+    rating: result.volumeInfo.averageRating,
+    description: trimText(result.volumeInfo.description, 250),
     fullDescription: result.volumeInfo.description,
     image:
       result.volumeInfo.imageLinks && result.volumeInfo.imageLinks.thumbnail

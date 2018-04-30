@@ -72,6 +72,7 @@ export class HomeView extends Component {
                   description={book.description}
                   thumbnail={book.image}
                   numberOfNotes={this.getNumberOfNotesByBookId(book.isbn10)}
+                  showDelete
                 />
             </Grid.Column>
   ))}

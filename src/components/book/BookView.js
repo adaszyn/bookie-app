@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Breadcrumb, Header, Button, List, Menu, Icon } from "semantic-ui-react";
+import { Grid, Breadcrumb, Header, Button, List, Menu, Icon, Rating, Divider } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { BookCard } from "../book-card/BookCard";
 import { NoteCard } from "../note-card/NoteCard";
@@ -39,9 +39,9 @@ export class BookView extends Component {
   }
   renderToggleDescriptionButton() {
     if (this.state.descriptionExpanded) {
-      return <Button onClick={this.toggleDescription}>Show less</Button>;
+      return <a href="#" size ="tiny" onClick={this.toggleDescription}>Show less</a>;
     } else {
-      return <Button onClick={this.toggleDescription}>Show more</Button>;
+      return <a href="#" size ="tiny" onClick={this.toggleDescription}>Show more</a>;
     }
   }
 
@@ -143,30 +143,42 @@ export class BookView extends Component {
 
           <Grid.Column computer={5}>
             <BookCard 
-            bookId={this.props.match.params.id} 
-            key={this.props.match.params.id} 
-            thumbnail={book.image} 
-            numberOfNotes={notes.length}
+              bookId={this.props.match.params.id} 
+              key={this.props.match.params.id} 
+              thumbnail={book.image} 
+              numberOfNotes={notes.length}
             />
           </Grid.Column>
           <Grid.Column computer={9}>
-            <Header as="h1">{book.title} </Header>
+            <Header as="h3">{book.title} 
+              <Header.Subheader>
+                by {book.authors.join(',')} 
+                <Divider/>
+                <Rating disabled maxRating="5" rating={book.rating} /> {book.rating}
+              </Header.Subheader>
+            </Header>
             {this.renderDescription(book)}
             {this.renderToggleDescriptionButton()}
           </Grid.Column>
         </Grid>
-        <Menu compact size ="tiny" floated="right">
-          <Menu.Item name='th-btn' active={this.state.activeItem === 'th-btn'} onClick={this.handleItemClick}>
-            <Icon className='th'/>
-          </Menu.Item>
-          <Menu.Item name='list-btn' active={this.state.activeItem === 'list-btn'} onClick={this.handleItemClick}>
-            <Icon name = 'list'/>
-          </Menu.Item>
-        </Menu>
+        <Header block>
+          Notes
+          <Menu size="tiny" floated="right">
+            <Link to={`/books/${book.isbn10}/create`}>
+              <Menu.Item>
+                <Icon name = 'plus'/>
+              </Menu.Item>
+            </Link>
+            <Menu.Item name='th-btn' active={this.state.activeItem === 'th-btn'} onClick={this.handleItemClick}>
+              <Icon className='th'/>
+            </Menu.Item>
+            <Menu.Item name='list-btn' active={this.state.activeItem === 'list-btn'} onClick={this.handleItemClick}>
+              <Icon name = 'list'/>
+            </Menu.Item>
+          </Menu>
+        </Header>
+
         {this.renderNotes(notes)}
-        <Link to={`/books/${book.isbn10}/create`}>
-          <Button>Create new note.</Button>
-        </Link>
       </div>
     );
   }

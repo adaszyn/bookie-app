@@ -30,9 +30,13 @@ export class BookCard extends React.Component {
         <Card.Content extra textAlign="right">
           <Grid>
             <Grid.Column width="12" textAlign="left"> <Card.Meta> {numberOfNotes} notes  </Card.Meta> </Grid.Column>
-            <Grid.Column width="4" textAlign="right"> 
-            <ConfirmPopup message="This will delete the book from your collection and all its related notes"/>
-            </Grid.Column>
+            {this.props.showDelete ? (
+              <Grid.Column width="4" textAlign="right"> 
+                <ConfirmPopup message="This will delete the book from your collection and all its related notes"/>
+              </Grid.Column>
+            ) : (
+              null
+            )}
           </Grid>
         </Card.Content>
       </Card>
