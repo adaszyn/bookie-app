@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Grid, Breadcrumb, Header, Button, List, Menu, Icon, Rating, Divider } from "semantic-ui-react";
+import { Grid, Breadcrumb, Header, Button, List, Menu, Icon, Rating, Divider, Message } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { BookCard } from "../book-card/BookCard";
-import { NoteCard } from "../note-card/NoteCard";
+import { NoteViewContainer } from "../note-card/NoteCard";
 import { Link } from "react-router-dom";
 import { Carousel } from "../carousel/Carousel";
 
@@ -21,7 +21,6 @@ export class BookView extends Component {
     }
   }
   componentDidMount() {
-    console.log('fetching')
     this.props.getAllNotes();
     this.props.fetchBookById(this.props.match.params.id);
   }
@@ -39,11 +38,13 @@ export class BookView extends Component {
   }
   renderToggleDescriptionButton() {
     if (this.state.descriptionExpanded) {
-      return <a href="#" size ="tiny" onClick={this.toggleDescription}>Show less</a>;
+      return <Button size ="tiny" onClick={this.toggleDescription}> Show less </Button>;
     } else {
-      return <a href="#" size ="tiny" onClick={this.toggleDescription}>Show more</a>;
+      return <Button size ="tiny" onClick={this.toggleDescription}>Show more </Button>;
     }
   }
+
+  /*
 
   onTagsUpdated = (id, tags) => {
     const note = this.props.notes.find(note => note.id === id);
@@ -62,6 +63,7 @@ export class BookView extends Component {
     const note = this.props.notes.find(note => note.id === id);
     this.props.deleteNote(note.id, note.bookId);
   }
+  */
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
@@ -71,16 +73,14 @@ export class BookView extends Component {
         items={notes}
         renderItem={note => (
             <Link to={"/notes/" + note.id} key={note.id}>
-                <NoteCard
+                <NoteViewContainer
                     key={note.id}
+                    noteId={note.id}
                     title={note.title}
                     isFav={note.isFav}
                     meta={note.dateModified}
                     description={note.content}
                     tags={note.tags}
-                    onTagsUpdated = {(tags) => this.onTagsUpdated(note.id, tags)}
-                    onFavToggle = {() => this.onFavToggle(note.id)}
-                    onDelete = {() => this.onDeleteNote(note.id)}
                 />
             </Link>
         )}
@@ -94,17 +94,15 @@ export class BookView extends Component {
         {notes.map(note => (
 
             <Link to={"/notes/" + note.id} key={note.id}>
-                <NoteCard
+                <NoteViewContainer
                     key={note.id}
+                    noteId={note.id}
                     listitem                   
                     title={note.title}
                     isFav={note.isFav}
                     meta={note.dateModified}
                     description={note.content}
                     tags={note.tags}
-                    onTagsUpdated = {(tags) => this.onTagsUpdated(note.id, tags)}
-                    onFavToggle = {() => this.onFavToggle(note.id)}
-                    onDelete = {() => this.onDeleteNote(note.id)}
                 />
             </Link>
         ))}
@@ -112,7 +110,7 @@ export class BookView extends Component {
   }
   renderNotes = (notes) => {
     if (notes.length === 0) {
-      return <Header as="h3">No notes available.</Header>
+      return <Header as="h3">Click on the Plus (+) icon to start creating a new note</Header>
     }
     if (this.state.activeItem === 'th-btn') {
       return this.renderNotesCarousel(notes)
@@ -127,7 +125,15 @@ export class BookView extends Component {
       return <p>{this.props.bookFetchError}</p>;
     }
     if (!book) {
-      return <p>Book loading</p>;
+      return ( 
+        <Message icon>
+          <Icon name='circle notched' loading />
+          <Message.Content>
+            <Message.Header>Just one second</Message.Header>
+            Loading Book
+          </Message.Content>
+        </Message>
+      );
     }
     const notes = this.props.notesByBookId[book.isbn10] || [];
     return (
@@ -150,7 +156,7 @@ export class BookView extends Component {
             />
           </Grid.Column>
           <Grid.Column computer={9}>
-            <Header as="h3">{book.title} 
+            <Header as="h2">{book.title} 
               <Header.Subheader>
                 by {book.authors.join(',')} 
                 <Divider/>
@@ -161,21 +167,25 @@ export class BookView extends Component {
             {this.renderToggleDescriptionButton()}
           </Grid.Column>
         </Grid>
-        <Header block>
+        <Header block as="h2">
           Notes
-          <Menu size="tiny" floated="right">
-            <Link to={`/books/${book.isbn10}/create`}>
-              <Menu.Item>
-                <Icon name = 'plus'/>
-              </Menu.Item>
-            </Link>
+          {notes.length > 0 ? ( <Menu size="tiny" floated="right">
             <Menu.Item name='th-btn' active={this.state.activeItem === 'th-btn'} onClick={this.handleItemClick}>
               <Icon className='th'/>
             </Menu.Item>
             <Menu.Item name='list-btn' active={this.state.activeItem === 'list-btn'} onClick={this.handleItemClick}>
               <Icon name = 'list'/>
             </Menu.Item>
+          </Menu>) :(null)}
+         
+          <Menu size="tiny" floated="right">
+            <Link to={`/books/${book.isbn10}/create`}>
+              <Menu.Item>
+                <Icon name = 'plus'/>
+              </Menu.Item>
+            </Link>
           </Menu>
+
         </Header>
 
         {this.renderNotes(notes)}

@@ -2,7 +2,9 @@ import React from "react";
 import {Grid, Card, Icon, List, Popup, Header } from "semantic-ui-react";
 import {TagsEditor} from "../tags-editor/TagsEditor";
 import { ConfirmPopup } from "../confirm-popup/ConfirmPopup";
+import { observer, inject } from "mobx-react";
 
+@observer
 export class NoteCard extends React.Component{
   
   getFormattedDescription = description => {
@@ -18,21 +20,23 @@ export class NoteCard extends React.Component{
     return tags.split(',');
   }
 
-  onTagAdded = tags => {
-    this.props.onTagsUpdated(tags.join(","));
-  }
-
-  onTagRemoved = tags => {
-    this.props.onTagsUpdated(tags.join(","));
+  onTagsUpdated = (tags) => {
+    const note = this.props.notes.find(note => note.id === this.props.noteId);
+    if(typeof tags === 'undefined')
+      tags = '';
+    tags = tags.join(',');
+    this.props.updateNote(note.id, note.bookId, note.title, note.content, note.isFav, tags);
   }
 
   onFavToggle = (e) => {
     e.preventDefault();
-    this.props.onFavToggle();
+    const note = this.props.notes.find(note => note.id === this.props.noteId);
+    this.props.updateNote(note.id, note.bookId, note.title, note.content, !note.isFav, note.tags);
   }
 
-  onConfirmDelete = () => {
-    this.props.onDelete();
+  onDeleteNote = () => {
+    const note = this.props.notes.find(note => note.id === this.props.noteId);
+    this.props.deleteNote(note.id, note.bookId);
   }
 
   render() {
@@ -53,13 +57,13 @@ export class NoteCard extends React.Component{
                   position="bottom left">
                     <Popup.Content>
                       <TagsEditor 
-                      onTagRemoved={(tag, tags) => this.onTagRemoved(tags)} 
-                      onTagAdded={(tag, tags) => this.onTagAdded(tags)} 
+                      onTagRemoved={(tag, tags) => this.onTagsUpdated(tags)} 
+                      onTagAdded={(tag, tags) => this.onTagsUpdated(tags)} 
                       tags={this.props.tags}/>
                     </Popup.Content>
                   </Popup>
                   <Icon name="heart" color={this.props.isFav ? "red" : "grey"} />
-                  <ConfirmPopup onConfirm={() => this.onConfirmDelete() } title="Delete note ?" />
+                  <ConfirmPopup onConfirm={() => this.onDeleteNote() } title="Delete note ?" />
                   </Grid.Column>
               </Grid>
               </Card.Content>
@@ -80,13 +84,13 @@ export class NoteCard extends React.Component{
                   position="bottom left">
                   <Popup.Content>
                     <TagsEditor 
-                    onTagRemoved={(tag, tags) => this.onTagRemoved(tags)} 
-                    onTagAdded={(tag, tags) => this.onTagAdded(tags)} 
+                    onTagRemoved={(tag, tags) => this.onTagsUpdated(tags)} 
+                    onTagAdded={(tag, tags) => this.onTagsUpdated(tags)} 
                     tags={this.getTagsArray(this.props.tags)}/>
                   </Popup.Content>
                 </Popup>
                 <Icon name="heart" color={this.props.isFav ? "red" : "grey"} onClick={(e) => {this.onFavToggle(e)}} />
-                <ConfirmPopup onConfirm={() => this.onConfirmDelete() } title="Delete note ?" />
+                <ConfirmPopup onConfirm={() => this.onDeleteNote() } title="Delete note ?" />
               </Card.Content>
             </Card>
           )}
@@ -94,3 +98,11 @@ export class NoteCard extends React.Component{
     );
   }
 }
+
+export const NoteViewContainer = inject(stores => {
+  return {
+    notes: stores.notesStore.notes,
+    updateNote: stores.notesStore.updateNote,
+    deleteNote: stores.notesStore.deleteNote,
+  };
+})(NoteCard);

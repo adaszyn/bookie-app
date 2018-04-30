@@ -102,7 +102,7 @@ export class NotesStore {
   @action
   updateNote = (noteId, bookId, title, content, isFav, tags) => {
     this.notesCreating = true;
-    return updateNote(noteId, bookId, content, isFav, tags)
+    return updateNote(noteId, bookId, title, content, isFav, tags)
       .then(this.updateNoteSuccess)
       .then(this.getAllNotes)
       .catch(this.updateNoteFail);

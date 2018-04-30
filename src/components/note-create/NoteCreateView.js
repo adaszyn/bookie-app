@@ -49,7 +49,6 @@ export class NoteCreateView extends Component {
   render() {
       const bookId = this.props.match.params.id;
       const book = this.props.books.get(bookId);
-      console.log(book);
       return (
       <div>
         <Breadcrumb>
@@ -63,32 +62,35 @@ export class NoteCreateView extends Component {
             <Breadcrumb.Divider> > </Breadcrumb.Divider>
             <div className="active section">Create new note</div>
         </Breadcrumb>
+        <br/>
+        <br/>
+
+        <Input fluid
+          fluid
+          placeholder="Title .." 
+          onChange= {this.onTitleChange.bind(this)}/>
+        <br/>
+        <RichTextEditor style={{'height': '100%'}} value={this.state.note} onChange={this.onNoteChange} placeholder="Begin note here .."/>
+        <br/>
         <Grid>
-          <Grid.Column width="13">
-            <Input 
-            fluid
-            placeholder="Title ..." 
-            onChange= {this.onTitleChange.bind(this)}/>
-          </Grid.Column>
-          <Grid.Column textAlign="center" verticalAlign="middle" width="3">
-            <Popup
-              on="click"
-              trigger={<Icon size="large" name="tags" onClick={(e) => {e.preventDefault()}}/>}
-              position="bottom left">
-              <Popup.Content>
-               <TagsEditor 
-                tags = {this.state.tags}
-                onTagAdded={(tag, updatedTagsArray)=> this.onTagsChanged(tag, updatedTagsArray)} 
-                onTagRemoved={(tag, updatedTagsArray)=> this.onTagsChanged(tag, updatedTagsArray)}/>
-              </Popup.Content>
-            </Popup>
-            <Icon name="heart" size="large" color={this.state.isFav ? "red" : "grey"} onClick={(e) => {this.onFavToggle(e)}} />
-          </Grid.Column>
+        <Grid.Column width="13">
+          <Popup
+            on="click"
+            trigger={<Icon size="large" name="tags" onClick={(e) => {e.preventDefault()}}/>}
+            position="bottom left">
+            <Popup.Content>
+             <TagsEditor 
+              tags = {this.state.tags}
+              onTagAdded={(tag, updatedTagsArray)=> this.onTagsChanged(tag, updatedTagsArray)} 
+              onTagRemoved={(tag, updatedTagsArray)=> this.onTagsChanged(tag, updatedTagsArray)}/>
+            </Popup.Content>
+          </Popup>
+          <Icon name="heart" size="large" color={this.state.isFav ? "red" : "grey"} onClick={(e) => {this.onFavToggle(e)}} />
+        </Grid.Column>
+        <Grid.Column textAlign="center" verticalAlign="middle" width="3">
+          <Button color="teal" onClick={this.onSubmit}>Save</Button>
+        </Grid.Column>
         </Grid>
-        <br/>
-        <RichTextEditor value={this.state.note} onChange={this.onNoteChange} />
-        <br/>
-        <Button onClick={this.onSubmit}>Save</Button>
       </div>
     );
   }
