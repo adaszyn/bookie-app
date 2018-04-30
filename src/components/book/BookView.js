@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Grid, Breadcrumb, Header, Button, List, Menu, Icon } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { BookCard } from "../book-card/BookCard";
-import { NoteCard, NoteList } from "../note-card/NoteCard";
+import { NoteCard } from "../note-card/NoteCard";
 import { Link } from "react-router-dom";
 import { Carousel } from "../carousel/Carousel";
 
@@ -94,8 +94,9 @@ export class BookView extends Component {
         {notes.map(note => (
 
             <Link to={"/notes/" + note.id} key={note.id}>
-                <NoteList
+                <NoteCard
                     key={note.id}
+                    listitem                   
                     title={note.title}
                     isFav={note.isFav}
                     meta={note.dateModified}
@@ -141,10 +142,15 @@ export class BookView extends Component {
           </Grid.Row>
 
           <Grid.Column computer={5}>
-            <BookCard bookId={this.props.match.params.id} key={this.props.match.params.id} thumbnail={book.image} />
+            <BookCard 
+            bookId={this.props.match.params.id} 
+            key={this.props.match.params.id} 
+            thumbnail={book.image} 
+            numberOfNotes={notes.length}
+            />
           </Grid.Column>
           <Grid.Column computer={9}>
-            <Header as="h1">The Book </Header>
+            <Header as="h1">{book.title} </Header>
             {this.renderDescription(book)}
             {this.renderToggleDescriptionButton()}
           </Grid.Column>
