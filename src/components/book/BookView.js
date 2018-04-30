@@ -49,13 +49,13 @@ export class BookView extends Component {
     const note = this.props.notes.find(note => note.id === id);
     if(typeof tags === 'undefined')
       tags = '';
-    this.props.updateNote(note.id, note.bookId, note.content, note.isFav, tags);
+    this.props.updateNote(note.id, note.bookId, note.title, note.content, note.isFav, tags);
   }
 
   onFavToggle = id => {
     const note = this.props.notes.find(note => note.id === id);
     note.isFav = !note.isFav;
-    this.props.updateNote(note.id, note.bookId, note.content, note.isFav, note.tags);
+    this.props.updateNote(note.id, note.bookId, note.title, note.content, note.isFav, note.tags);
   }
 
   onDeleteNote = id => {
@@ -130,44 +130,44 @@ export class BookView extends Component {
     }
     const notes = this.props.notesByBookId[book.isbn10] || [];
     return (
-      <Grid>
-        <Grid.Row>
-          <Breadcrumb>
-            <Breadcrumb.Section><Link to="/">Home</Link></Breadcrumb.Section>
-            <Breadcrumb.Divider> > </Breadcrumb.Divider>
-            <div className="active section">{book.title} </div>
-          </Breadcrumb>
-        </Grid.Row>
+      <div>
+        <Grid>
+          <Grid.Row>
+            <Breadcrumb>
+              <Breadcrumb.Section><Link to="/">Home</Link></Breadcrumb.Section>
+              <Breadcrumb.Divider> > </Breadcrumb.Divider>
+              <div className="active section">{book.title} </div>
+            </Breadcrumb>
+          </Grid.Row>
 
-        <Grid.Column computer={5}>
-          <BookCard bookId={this.props.match.params.id} key={this.props.match.params.id} thumbnail={book.image} />
-        </Grid.Column>
-        <Grid.Column computer={9}>
-          <Header as="h1">The Book </Header>
-          {this.renderDescription(book)}
-          {this.renderToggleDescriptionButton()}
-        </Grid.Column>
-
-        <Grid.Row>
-          <Menu>
-            <Menu.Item name='th-btn' active={this.state.activeItem === 'th-btn'} onClick={this.handleItemClick}>
-              <Icon className='th'/>Grid
-            </Menu.Item>
-            <Menu.Item name='list-btn' active={this.state.activeItem === 'list-btn'} onClick={this.handleItemClick}>
-              <Icon name = 'list'/>List
-            </Menu.Item>
-          </Menu>
-        </Grid.Row>
+          <Grid.Column computer={5}>
+            <BookCard bookId={this.props.match.params.id} key={this.props.match.params.id} thumbnail={book.image} />
+          </Grid.Column>
+          <Grid.Column computer={9}>
+            <Header as="h1">The Book </Header>
+            {this.renderDescription(book)}
+            {this.renderToggleDescriptionButton()}
+          </Grid.Column>
+        </Grid>
+        <Menu compact size ="tiny" floated="right">
+          <Menu.Item name='th-btn' active={this.state.activeItem === 'th-btn'} onClick={this.handleItemClick}>
+            <Icon className='th'/>
+          </Menu.Item>
+          <Menu.Item name='list-btn' active={this.state.activeItem === 'list-btn'} onClick={this.handleItemClick}>
+            <Icon name = 'list'/>
+          </Menu.Item>
+        </Menu>
         {this.renderNotes(notes)}
         <Link to={`/books/${book.isbn10}/create`}>
           <Button>Create new note.</Button>
         </Link>
-      </Grid>
+      </div>
     );
   }
 }
 export const BookViewContainer = inject(stores => {
   return {
+    notes: stores.notesStore.notes,
     notesByBookId: stores.notesStore.notesByBookId,
     getAllNotes: stores.notesStore.getAllNotes,
     updateNote: stores.notesStore.updateNote,

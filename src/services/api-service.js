@@ -72,9 +72,10 @@ export async function createNote(bookId, title, content, isFav, tags) {
   });
 }
 
-export async function updateNote(noteId, bookId, content, isFav, tags) {
+export async function updateNote(noteId, bookId, title, content, isFav, tags) {
   const data = new FormData();
   data.set("bookId", bookId);
+  data.set("title", title);
   data.set("content", content);
   data.set("isFav", isFav);
   data.set('tags', tags);
@@ -87,7 +88,6 @@ export async function updateNote(noteId, bookId, content, isFav, tags) {
 }
 
 export async function deleteNote(noteId, bookId) {
-  console.log(noteId, bookId);
   const data = new FormData();
   data.set("bookId", bookId);
   return Axios({
