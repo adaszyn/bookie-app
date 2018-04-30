@@ -65,15 +65,19 @@ export class NoteCard extends React.Component{
   }
 }
 
-export const NoteList = ({ title, meta, isFav }) => (
+export const NoteList = ({ title, meta, isFav, onDelete, onFavToggle}) => (
     <List.Item>
-      <List.Content>
-      <Grid>
-        <Grid.Column computer={1}><Icon name="heart" color={isFav ? "red" : "grey"}  /></Grid.Column>
-        <Grid.Column computer={3}>{title}</Grid.Column>
-        <Grid.Column computer={7}>{meta}</Grid.Column>
-        <Grid.Column computer={3}><ConfirmPopup onConfirm={() => this.onConfirmDelete() } title="Delete note ?" /></Grid.Column>
-      </Grid>
-      </List.Content>
+      <Card style={{ width: "100%" }}>
+        <Card.Content>
+        <Grid>
+          <Grid.Row>
+            <Grid.Column computer={2}><Icon name="heart" color={isFav ? "red" : "grey"} /></Grid.Column>
+            <Grid.Column computer={3}><b>{title}</b></Grid.Column>
+            <Grid.Column computer={6}>{meta}</Grid.Column>
+            <Grid.Column computer={2}><ConfirmPopup onConfirm={() => onDelete() } title="Delete note ?" /></Grid.Column>
+          </Grid.Row>
+        </Grid>
+        </Card.Content>
+       </Card> 
     </List.Item>
 );

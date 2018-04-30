@@ -42,9 +42,9 @@ export class Carousel extends Component {
       this.state.selectedChunkIndex !== this.state.chunks.length - 1;
     const canClickPrev = this.state.selectedChunkIndex !== 0;
     return (
-      <Grid style={style}>
+      <Grid style={style} stackable>
         <Row columns={16}>
-          <Column verticalAlign="middle" width={1}>
+          <Column verticalAlign="middle" width={1} only="computer tablet">
             <Icon
               style={{ visibility: canClickPrev ? "visible" : "hidden" }}
               onClick={this.onPrevious}
@@ -53,7 +53,7 @@ export class Carousel extends Component {
             />
           </Column>
           <Column verticalAlign="middle" style={{ height: "100%" }} width={14}>
-            <Grid style={{ height: "100%" }}>
+            <Grid style={{ height: "100%" }} stackable>
               <Row columns={15} style={{ height: "100%" }}>
                 {this.state.chunks[this.state.selectedChunkIndex].map(item => (
                   <Grid.Column width={5} key={item[itemKey]}>
@@ -63,7 +63,7 @@ export class Carousel extends Component {
               </Row>
             </Grid>
           </Column>
-          <Column verticalAlign="middle" width={1}>
+          <Column verticalAlign="middle" width={1} only="computer tablet">
             <Icon
               onClick={this.onNext}
               style={{ visibility: canClickNext ? "visible" : "hidden" }}
@@ -72,6 +72,27 @@ export class Carousel extends Component {
             />
           </Column>
         </Row>
+        <Grid stackable={false}>
+            <Row only="mobile" columns={2}>
+                <Column width={1}>
+                    <Icon
+                        style={{ visibility: canClickPrev ? "visible" : "hidden" }}
+                        onClick={this.onPrevious}
+                        name="arrow left"
+                        link
+                    />
+                </Column>
+                <Column width={1}>
+                    <Icon
+                        style={{ visibility: canClickNext ? "visible" : "hidden" }}
+                        onClick={this.onNext}
+                        name="arrow right"
+                        link
+                    />
+                </Column>
+            </Row>
+        </Grid>
+
       </Grid>
     );
   }

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
-import { Button, Input, Grid, Popup, Icon } from "semantic-ui-react";
+import { Breadcrumb, Button, Input, Grid, Popup, Icon } from "semantic-ui-react";
 import RichTextEditor from "react-rte";
 import {TagsEditor} from "../tags-editor/TagsEditor";
+import {Link} from "react-router-dom";
 
 @observer
 export class NoteCreateView extends Component {
@@ -13,7 +14,7 @@ export class NoteCreateView extends Component {
       title: "",
       note: RichTextEditor.createEmptyValue(), 
       isFav: false, 
-      tags: props.tags
+      tags: []
     };
   }
   onNoteChange = note => {
@@ -46,8 +47,22 @@ export class NoteCreateView extends Component {
   };
 
   render() {
-    return (
+      const bookId = this.props.match.params.id;
+      const book = this.props.books.get(bookId);
+      console.log(book);
+      return (
       <div>
+        <Breadcrumb>
+            <Breadcrumb.Section><Link to="/">Home</Link></Breadcrumb.Section>
+            <Breadcrumb.Divider> > </Breadcrumb.Divider>
+            <Breadcrumb.Section>
+                <Link to={"/books/" + bookId}>
+                    {book.title}
+                </Link>
+            </Breadcrumb.Section>
+            <Breadcrumb.Divider> > </Breadcrumb.Divider>
+            <div className="active section">Create new note</div>
+        </Breadcrumb>
         <Grid>
           <Grid.Column width="13">
             <Input 
@@ -55,7 +70,7 @@ export class NoteCreateView extends Component {
             placeholder="Title ..." 
             onChange= {this.onTitleChange.bind(this)}/>
           </Grid.Column>
-          <Grid.Column textAlign="center" width="3">
+          <Grid.Column textAlign="center" verticalAlign="middle" width="3">
             <Popup
               on="click"
               trigger={<Icon size="large" name="tags" onClick={(e) => {e.preventDefault()}}/>}
@@ -80,6 +95,7 @@ export class NoteCreateView extends Component {
 }
 export const NoteCreateViewContainer = inject(stores => {
   return {
-    saveNote: stores.notesStore.saveNote
+    saveNote: stores.notesStore.saveNote,
+    books: stores.booksStore.books,
   };
 })(NoteCreateView);

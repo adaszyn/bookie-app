@@ -1,16 +1,18 @@
 import React, { Component } from "react";
-import { Grid, Breadcrumb, Header, Button } from "semantic-ui-react";
+import { Grid, Breadcrumb, Header, Button, List, Menu, Icon } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { BookCard } from "../book-card/BookCard";
-import { NoteCard } from "../note-card/NoteCard";
+import { NoteCard, NoteList } from "../note-card/NoteCard";
 import { Link } from "react-router-dom";
 import { Carousel } from "../carousel/Carousel";
 
 @observer
 export class BookView extends Component {
   state = {
-    descriptionExpanded: false
+    descriptionExpanded: false,
+    activeItem: "th-btn"
   };
+
   componentWillReceiveProps(newProps) {
     const bookId = this.props.match.params.id;
     const newBookId = newProps.match.params.id;
@@ -42,6 +44,82 @@ export class BookView extends Component {
       return <Button onClick={this.toggleDescription}>Show more</Button>;
     }
   }
+
+  onTagsUpdated = (id, tags) => {
+    const note = this.props.notes.find(note => note.id === id);
+    if(typeof tags === 'undefined')
+      tags = '';
+    this.props.updateNote(note.id, note.bookId, note.content, note.isFav, tags);
+  }
+
+  onFavToggle = id => {
+    const note = this.props.notes.find(note => note.id === id);
+    note.isFav = !note.isFav;
+    this.props.updateNote(note.id, note.bookId, note.content, note.isFav, note.tags);
+  }
+
+  onDeleteNote = id => {
+    const note = this.props.notes.find(note => note.id === id);
+    this.props.deleteNote(note.id, note.bookId);
+  }
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  renderNotesCarousel = (notes) => {
+    return <Carousel
+        style={{minHeight: "280px", display:"block"}}
+        items={notes}
+        renderItem={note => (
+            <Link to={"/notes/" + note.id} key={note.id}>
+                <NoteCard
+                    key={note.id}
+                    title={note.title}
+                    isFav={note.isFav}
+                    meta={note.dateModified}
+                    description={note.content}
+                    tags={note.tags}
+                    onTagsUpdated = {(tags) => this.onTagsUpdated(note.id, tags)}
+                    onFavToggle = {() => this.onFavToggle(note.id)}
+                    onDelete = {() => this.onDeleteNote(note.id)}
+                />
+            </Link>
+        )}
+        itemKey={"id"}
+        perPage={3}
+    />
+  }
+  renderNotesList = (notes) => {
+    return  <List
+        style={{display:"block", width: "100%" }}>
+        {notes.map(note => (
+
+            <Link to={"/notes/" + note.id} key={note.id}>
+                <NoteList
+                    key={note.id}
+                    title={note.title}
+                    isFav={note.isFav}
+                    meta={note.dateModified}
+                    description={note.content}
+                    tags={note.tags}
+                    onTagsUpdated = {(tags) => this.onTagsUpdated(note.id, tags)}
+                    onFavToggle = {() => this.onFavToggle(note.id)}
+                    onDelete = {() => this.onDeleteNote(note.id)}
+                />
+            </Link>
+        ))}
+    </List>
+  }
+  renderNotes = (notes) => {
+    if (notes.length === 0) {
+      return <Header as="h3">No notes available.</Header>
+    }
+    if (this.state.activeItem === 'th-btn') {
+      return this.renderNotesCarousel(notes)
+    }
+    return this.renderNotesList(notes)
+
+  }
+
   render() {
     const book = this.props.books.get(this.props.match.params.id);
     if (this.props.bookFetchError) {
@@ -62,7 +140,7 @@ export class BookView extends Component {
         </Grid.Row>
 
         <Grid.Column computer={5}>
-          <BookCard key={this.props.match.params.id} thumbnail={book.image} />
+          <BookCard bookId={this.props.match.params.id} key={this.props.match.params.id} thumbnail={book.image} />
         </Grid.Column>
         <Grid.Column computer={9}>
           <Header as="h1">The Book </Header>
@@ -71,26 +149,16 @@ export class BookView extends Component {
         </Grid.Column>
 
         <Grid.Row>
-            
-        <Carousel
-          style={{ minHeight: "220px" }}
-          items={notes}
-          renderItem={note => (
-            <Link to={"/notes/" + note.id} key={note.id}>
-              <NoteCard
-                key={note.id}
-                title={note.bookId}
-                isFav={note.isFav}
-                meta={note.date_modified}
-                description={note.content}
-              />
-            </Link>
-          )}
-          itemKey={"id"}
-          perPage={3}
-        />
-                </Grid.Row>
-
+          <Menu>
+            <Menu.Item name='th-btn' active={this.state.activeItem === 'th-btn'} onClick={this.handleItemClick}>
+              <Icon className='th'/>Grid
+            </Menu.Item>
+            <Menu.Item name='list-btn' active={this.state.activeItem === 'list-btn'} onClick={this.handleItemClick}>
+              <Icon name = 'list'/>List
+            </Menu.Item>
+          </Menu>
+        </Grid.Row>
+        {this.renderNotes(notes)}
         <Link to={`/books/${book.isbn10}/create`}>
           <Button>Create new note.</Button>
         </Link>
@@ -102,6 +170,8 @@ export const BookViewContainer = inject(stores => {
   return {
     notesByBookId: stores.notesStore.notesByBookId,
     getAllNotes: stores.notesStore.getAllNotes,
+    updateNote: stores.notesStore.updateNote,
+    deleteNote: stores.notesStore.deleteNote,
     fetchBookById: stores.booksStore.fetchBookById,
     books: stores.booksStore.books,
     bookFetchError: stores.booksStore.bookFetchError
