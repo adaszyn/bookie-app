@@ -10,6 +10,7 @@ import { NotFound } from "./components/not-found/NotFound";
 import { NotesViewContainer } from "./components/notes/NotesView";
 import { BookViewContainer } from "./components/book/BookView";
 import { NoteCreateViewContainer } from "./components/note-create/NoteCreateView";
+import { SemanticToastContainer } from 'react-semantic-toasts';
 
 @observer
 export class Routes extends Component {
@@ -20,6 +21,7 @@ export class Routes extends Component {
         {process.env.NODE_ENV === "development" ? <DevTools /> : null}
         <BrowserRouter>
           <Fragment>
+              <SemanticToastContainer />
             <Switch>
               <Route
                 exact

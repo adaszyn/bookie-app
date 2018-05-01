@@ -6447,9 +6447,27 @@ react-rte@^0.16.1:
     draft-js-utils ">=0.2.0"
     immutable "^3.8.1"
 
+react-semantic-toasts@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/react-semantic-toasts/-/react-semantic-toasts-0.3.1.tgz#4d0f8f38bdaa3f708594e4551d6b9e0cb91caa9f"
+  dependencies:
+    prop-types "^15.6.1"
+    react "^16.3.2"
+    semantic-ui-css "^2.3.1"
+    semantic-ui-react "^0.79.1"
+
 react@^16.3.1:
   version "16.3.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.3.1.tgz#4a2da433d471251c69b6033ada30e2ed1202cfd8"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
+
+react@^16.3.2:
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.3.2.tgz#fdc8420398533a1e58872f59091b272ce2f91ea9"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
