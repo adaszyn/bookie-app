@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-import { Grid, Header , Divider, Icon, Message, Container} from "semantic-ui-react";
+import { Grid, Header , Divider, Message, Container} from "semantic-ui-react";
 import "./HomeView.css";
 import { BookCard } from "../book-card/BookCard";
 import { NoteViewContainer } from "../note-card/NoteCard";
@@ -18,7 +18,8 @@ export class HomeView extends Component {
   }
 
   render() {
-    if(this.props.notes.size === 0 || typeof this.props.notes.size === 'undefined') {
+    const { notes } = this.props;
+    if(!notes || notes.lenght === 0) {
       return (
         <Grid stretched textAlign="center">
           <Grid.Column>
