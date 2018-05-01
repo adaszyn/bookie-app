@@ -24,6 +24,15 @@ export class NotesView extends Component {
       note
     });
   };
+
+  ifNoteReallyChanged = () => {
+   if(this.props.note.content && this.props.note.content.trim() !== this.state.note.toString("markdown").trim()){
+      return true;
+    }
+    return false;
+  }
+
+
   onSubmit = () => {
     const noteId = this.props.match.params.id;
     this.props
@@ -53,7 +62,8 @@ export class NotesView extends Component {
         </Breadcrumb>
         <Header as="h1">Note {this.props.note.id}</Header>
         {this.renderNote(this.props.note)}
-        <Button onClick={this.onSubmit}>Save</Button>
+        <Button color="teal" disabled={!this.ifNoteReallyChanged()} onClick={this.onSubmit}>Save</Button>
+        <Link to={"/books/" + this.props.note.bookId}><Button>Cancel</Button></Link>
       </div>
     );
   }
