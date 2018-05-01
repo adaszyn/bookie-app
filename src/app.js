@@ -9,6 +9,8 @@ import store from "store";
 import Axios from "axios";
 import {API_BASE} from './services/api-service';
 import {toast} from "react-semantic-toasts";
+import { DragDropContextProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 const authStore = new AuthStore();
 const notesStore = new NotesStore(authStore);
@@ -35,7 +37,9 @@ Axios.interceptors.response.use(null, function(error) {
 });
 
 export const App = () => (
+  <DragDropContextProvider backend={HTML5Backend}>
   <Provider {...stores}>
     <RoutesContainer />
   </Provider>
+  </DragDropContextProvider>
 );

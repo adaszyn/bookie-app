@@ -7,6 +7,7 @@ import {
   updateNote,
   deleteNote
 } from "../services/api-service";
+import { uniq, flatten } from "lodash";
 
 export class NotesStore {
   @observable note = {};
@@ -18,7 +19,6 @@ export class NotesStore {
   @observable loading = false;
   @observable notesFetchError = null;
   @observable notesCreating = false;
-  @observable notesUpdating = false;
   @observable notesUpdating = false;
 
 
@@ -36,6 +36,10 @@ export class NotesStore {
       }
       return byId;
     }, {});
+  }
+  @computed
+  get allTags () {
+    return uniq(flatten(this.notes.map(note => note.tags.split(","))));
   }
   @computed
   get bookIds () {

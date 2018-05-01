@@ -1,8 +1,11 @@
 import React from "react";
-import { Grid, Card, Icon, List, Popup, Header, Divider } from "semantic-ui-react";
+import {Grid, Card, Icon, List, Popup, Header, Divider, Label} from "semantic-ui-react";
 import { TagsEditor} from "../tags-editor/TagsEditor";
 import { ConfirmPopup } from "../confirm-popup/ConfirmPopup";
 import { observer, inject } from "mobx-react";
+import {getTagColor} from "../../util/tags.util";
+import {TagsDropZone} from "../tags/TagsDropZone";
+import { uniq } from "lodash";
 
 @observer
 export class NoteCard extends React.Component {
@@ -28,10 +31,15 @@ export class NoteCard extends React.Component {
 
   onTagsUpdated = (tags) => {
     const note = this.props.notes.find(note => note.id === this.props.noteId);
-    if(typeof tags === 'undefined')
+    if(typeof tags === 'undefined') {
       tags = '';
+    }
     tags = tags.join(',');
     this.props.updateNote(note.id, note.bookId, note.title, note.content, note.isFav, tags);
+  }
+  onTagDropped = tag => {
+    const updatedTags = uniq([tag.name,...this.getTagsArray(this.props.tags)])
+    this.onTagsUpdated(updatedTags)
   }
 
   onFavToggle = (e) => {
@@ -48,7 +56,7 @@ export class NoteCard extends React.Component {
   render() {
     const formattedTitle = this.getFormattedTitle(this.props.title);
     return (
-      <div>
+      <TagsDropZone note={this.props.note} onTagDropped={this.onTagDropped}>
         { this.props.listitem ? (
            <List.Item>
             <Card link style={{ width: "100%" }}>
@@ -74,6 +82,9 @@ export class NoteCard extends React.Component {
                   </Grid.Column>
               </Grid>
               </Card.Content>
+              <Card.Content style={{paddingTop: 0, paddingBottom: 0}}>
+                {this.getTagsArray(this.props.tags).map(tag => <Label name="" key={tag} color={getTagColor(tag)}/>)}
+              </Card.Content>
              </Card> 
           </List.Item> ) :(
              <Card link style={{ height: "230px" }}>
@@ -85,7 +96,10 @@ export class NoteCard extends React.Component {
                   {this.getFormattedDescription(this.props.description)}
                 </Card.Description>
               </Card.Content>
-              <Card.Content extra textAlign="right">
+               <Card.Content style={{paddingTop: 0, paddingBottom: 0}}>
+                 {this.getTagsArray(this.props.tags).map(tag => <Label name="" key={tag} color={getTagColor(tag)}/>)}
+               </Card.Content>
+               <Card.Content extra textAlign="right">
                 <Popup
                   on="click"
                   trigger={<Icon name="tags" onClick={(e) => {e.preventDefault()}}/>}
@@ -102,7 +116,7 @@ export class NoteCard extends React.Component {
               </Card.Content>
             </Card>
           )}
-      </div>
+      </TagsDropZone>
     );
   }
 }

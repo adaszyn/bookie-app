@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-import { Grid, Header , Divider, Message, Container} from "semantic-ui-react";
+import { Grid, Header, Divider, Message, Container } from "semantic-ui-react";
 import "./HomeView.css";
 import { BookCard } from "../book-card/BookCard";
 import { NoteViewContainer } from "../note-card/NoteCard";
 import { Carousel } from "../carousel/Carousel";
+import {DraggableTagsContainer} from "../tags/DraggableTags";
 
 @observer
 export class HomeView extends Component {
@@ -37,12 +38,18 @@ export class HomeView extends Component {
     return (
       <div>
         <Header block as="h2">Recent Notes</Header>
+        <Grid stackable>
+          <Grid.Column>
+          <DraggableTagsContainer />
+          </Grid.Column>
+        </Grid>
         <Carousel
           style={{minHeight: "280px", display:"block"}}
           items={this.props.notes}
           renderItem={note => (
               <Link to={"/notes/" + note.id} key={note.id}>
                 <NoteViewContainer
+                  note={note}
                   key={note.id}
                   noteId={note.id}
                   title={note.title}
@@ -73,6 +80,8 @@ export class HomeView extends Component {
             </Grid.Column>
           ))}
         </Grid>
+        <Divider />
+
       </div>
     );
   }
@@ -83,6 +92,7 @@ export const HomeViewContainer = inject(stores => {
     getAllNotes: stores.notesStore.getAllNotes,
     updateNote: stores.notesStore.updateNote,
     deleteNote: stores.notesStore.deleteNote,
-    books: stores.booksStore.booksList
+    books: stores.booksStore.booksList,
+    allTags: stores.notesStore.allTags,
   };
 })(HomeView);

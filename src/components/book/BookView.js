@@ -6,6 +6,7 @@ import { NoteViewContainer } from "../note-card/NoteCard";
 import { Link } from "react-router-dom";
 import { Carousel } from "../carousel/Carousel";
 import {LoadingPlaceholder} from "../loading/LoadingPlaceholder";
+import {DraggableTagsContainer} from "../tags/DraggableTags";
 
 @observer
 export class BookView extends Component {
@@ -160,6 +161,7 @@ export class BookView extends Component {
           </Menu>
 
         </Header>
+        <DraggableTagsContainer />
 
         {this.renderNotes(notes)}
       </div>
