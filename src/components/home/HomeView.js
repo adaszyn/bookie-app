@@ -17,6 +17,8 @@ export class HomeView extends Component {
     return this.props.notes.filter( note => note.bookId === bookId).length;
   }
 
+  hasSomeNotes = book => this.props.notes.filter(note => note.bookId === book.isbn10).length !== 0
+
   render() {
     const { notes } = this.props;
     if(!notes || notes.length === 0) {
@@ -57,7 +59,7 @@ export class HomeView extends Component {
         <Divider />
           {!!this.props.books.length && <Header block as="h2">My Books</Header>}
         <Grid stackable>
-          {this.props.books.map(book => (
+          {this.props.books.filter(this.hasSomeNotes).map(book => (
             <Grid.Column computer={5} key={book.id}>
                 <BookCard
                   key={book.id}
