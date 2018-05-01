@@ -3,6 +3,7 @@ import { Breadcrumb, Header, Button } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { Link } from "react-router-dom";
 import RichTextEditor from "react-rte";
+import {LoadingPlaceholder} from "../loading/LoadingPlaceholder";
 
 @observer
 export class NotesView extends Component {
@@ -13,6 +14,9 @@ export class NotesView extends Component {
     this.props.getNote(this.props.match.params.id);
   }
   componentWillReceiveProps({ note }) {
+    if (note) {
+      this.props.fetchBookById(note.bookId);
+    }
     if (note.content !== this.props.note.content) {
       this.setState({
         note: RichTextEditor.createValueFromString(note.content, "markdown")
@@ -38,6 +42,10 @@ export class NotesView extends Component {
     );
   }
   render() {
+    const book = this.props.books.get(this.props.note.bookId);
+    if (!book) {
+      return <LoadingPlaceholder/>
+    }
     return (
       <div>
         <Breadcrumb>
@@ -45,7 +53,7 @@ export class NotesView extends Component {
           <Breadcrumb.Divider> > </Breadcrumb.Divider>
           <Breadcrumb.Section>
             <Link to={"/books/" + this.props.note.bookId}>
-              Book {this.props.note.bookId}{" "}
+              {book.title}
             </Link>
           </Breadcrumb.Section>
           <Breadcrumb.Divider> > </Breadcrumb.Divider>
@@ -64,6 +72,8 @@ export const NotesViewContainer = inject(stores => {
     note: stores.notesStore.note,
     errorMessage: stores.notesStore.notesFetchError,
     loading: stores.notesStore.loading,
-    updateNote: stores.notesStore.updateNote
+    updateNote: stores.notesStore.updateNote,
+    books: stores.booksStore.books,
+    fetchBookById: stores.booksStore.fetchBookById
   };
 })(NotesView);
