@@ -35,7 +35,6 @@ export class NoteCard extends React.Component {
   }
 
   onFavToggle = (e) => {
-    console.log(e);
     e.preventDefault();
     const note = this.props.notes.find(note => note.id === this.props.noteId);
     this.props.updateNote(note.id, note.bookId, note.title, note.content, !note.isFav, note.tags);

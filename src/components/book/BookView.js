@@ -53,13 +53,13 @@ export class BookView extends Component {
         renderItem={note => (
             <Link to={"/notes/" + note.id} key={note.id}>
                 <NoteViewContainer
-                    key={note.id}
-                    noteId={note.id}
-                    title={note.title}
-                    isFav={note.isFav}
-                    meta={note.dateModified}
-                    description={note.content}
-                    tags={note.tags}
+                  key={note.id}
+                  noteId={note.id}
+                  title={note.title}
+                  isFav={note.isFav}
+                  meta={note.dateModified}
+                  description={note.content}
+                  tags={note.tags}
                 />
             </Link>
         )}
@@ -73,14 +73,14 @@ export class BookView extends Component {
         {notes.map(note => (
             <Link to={"/notes/" + note.id} key={note.id}>
                 <NoteViewContainer
-                    key={note.id}
-                    noteId={note.id}
-                    listitem                   
-                    title={note.title}
-                    isFav={note.isFav}
-                    meta={note.dateModified}
-                    description={note.content}
-                    tags={note.tags}
+                  key={note.id}
+                  noteId={note.id}
+                  listitem                   
+                  title={note.title}
+                  isFav={note.isFav}
+                  meta={note.dateModified}
+                  description={note.content}
+                  tags={note.tags}
                 />
             </Link>
         ))}

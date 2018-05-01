@@ -55,7 +55,7 @@ export class HomeView extends Component {
           perPage={3}
         />
         <Divider />
-          {!!this.props.books.length && <Header block as="h2">All Books</Header>}
+          {!!this.props.books.length && <Header block as="h2">My Books</Header>}
         <Grid stackable>
           {this.props.books.map(book => (
             <Grid.Column computer={5} key={book.id}>

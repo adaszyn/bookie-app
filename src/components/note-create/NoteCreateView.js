@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import { Breadcrumb, Button, Input, Grid, Popup, Icon } from "semantic-ui-react";
 import RichTextEditor from "react-rte";
-import {TagsEditor} from "../tags-editor/TagsEditor";
+import { TagsEditor } from "../tags-editor/TagsEditor";
 import {Link} from "react-router-dom";
 
 @observer
@@ -87,7 +87,7 @@ export class NoteCreateView extends Component {
           </Popup>
           <Icon link name="heart" size="large" color={this.state.isFav ? "red" : "grey"} onClick={(e) => {this.onFavToggle(e)}} />
         </Grid.Column>
-        <Grid.Column textAlign="center" verticalAlign="middle" width="3">
+        <Grid.Column textAlign="right" verticalAlign="middle" width="3">
           <Button color="teal" onClick={this.onSubmit}>Save</Button>
         </Grid.Column>
         </Grid>
