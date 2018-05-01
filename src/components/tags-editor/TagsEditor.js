@@ -5,7 +5,6 @@ export class TagsEditor extends Component {
 
 	constructor(props){
 		super(props);
-
 		this.state = {
 			tags: props.tags,
 			textInput: ''
@@ -30,13 +29,12 @@ export class TagsEditor extends Component {
 			updatedArray.splice(updatedArray.indexOf(tag), 1);
 			this.updateTagsArrayInState(updatedArray);
 		}
-		this.props.onTagRemoved(tag, updatedArray);
+		this.props.onTagRemoved(updatedArray);
 	}
 
 	onTagAdded = () => {
-		const updatedArray = this.state.tags.slice();
-		updatedArray.push(this.state.textInput);
-		this.props.onTagAdded(this.state.textInput, updatedArray);
+		const updatedArray = Array.from(new Set([this.state.textInput, ...this.state.tags]));
+		this.props.onTagAdded(updatedArray);
 		this.setState({
 			tags: updatedArray,
 			textInput: ''
@@ -71,7 +69,7 @@ export class TagsEditor extends Component {
 				 <Input
 				 	size = "mini"
 				 	focus
-			    action = {{ content: 'Add', onClick: this.onTagAdded}}
+			    action = {{ content: 'Add', onClick: () => this.onTagAdded(this.state.tags)}}
 			    iconPosition="left"
 			    labelPosition="right" 
 			    value = {textInput}

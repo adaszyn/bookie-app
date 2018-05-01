@@ -64,8 +64,8 @@ export class NoteCard extends React.Component {
                   position="bottom left">
                     <Popup.Content>
                       <TagsEditor 
-                      onTagRemoved={(tag, tags) => this.onTagsUpdated(tags)} 
-                      onTagAdded={(tag, tags) => this.onTagsUpdated(tags)} 
+                      onTagRemoved={this.onTagsUpdated}
+                      onTagAdded={this.onTagsUpdated}
                       tags={this.getTagsArray(this.props.tags)}/>
                     </Popup.Content>
                   </Popup>
@@ -92,8 +92,8 @@ export class NoteCard extends React.Component {
                   position="bottom left">
                   <Popup.Content>
                     <TagsEditor 
-                    onTagRemoved={(tag, tags) => this.onTagsUpdated(tags)} 
-                    onTagAdded={(tag, tags) => this.onTagsUpdated(tags)} 
+                    onTagRemoved={this.onTagsUpdated}
+                    onTagAdded={this.onTagsUpdated}
                     tags={this.getTagsArray(this.props.tags)}/>
                   </Popup.Content>
                 </Popup>
