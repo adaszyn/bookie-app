@@ -53,6 +53,26 @@ export class NoteCard extends React.Component {
     this.props.deleteNote(note.id, note.bookId);
   }
 
+  renderNoteToolbar= () => {
+    return ( 
+      <div>
+        <Popup
+        on="click"
+        trigger={<Icon name="tags" onClick={(e) => {e.preventDefault()}}/>}
+        position="bottom left">
+          <Popup.Content>
+            <TagsEditor 
+            onTagRemoved={this.onTagsUpdated}
+            onTagAdded={this.onTagsUpdated}
+            tags={this.getTagsArray(this.props.tags)}/>
+          </Popup.Content>
+        </Popup>
+        <Icon name="heart" color={this.props.isFav ? "red" : "grey"} onClick={(e) => {this.onFavToggle(e)}}/>
+        <ConfirmPopup onConfirm={() => this.onDeleteNote() } title="Delete note ?" />
+      </div>
+    );
+  }
+
   render() {
     const formattedTitle = this.getFormattedTitle(this.props.title);
     return (
@@ -66,20 +86,8 @@ export class NoteCard extends React.Component {
                   <Header as="h4" content={this.props.title} subheader={this.props.meta} />
                 </Grid.Column>
                 <Grid.Column computer={4} textAlign ="right">
-                  <Popup
-                  on="click"
-                  trigger={<Icon name="tags" onClick={(e) => {e.preventDefault()}}/>}
-                  position="bottom left">
-                    <Popup.Content>
-                      <TagsEditor 
-                      onTagRemoved={this.onTagsUpdated}
-                      onTagAdded={this.onTagsUpdated}
-                      tags={this.getTagsArray(this.props.tags)}/>
-                    </Popup.Content>
-                  </Popup>
-                  <Icon name="heart" color={this.props.isFav ? "red" : "grey"} onClick={(e) => {this.onFavToggle(e)}}/>
-                  <ConfirmPopup onConfirm={() => this.onDeleteNote() } title="Delete note ?" />
-                  </Grid.Column>
+                  {this.renderNoteToolbar()}
+                </Grid.Column>
               </Grid>
               </Card.Content>
               <Card.Content style={{paddingTop: 0, paddingBottom: 0}}>
@@ -87,7 +95,7 @@ export class NoteCard extends React.Component {
               </Card.Content>
              </Card> 
           </List.Item> ) :(
-             <Card link style={{ height: "230px" }}>
+            <Card link style={{ height: "230px" }}>
               <Card.Content>
                 <Header as="h4">{formattedTitle}</Header>
                 <Divider />
@@ -96,23 +104,11 @@ export class NoteCard extends React.Component {
                   {this.getFormattedDescription(this.props.description)}
                 </Card.Description>
               </Card.Content>
-               <Card.Content style={{paddingTop: 0, paddingBottom: 0}}>
-                 {this.getTagsArray(this.props.tags).map(tag => <Label name="" key={tag} color={getTagColor(tag)}/>)}
-               </Card.Content>
-               <Card.Content extra textAlign="right">
-                <Popup
-                  on="click"
-                  trigger={<Icon name="tags" onClick={(e) => {e.preventDefault()}}/>}
-                  position="bottom left">
-                  <Popup.Content>
-                    <TagsEditor 
-                    onTagRemoved={this.onTagsUpdated}
-                    onTagAdded={this.onTagsUpdated}
-                    tags={this.getTagsArray(this.props.tags)}/>
-                  </Popup.Content>
-                </Popup>
-                <Icon name="heart" color={this.props.isFav ? "red" : "grey"} onClick={(e) => {this.onFavToggle(e)}} />
-                <ConfirmPopup onConfirm={() => this.onDeleteNote() } title="Delete note ?" />
+              <Card.Content style={{paddingTop: 0, paddingBottom: 0}}>
+              {this.getTagsArray(this.props.tags).map(tag => <Label name="" key={tag} color={getTagColor(tag)}/>)}
+                </Card.Content>
+              <Card.Content extra textAlign="right">
+                {this.renderNoteToolbar()}
               </Card.Content>
             </Card>
           )}

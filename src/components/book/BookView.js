@@ -162,7 +162,7 @@ export class BookView extends Component {
 
         </Header>
         <DraggableTagsContainer />
-
+        <br/>
         {this.renderNotes(notes)}
       </div>
     );
