@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Grid, Breadcrumb, Header, Button, List, Menu, Icon, Rating, Divider, Message } from "semantic-ui-react";
+import { Grid, Breadcrumb, Header, Button, List, Menu, Icon, Rating, Divider } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { BookCard } from "../book-card/BookCard";
 import { NoteViewContainer } from "../note-card/NoteCard";
 import { Link } from "react-router-dom";
 import { Carousel } from "../carousel/Carousel";
+import {LoadingPlaceholder} from "../loading/LoadingPlaceholder";
 
 @observer
 export class BookView extends Component {
@@ -104,13 +105,7 @@ export class BookView extends Component {
     }
     if (!book) {
       return ( 
-        <Message icon>
-          <Icon name='circle notched' loading />
-          <Message.Content>
-            <Message.Header>Just one second</Message.Header>
-            Loading Book
-          </Message.Content>
-        </Message>
+        <LoadingPlaceholder/>
       );
     }
     const notes = this.props.notesByBookId[book.isbn10] || [];

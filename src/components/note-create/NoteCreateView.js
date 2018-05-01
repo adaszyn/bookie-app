@@ -4,18 +4,23 @@ import { Breadcrumb, Button, Input, Grid, Popup, Icon } from "semantic-ui-react"
 import RichTextEditor from "react-rte";
 import { TagsEditor } from "../tags-editor/TagsEditor";
 import {Link} from "react-router-dom";
+import {LoadingPlaceholder} from "../loading/LoadingPlaceholder";
 
 @observer
 export class NoteCreateView extends Component {
- 
+
   constructor(props){
     super(props);
     this.state = {
       title: "",
-      note: RichTextEditor.createEmptyValue(), 
-      isFav: false, 
+      note: RichTextEditor.createEmptyValue(),
+      isFav: false,
       tags: []
     };
+  }
+  componentDidMount () {
+    const bookId = this.props.match.params.id;
+    this.props.fetchBookById(bookId);
   }
   onNoteChange = note => {
     this.setState({
@@ -49,6 +54,9 @@ export class NoteCreateView extends Component {
   render() {
       const bookId = this.props.match.params.id;
       const book = this.props.books.get(bookId);
+      if (!book) {
+        return <LoadingPlaceholder/>
+      }
       return (
       <div>
         <Breadcrumb>
@@ -67,7 +75,7 @@ export class NoteCreateView extends Component {
 
         <Input
           fluid
-          placeholder="Title .." 
+          placeholder="Title .."
           onChange= {this.onTitleChange.bind(this)}/>
         <br/>
         <RichTextEditor value={this.state.note} onChange={this.onNoteChange} placeholder="Begin note here .."/>
@@ -79,9 +87,9 @@ export class NoteCreateView extends Component {
             trigger={<Icon link size="large" name="tags" onClick={(e) => {e.preventDefault()}}/>}
             position="bottom left">
             <Popup.Content>
-             <TagsEditor 
+             <TagsEditor
               tags = {this.state.tags}
-              onTagAdded={(tag, updatedTagsArray)=> this.onTagsChanged(tag, updatedTagsArray)} 
+              onTagAdded={(tag, updatedTagsArray)=> this.onTagsChanged(tag, updatedTagsArray)}
               onTagRemoved={(tag, updatedTagsArray)=> this.onTagsChanged(tag, updatedTagsArray)}/>
             </Popup.Content>
           </Popup>
@@ -99,5 +107,6 @@ export const NoteCreateViewContainer = inject(stores => {
   return {
     saveNote: stores.notesStore.saveNote,
     books: stores.booksStore.books,
+    fetchBookById: stores.booksStore.fetchBookById,
   };
 })(NoteCreateView);
