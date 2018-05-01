@@ -24,7 +24,7 @@ function formatBookResponse(result) {
     title: result.volumeInfo.title,
     authors: result.volumeInfo.authors,
     rating: result.volumeInfo.averageRating,
-    description: trimText(result.volumeInfo.description, 250),
+    description: trimText(result.volumeInfo.description, 25),
     fullDescription: result.volumeInfo.description,
     image:
       result.volumeInfo.imageLinks && result.volumeInfo.imageLinks.thumbnail
