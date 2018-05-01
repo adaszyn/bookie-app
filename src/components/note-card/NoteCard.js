@@ -1,19 +1,25 @@
 import React from "react";
-import {Grid, Card, Icon, List, Popup, Header } from "semantic-ui-react";
-import {TagsEditor} from "../tags-editor/TagsEditor";
+import { Grid, Card, Icon, List, Popup, Header, Divider } from "semantic-ui-react";
+import { TagsEditor} from "../tags-editor/TagsEditor";
 import { ConfirmPopup } from "../confirm-popup/ConfirmPopup";
 import { observer, inject } from "mobx-react";
 
 @observer
-export class NoteCard extends React.Component{
+export class NoteCard extends React.Component {
   
   getFormattedDescription = description => {
     const words = description.split(" ");
     if (words.length > 4) {
-      return words.slice(0, 4).join(" ") + "...";
+      return words.slice(0, 4).join(" ") + " ...";
     }
     return description;
   };
+
+  getFormattedTitle = title => {
+    title =  title.substring(0,15);
+    if(title.length >= 15) title = title + " ..";
+    return title;
+  }
 
   getTagsArray = tags => {
     if(!tags) return [];
@@ -29,6 +35,7 @@ export class NoteCard extends React.Component{
   }
 
   onFavToggle = (e) => {
+    console.log(e);
     e.preventDefault();
     const note = this.props.notes.find(note => note.id === this.props.noteId);
     this.props.updateNote(note.id, note.bookId, note.title, note.content, !note.isFav, note.tags);
@@ -40,15 +47,16 @@ export class NoteCard extends React.Component{
   }
 
   render() {
+    const formattedTitle = this.getFormattedTitle(this.props.title);
     return (
       <div>
         { this.props.listitem ? (
            <List.Item>
-            <Card style={{ width: "100%" }}>
+            <Card link style={{ width: "100%" }}>
               <Card.Content extra>
               <Grid>
                 <Grid.Column computer={12}>
-                  <Header content={this.props.title} subheader={this.props.meta} />
+                  <Header as="h4" content={this.props.title} subheader={this.props.meta} />
                 </Grid.Column>
                 <Grid.Column computer={4} textAlign ="right">
                   <Popup
@@ -59,19 +67,20 @@ export class NoteCard extends React.Component{
                       <TagsEditor 
                       onTagRemoved={(tag, tags) => this.onTagsUpdated(tags)} 
                       onTagAdded={(tag, tags) => this.onTagsUpdated(tags)} 
-                      tags={this.props.tags}/>
+                      tags={this.getTagsArray(this.props.tags)}/>
                     </Popup.Content>
                   </Popup>
-                  <Icon name="heart" color={this.props.isFav ? "red" : "grey"} />
+                  <Icon name="heart" color={this.props.isFav ? "red" : "grey"} onClick={(e) => {this.onFavToggle(e)}}/>
                   <ConfirmPopup onConfirm={() => this.onDeleteNote() } title="Delete note ?" />
                   </Grid.Column>
               </Grid>
               </Card.Content>
              </Card> 
           </List.Item> ) :(
-             <Card style={{ height: "100%" }}>
+             <Card link style={{ height: "230px" }}>
               <Card.Content>
-                <Card.Header>{this.props.title}</Card.Header>
+                <Header as="h4">{formattedTitle}</Header>
+                <Divider />
                 <Card.Meta>{this.props.meta}</Card.Meta>
                 <Card.Description>
                   {this.getFormattedDescription(this.props.description)}

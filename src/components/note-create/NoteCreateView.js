@@ -65,18 +65,18 @@ export class NoteCreateView extends Component {
         <br/>
         <br/>
 
-        <Input fluid
+        <Input
           fluid
           placeholder="Title .." 
           onChange= {this.onTitleChange.bind(this)}/>
         <br/>
-        <RichTextEditor style={{'height': '100%'}} value={this.state.note} onChange={this.onNoteChange} placeholder="Begin note here .."/>
+        <RichTextEditor value={this.state.note} onChange={this.onNoteChange} placeholder="Begin note here .."/>
         <br/>
         <Grid>
         <Grid.Column width="13">
           <Popup
             on="click"
-            trigger={<Icon size="large" name="tags" onClick={(e) => {e.preventDefault()}}/>}
+            trigger={<Icon link size="large" name="tags" onClick={(e) => {e.preventDefault()}}/>}
             position="bottom left">
             <Popup.Content>
              <TagsEditor 
@@ -85,7 +85,7 @@ export class NoteCreateView extends Component {
               onTagRemoved={(tag, updatedTagsArray)=> this.onTagsChanged(tag, updatedTagsArray)}/>
             </Popup.Content>
           </Popup>
-          <Icon name="heart" size="large" color={this.state.isFav ? "red" : "grey"} onClick={(e) => {this.onFavToggle(e)}} />
+          <Icon link name="heart" size="large" color={this.state.isFav ? "red" : "grey"} onClick={(e) => {this.onFavToggle(e)}} />
         </Grid.Column>
         <Grid.Column textAlign="center" verticalAlign="middle" width="3">
           <Button color="teal" onClick={this.onSubmit}>Save</Button>

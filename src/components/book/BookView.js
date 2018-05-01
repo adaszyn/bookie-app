@@ -44,27 +44,6 @@ export class BookView extends Component {
     }
   }
 
-  /*
-
-  onTagsUpdated = (id, tags) => {
-    const note = this.props.notes.find(note => note.id === id);
-    if(typeof tags === 'undefined')
-      tags = '';
-    this.props.updateNote(note.id, note.bookId, note.title, note.content, note.isFav, tags);
-  }
-
-  onFavToggle = id => {
-    const note = this.props.notes.find(note => note.id === id);
-    note.isFav = !note.isFav;
-    this.props.updateNote(note.id, note.bookId, note.title, note.content, note.isFav, note.tags);
-  }
-
-  onDeleteNote = id => {
-    const note = this.props.notes.find(note => note.id === id);
-    this.props.deleteNote(note.id, note.bookId);
-  }
-  */
-
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   renderNotesCarousel = (notes) => {
@@ -92,7 +71,6 @@ export class BookView extends Component {
     return  <List
         style={{display:"block", width: "100%" }}>
         {notes.map(note => (
-
             <Link to={"/notes/" + note.id} key={note.id}>
                 <NoteViewContainer
                     key={note.id}
@@ -158,7 +136,7 @@ export class BookView extends Component {
           <Grid.Column computer={9}>
             <Header as="h2">{book.title} 
               <Header.Subheader>
-                by {book.authors.join(',')} 
+                by {book.authors.join(', ')} 
                 <Divider/>
                 <Rating disabled maxRating="5" rating={book.rating} /> {book.rating}
               </Header.Subheader>
