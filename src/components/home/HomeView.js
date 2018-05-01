@@ -19,7 +19,7 @@ export class HomeView extends Component {
 
   render() {
     const { notes } = this.props;
-    if(!notes || notes.lenght === 0) {
+    if(!notes || notes.length === 0) {
       return (
         <Grid stretched textAlign="center">
           <Grid.Column>
