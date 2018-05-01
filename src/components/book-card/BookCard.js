@@ -22,7 +22,7 @@ export class BookCard extends React.Component {
     const numberOfNotes = this.props.numberOfNotes;
 
     return (
-      <Card link style={{'height': '100%'}} href={"/books/" + bookId}>
+      <Card link href={"/books/" + bookId}>
         <Card.Content>
           <Card.Header>{title}</Card.Header>
         </Card.Content>
