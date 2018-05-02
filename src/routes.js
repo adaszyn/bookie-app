@@ -11,6 +11,7 @@ import { NotesViewContainer } from "./components/notes/NotesView";
 import { BookViewContainer } from "./components/book/BookView";
 import { NoteCreateViewContainer } from "./components/note-create/NoteCreateView";
 import { SemanticToastContainer } from 'react-semantic-toasts';
+import { AboutContainer } from "./components/about/About";
 
 @observer
 export class Routes extends Component {
@@ -72,6 +73,13 @@ export class Routes extends Component {
                 logOut={logOut}
                 path="/books/:id"
                 component={BookViewContainer}
+              />
+              <PrivateRoute
+                authed={this.props.isLoggedIn}
+                exact
+                logOut={logOut}
+                path="/about"
+                component={AboutContainer}
               />
 
               <PrivateRoute
