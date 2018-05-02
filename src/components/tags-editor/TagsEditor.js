@@ -33,6 +33,9 @@ export class TagsEditor extends Component {
 	}
 
 	onTagAdded = () => {
+		if(this.state.tags.indexOf(this.state.textInput) > -1){
+			return;
+		}
 		const updatedArray = Array.from(new Set([this.state.textInput, ...this.state.tags]));
 		this.props.onTagAdded(updatedArray);
 		this.setState({
