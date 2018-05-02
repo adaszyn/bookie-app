@@ -23,6 +23,9 @@ export class DashboardWrapper extends Component {
 
           </Container>
           <Menu.Menu position="right">
+            <Menu.Item name="About"  as={Link} to='/about'/>
+          </Menu.Menu>
+          <Menu.Menu position="right">
             <Menu.Item name="logout" onClick={this.props.logOut} />
           </Menu.Menu>
         </Menu>
