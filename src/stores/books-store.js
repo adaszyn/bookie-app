@@ -30,6 +30,7 @@ export class BooksStore {
   setSearchPhrase(phrase) {
     this.searchPhrase = phrase;
     this.isSearching = true;
+    this.bookFetchError = null;
     this.searchBooksDebounced(phrase);
   }
   searchBooksDebounced = debounce(this.searchBooks, 500);
