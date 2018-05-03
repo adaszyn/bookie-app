@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Breadcrumb, Header, Button, List, Menu, Icon, Rating, Divider, Popup } from "semantic-ui-react";
+import { Grid, Breadcrumb, Header, Button, List, Menu, Icon, Rating, Divider, Popup, Dropdown, Label } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { BookCard } from "../book-card/BookCard";
 import { NoteViewContainer } from "../note-card/NoteCard";
@@ -8,12 +8,17 @@ import { Carousel } from "../carousel/Carousel";
 import {LoadingPlaceholder} from "../loading/LoadingPlaceholder";
 import {DraggableTagsContainer} from "../tags/DraggableTags";
 
+import {generateHash} from "../../util/string.util";
+import {COLORS} from "../../const/colors-const";
+
+
 @observer
 export class BookView extends Component {
   state = {
     descriptionExpanded: false,
     activeItem: "th-btn", 
-    showOnlyFav: false
+    showOnlyFav: false, 
+    filterByTags: []
   };
 
   componentWillReceiveProps(newProps) {
@@ -95,12 +100,18 @@ export class BookView extends Component {
         ))}
     </List>
   }
+  onTagsFilterChanged = (e, data) => {
+    console.log(data.value);
+    this.setState({
+      filterByTags: data.value
+    })
+    console.log(this.state);
+  }
   renderNotes = (notes) => {
-    if(this.state.showOnlyFav){
+    if((this.state.showOnlyFav || this.state.filterByTags.length > 0) && notes.length === 0){
       return (
         <div>
-          <Header as="h3"> You have not favorited any notes yet.</Header>
-          ProTip: Use the <Icon color="grey" size="small" name="heart" /> icon to Favorite a note. 
+          <Header as="h3"> No notes match your filter criteria</Header>
         </div>
       )
     }
@@ -116,6 +127,9 @@ export class BookView extends Component {
 
   render() {
     const book = this.props.books.get(this.props.match.params.id);
+    const tags = this.props.allTags;
+    const filterByTags = this.state.filterByTags;
+
     if (this.props.bookFetchError) {
       return <p>{this.props.bookFetchError}</p>;
     }
@@ -128,7 +142,26 @@ export class BookView extends Component {
     if(this.state.showOnlyFav){
       notes = notes.filter(note => note.isFav)
     }
-    
+    if(filterByTags.length > 0){
+      notes = notes.filter(note => filterByTags.every(filter => note.tags.indexOf(filter) > -1));
+    }
+    const dropdownOptions = this.props.allTags.map(tag => {
+      let colorFn = () => {return COLORS[generateHash(tag) % COLORS.length]};
+      let color = colorFn(tag);
+      return ({
+        'key': tag, 
+        'value': tag, 
+        'text': tag, 
+        'content': <Label color={color}> {tag} </Label>
+      });
+    });
+    const renderLabel = (label) => {
+      let color = () => {return COLORS[generateHash(label.text) % COLORS.length]};
+      return {
+        color: color(),
+        content: `${label.text}`,
+      }
+    }
     return (
       <div>
         <Grid>
@@ -172,7 +205,18 @@ export class BookView extends Component {
           </Menu>
 
           <Menu size="tiny" floated="right">
-            <Popup
+            <Dropdown 
+              renderLabel = {renderLabel}
+              onChange={this.onTagsFilterChanged}
+              floated="right" 
+              size="tiny" 
+              placeholder='Filter by tags' 
+              multiple 
+              search 
+              selection 
+              options={dropdownOptions} 
+              noResultsMessage="No more tags found"/>
+              <Popup
               trigger={
                 <Menu.Item 
                   active={this.state.showOnlyFav}
@@ -206,6 +250,7 @@ export const BookViewContainer = inject(stores => {
     deleteNote: stores.notesStore.deleteNote,
     fetchBookById: stores.booksStore.fetchBookById,
     books: stores.booksStore.books,
-    bookFetchError: stores.booksStore.bookFetchError
+    bookFetchError: stores.booksStore.bookFetchError,
+    allTags: stores.notesStore.allTags,
   };
 })(BookView);

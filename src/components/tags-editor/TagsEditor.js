@@ -12,15 +12,15 @@ export class TagsEditor extends Component {
 	}
 
 	updateTagsArrayInState = updatedArray => {
-		const updatedState = Object.assign({}, this.state);
-		updatedState.tags = updatedArray;
-		this.setState(updatedState);
+		this.setState({
+			tags: updatedArray
+		})
 	}
 
 	updateTextInputInState = textInput => {
-		const updatedState = Object.assign({}, this.state);
-		updatedState.textInput = textInput;
-		this.setState(updatedState);
+		this.setState({
+			textInput: textInput
+		})
 	}
 
 	onTagRemoved = tag => {

@@ -32,7 +32,7 @@ export class NoteCreateView extends Component {
       'title': e.target.value
     });
   };
-  onTagsChanged = (tag, updatedTagsArray) => {
+  onTagsChanged = (updatedTagsArray) => {
     this.setState({
       tags: updatedTagsArray
     })
@@ -89,8 +89,8 @@ export class NoteCreateView extends Component {
             <Popup.Content>
              <TagsEditor
               tags = {this.state.tags}
-              onTagAdded={(tag, updatedTagsArray)=> this.onTagsChanged(tag, updatedTagsArray)}
-              onTagRemoved={(tag, updatedTagsArray)=> this.onTagsChanged(tag, updatedTagsArray)}/>
+              onTagAdded={(updatedTagsArray)=> this.onTagsChanged(updatedTagsArray)}
+              onTagRemoved={(updatedTagsArray)=> this.onTagsChanged(updatedTagsArray)}/>
             </Popup.Content>
           </Popup>
           <Icon link name="heart" size="large" color={this.state.isFav ? "red" : "grey"} onClick={(e) => {this.onFavToggle(e)}} />
