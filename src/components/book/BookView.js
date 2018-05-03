@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Breadcrumb, Header, Button, List, Menu, Icon, Rating, Divider } from "semantic-ui-react";
+import { Grid, Breadcrumb, Header, Button, List, Menu, Icon, Rating, Divider, Popup } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { BookCard } from "../book-card/BookCard";
 import { NoteViewContainer } from "../note-card/NoteCard";
@@ -12,7 +12,8 @@ import {DraggableTagsContainer} from "../tags/DraggableTags";
 export class BookView extends Component {
   state = {
     descriptionExpanded: false,
-    activeItem: "th-btn"
+    activeItem: "th-btn", 
+    showOnlyFav: false
   };
 
   componentWillReceiveProps(newProps) {
@@ -47,6 +48,12 @@ export class BookView extends Component {
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  toggleFav = () => {
+    this.setState({
+      showOnlyFav: !this.state.showOnlyFav
+    })
+  }
 
   renderNotesCarousel = (notes) => {
     return <Carousel
@@ -109,7 +116,11 @@ export class BookView extends Component {
         <LoadingPlaceholder/>
       );
     }
-    const notes = this.props.notesByBookId[book.isbn10] || [];
+    let notes = this.props.notesByBookId[book.isbn10] || [];
+    if(this.state.showOnlyFav){
+      notes = notes.filter(note => note.isFav)
+    }
+    
     return (
       <div>
         <Grid>
@@ -143,15 +154,27 @@ export class BookView extends Component {
         </Grid>
         <Header block as="h2">
           Notes
-          {notes.length > 0 ? ( <Menu size="tiny" floated="right">
+          <Menu size="tiny" floated="right">
             <Menu.Item name='th-btn' active={this.state.activeItem === 'th-btn'} onClick={this.handleItemClick}>
               <Icon className='th'/>
             </Menu.Item>
             <Menu.Item name='list-btn' active={this.state.activeItem === 'list-btn'} onClick={this.handleItemClick}>
               <Icon name = 'list'/>
             </Menu.Item>
-          </Menu>) :(null)}
-         
+          </Menu>
+
+          <Menu size="tiny" floated="right">
+            <Popup
+              trigger={
+                <Menu.Item 
+                  active={this.state.showOnlyFav}
+                  onClick={this.toggleFav}>
+                  <Icon name="heart" />
+                </Menu.Item>}
+              content='Show only Favorite notes'
+            />
+            
+          </Menu>
           <Menu size="tiny" floated="right">
             <Link to={`/books/${book.isbn10}/create`}>
               <Menu.Item>
@@ -159,7 +182,6 @@ export class BookView extends Component {
               </Menu.Item>
             </Link>
           </Menu>
-
         </Header>
         <DraggableTagsContainer />
         <br/>
