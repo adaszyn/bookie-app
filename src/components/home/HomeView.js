@@ -40,7 +40,7 @@ export class HomeView extends Component {
         <Header block as="h2">Recent Notes</Header>
         <Grid stackable>
           <Grid.Column>
-          <DraggableTagsContainer />
+            {notes.length > 0 ? (<DraggableTagsContainer />): null}
           </Grid.Column>
         </Grid>
         <Carousel

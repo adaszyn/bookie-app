@@ -96,6 +96,14 @@ export class BookView extends Component {
     </List>
   }
   renderNotes = (notes) => {
+    if(this.state.showOnlyFav){
+      return (
+        <div>
+          <Header as="h3"> You have not favorited any notes yet.</Header>
+          ProTip: Use the <Icon color="grey" size="small" name="heart" /> icon to Favorite a note. 
+        </div>
+      )
+    }
     if (notes.length === 0) {
       return <Header as="h3">Click on the Plus (+) icon to start creating a new note</Header>
     }
@@ -173,7 +181,6 @@ export class BookView extends Component {
                 </Menu.Item>}
               content='Show only Favorite notes'
             />
-            
           </Menu>
           <Menu size="tiny" floated="right">
             <Link to={`/books/${book.isbn10}/create`}>
@@ -183,7 +190,7 @@ export class BookView extends Component {
             </Link>
           </Menu>
         </Header>
-        <DraggableTagsContainer />
+        {notes.length > 0 ? (<DraggableTagsContainer />): null}
         <br/>
         {this.renderNotes(notes)}
       </div>
