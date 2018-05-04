@@ -10,3 +10,7 @@ export function generateHash(str) {
   }
   return hash;
 }
+
+export function isNonEmpty (str) {
+  return typeof str === "string" && str !== "";
+}

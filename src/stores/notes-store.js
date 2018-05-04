@@ -8,6 +8,7 @@ import {
   deleteNote
 } from "../services/api-service";
 import { uniq, flatten } from "lodash";
+import {isNonEmpty} from "../util/string.util";
 
 export class NotesStore {
   @observable note = {};
@@ -39,7 +40,7 @@ export class NotesStore {
   }
   @computed
   get allTags () {
-    return uniq(flatten(this.notes.map(note => note.tags.split(","))));
+    return uniq(flatten(this.notes.map(note => note.tags.split(",").filter(isNonEmpty))));
   }
   @computed
   get bookIds () {
