@@ -1,5 +1,6 @@
 import axios from "axios";
 import { findWhere } from "underscore";
+import {clearSpecialCharacters} from "../util/string.util";
 const LIMIT = 5;
 const TOKEN = "AIzaSyDVy9lkJzUvrg6DFTgsO9q51uapMeuvfGA";
 
@@ -32,7 +33,7 @@ function formatBookResponse(result) {
 }
 export async function searchGoogleBooks(searchPhrase) {
   try {
-    const phraseEscaped = searchPhrase.split(" ").join("+");
+    const phraseEscaped = clearSpecialCharacters(searchPhrase).split(" ").join("+");
     if (phraseEscaped === "") {
         return Promise.resolve([]);
     }

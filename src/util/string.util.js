@@ -14,3 +14,7 @@ export function generateHash(str) {
 export function isNonEmpty (str) {
   return typeof str === "string" && str !== "";
 }
+
+export function clearSpecialCharacters (str) {
+  return str.replace(/[^a-zA-Z ]/g, "")
+}

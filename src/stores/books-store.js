@@ -36,12 +36,16 @@ export class BooksStore {
   searchBooksDebounced = debounce(this.searchBooks, 500);
   @action
   searchBooks(phrase) {
-    searchGoogleBooks(phrase).then(results => {
-      this.isSearching = false;
-      this.searchResults = results.map(result =>
-        ({...omit(result, "fullDescription"), key: result.isbn10})
-      );
-    });
+    searchGoogleBooks(phrase)
+      .then(results => {
+        this.isSearching = false;
+        this.searchResults = results.map(result =>
+          ({...omit(result, "fullDescription"), key: result.isbn10})
+        );
+      })
+      .catch(() => {
+        this.isSearching = false;
+      });
   }
   @action
   addBook(book) {
