@@ -50,6 +50,15 @@ export class NoteCard extends React.Component {
     const note = this.props.notes.find(note => note.id === this.props.noteId);
     this.props.deleteNote(note.id, note.bookId);
   }
+  renderTagsToolbar = () => {
+    const tags = this.props.tags;
+    if (!tags || tags.length === 0) {
+      return null;
+    }
+    return <Card.Content style={{paddingTop: 0, paddingBottom: 0}}>
+        {this.getTagsArray(this.props.tags).map(tag => <Label name="" key={tag} color={getTagColor(tag)}/>)}
+      </Card.Content>
+  }
 
   renderNoteToolbar= () => {
     return ( 
@@ -66,7 +75,7 @@ export class NoteCard extends React.Component {
           </Popup.Content>
         </Popup>
         <Icon name="heart" color={this.props.isFav ? "red" : "grey"} onClick={(e) => {this.onFavToggle(e)}}/>
-        <ConfirmPopup onConfirm={() => this.onDeleteNote() } title="Delete note ?" />
+        <ConfirmPopup onConfirm={ this.onDeleteNote } title="Delete note ?" />
       </div>
     );
   }
@@ -102,9 +111,7 @@ export class NoteCard extends React.Component {
                   {this.getFormattedDescription(this.props.description)}
                 </Card.Description>
               </Card.Content>
-              <Card.Content style={{paddingTop: 0, paddingBottom: 0}}>
-              {this.getTagsArray(this.props.tags).map(tag => <Label name="" key={tag} color={getTagColor(tag)}/>)}
-                </Card.Content>
+                {this.renderTagsToolbar()}
               <Card.Content extra textAlign="right">
                 {this.renderNoteToolbar()}
               </Card.Content>
