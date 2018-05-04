@@ -1,15 +1,13 @@
 import React, { Component } from "react";
-import { Grid, Breadcrumb, Header, Button, List, Menu, Icon, Rating, Divider, Popup, Dropdown, Label } from "semantic-ui-react";
+import { Grid, Breadcrumb, Header, Button, List, Menu, Icon, Rating, Divider, Popup} from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { BookCard } from "../book-card/BookCard";
 import { NoteViewContainer } from "../note-card/NoteCard";
 import { Link } from "react-router-dom";
 import { Carousel } from "../carousel/Carousel";
-import {LoadingPlaceholder} from "../loading/LoadingPlaceholder";
-import {DraggableTagsContainer} from "../tags/DraggableTags";
-
-import {generateHash} from "../../util/string.util";
-import {COLORS} from "../../const/colors-const";
+import { LoadingPlaceholder } from "../loading/LoadingPlaceholder";
+import { DraggableTagsContainer } from "../tags/DraggableTags";
+import { FilterByTags } from "../filter-by-tags/FilterByTags";
 
 
 @observer
@@ -100,12 +98,10 @@ export class BookView extends Component {
         ))}
     </List>
   }
-  onTagsFilterChanged = (e, data) => {
-    console.log(data.value);
+  onTagsFilterChanged = (filter) => {
     this.setState({
-      filterByTags: data.value
+      filterByTags: filter
     })
-    console.log(this.state);
   }
   renderNotes = (notes) => {
     if((this.state.showOnlyFav || this.state.filterByTags.length > 0) && notes.length === 0){
@@ -145,23 +141,7 @@ export class BookView extends Component {
     if(filterByTags.length > 0){
       notes = notes.filter(note => filterByTags.every(filter => note.tags.indexOf(filter) > -1));
     }
-    const dropdownOptions = this.props.allTags.map(tag => {
-      let colorFn = () => {return COLORS[generateHash(tag) % COLORS.length]};
-      let color = colorFn(tag);
-      return ({
-        'key': tag, 
-        'value': tag, 
-        'text': tag, 
-        'content': <Label color={color}> {tag} </Label>
-      });
-    });
-    const renderLabel = (label) => {
-      let color = () => {return COLORS[generateHash(label.text) % COLORS.length]};
-      return {
-        color: color(),
-        content: `${label.text}`,
-      }
-    }
+
     return (
       <div>
         <Grid>
@@ -203,19 +183,11 @@ export class BookView extends Component {
               <Icon name = 'list'/>
             </Menu.Item>
           </Menu>
-
           <Menu size="tiny" floated="right">
-            <Dropdown 
-              renderLabel = {renderLabel}
-              onChange={this.onTagsFilterChanged}
-              floated="right" 
-              size="tiny" 
-              placeholder='Filter by tags' 
-              multiple 
-              search 
-              selection 
-              options={dropdownOptions} 
-              noResultsMessage="No more tags found"/>
+              <FilterByTags 
+                onChange={(filter) => this.onTagsFilterChanged(filter)}
+                tags={tags}
+              />
               <Popup
               trigger={
                 <Menu.Item 

@@ -11,10 +11,8 @@ import { uniq } from "lodash";
 export class NoteCard extends React.Component {
   
   getFormattedDescription = description => {
-    const words = description.split(" ");
-    if (words.length > 4) {
-      return words.slice(0, 4).join(" ") + " ...";
-    }
+    description = description.substring(0,15);
+    if(description.length >= 15) description = description + " .."
     return description;
   };
 
@@ -99,7 +97,7 @@ export class NoteCard extends React.Component {
               <Card.Content>
                 <Header as="h4">{formattedTitle}</Header>
                 <Divider />
-                <Card.Meta>{this.props.meta}</Card.Meta>
+                <Card.Content meta={this.props.meta} size="tiny" />
                 <Card.Description>
                   {this.getFormattedDescription(this.props.description)}
                 </Card.Description>

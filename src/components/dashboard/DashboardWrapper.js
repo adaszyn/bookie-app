@@ -20,14 +20,9 @@ export class DashboardWrapper extends Component {
             </Menu.Item>
 
             <BookSearchContainer />
-
-          </Container>
-          <Menu.Menu position="right">
-            <Menu.Item name="About"  as={Link} to='/about'/>
-          </Menu.Menu>
-          <Menu.Menu position="right">
+            <Menu.Item position="right" name="About"  as={Link} to='/about'/>
             <Menu.Item name="logout" onClick={this.props.logOut} />
-          </Menu.Menu>
+          </Container>
         </Menu>
 
         <Container text style={{ marginTop: "7em" }}>
