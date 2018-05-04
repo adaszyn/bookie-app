@@ -42,6 +42,14 @@ export class NoteCreateView extends Component {
       'isFav': !this.state.isFav
     })
   }
+
+  ifNoteIsEmpty = () => {
+   if(this.state.title.trim() === '' || this.state.note.toString("markdown").trim() === ''){
+      return true;
+    }
+    return false;
+  }
+
   onSubmit = () => {
     const bookId = this.props.match.params.id;
     const tagsCSV = this.state.tags.join(',');
@@ -81,7 +89,7 @@ export class NoteCreateView extends Component {
         <RichTextEditor value={this.state.note} onChange={this.onNoteChange} placeholder="Begin note here .."/>
         <br/>
         <Grid>
-        <Grid.Column width="13">
+        <Grid.Column width="10">
           <Popup
             on="click"
             trigger={<Icon link size="large" name="tags" onClick={(e) => {e.preventDefault()}}/>}
@@ -95,8 +103,9 @@ export class NoteCreateView extends Component {
           </Popup>
           <Icon link name="heart" size="large" color={this.state.isFav ? "red" : "grey"} onClick={(e) => {this.onFavToggle(e)}} />
         </Grid.Column>
-        <Grid.Column textAlign="right" verticalAlign="middle" width="3">
-          <Button color="teal" onClick={this.onSubmit}>Save</Button>
+        <Grid.Column textAlign="right" verticalAlign="middle" width="6">
+          <Button color="teal" disabled={this.ifNoteIsEmpty()} onClick={this.onSubmit}>Save</Button>
+          <Link to={"/books/" + this.props.match.params.id}><Button>Cancel</Button></Link>
         </Grid.Column>
         </Grid>
       </div>
