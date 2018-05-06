@@ -70,7 +70,7 @@ export class SearchView extends Component {
           loader={this.props.loading && <div className="loader" key={0}>Loading ...</div>}
         >
 
-          {results.map(result => <SearchResult key={result.id} {...result}/>)}
+          {results.map(result => result.isbn10? <SearchResult key={result.id} {...result}/>: null)}
 
         </InfiniteScroll>
         {loading && <Dimmer active inverted>

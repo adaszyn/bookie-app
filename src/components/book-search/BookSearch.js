@@ -55,5 +55,5 @@ export const BookSearchContainer = inject(stores => ({
   onSearchChange: ({ target: { value } }) =>
     stores.booksStore.setSearchPhrase(value),
   loading: stores.booksStore.isSearching,
-  results: stores.booksStore.searchResults.map(result => omit(result, "otherIdentifier"))
+  results: stores.booksStore.searchResults.map(result => omit(result, "otherIdentifier")).filter(result => result.isbn10)
 }))(withRouter(BookSearch));
