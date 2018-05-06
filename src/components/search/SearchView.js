@@ -43,7 +43,6 @@ export class SearchView extends Component {
     const { searchPhrase, results, hasMore, onLanguageChange, loading } = this.props;
     return (
       <div>
-        { this.props.loading ? "true" : "false"}
         <Input
           style={{width: "100%"}}
           value={searchPhrase}
@@ -51,6 +50,7 @@ export class SearchView extends Component {
           icon={<Icon onClick={this.onSubmit} name='search' circular link />}
           placeholder='Search...'
         />
+        Search for books written in:
         <ReactFlagsSelect
           defaultCountry="GB"
           countries={["GB", "FR", "DE", "IT"]}

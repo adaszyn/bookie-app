@@ -1,9 +1,10 @@
 import React from "react";
 import {Item, Rating} from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 export const SearchResult = ({ image, description, title, rating, id }) => {
   return (
-    <Item key={id}>
+    <Item key={id} as={Link} to={'/books/'+id}>
       <Item.Image size='tiny' src={image}/>
       <Item.Content>
         <Item.Header as='a'>{title}</Item.Header>
