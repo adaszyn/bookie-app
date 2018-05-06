@@ -11,11 +11,13 @@ import {API_BASE} from './services/api-service';
 import {toast} from "react-semantic-toasts";
 import { DragDropContextProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
+import {SearchStore} from "./stores/search-store";
 
 const authStore = new AuthStore();
 const notesStore = new NotesStore(authStore);
 const booksStore = new BooksStore(notesStore);
-const stores = { booksStore, notesStore, authStore };
+const searchStore = new SearchStore();
+const stores = { booksStore, notesStore, authStore, searchStore };
 
 Axios.defaults.withCredentials = true;
 

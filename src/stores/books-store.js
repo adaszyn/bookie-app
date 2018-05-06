@@ -37,10 +37,11 @@ export class BooksStore {
   @action
   searchBooks(phrase) {
     searchGoogleBooks(phrase)
+      .then(results => ([...results, {type: 'footer', key: "footer", isbn10: "footer", title: "footer"}]))
       .then(results => {
         this.isSearching = false;
         this.searchResults = results.map(result =>
-          ({...omit(result, "fullDescription"), key: result.isbn10})
+          ({...omit(result, "fullDescription"), key: result.isbn10 || result.isbn13 || result.otherIdentifier})
         );
       })
       .catch(() => {

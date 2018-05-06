@@ -12,6 +12,7 @@ import { BookViewContainer } from "./components/book/BookView";
 import { NoteCreateViewContainer } from "./components/note-create/NoteCreateView";
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import { AboutContainer } from "./components/about/About";
+import {SearchViewContainer} from "./components/search/SearchView";
 
 @observer
 export class Routes extends Component {
@@ -80,6 +81,13 @@ export class Routes extends Component {
                 logOut={logOut}
                 path="/about"
                 component={AboutContainer}
+              />
+              <PrivateRoute
+                authed={this.props.isLoggedIn}
+                exact
+                logOut={logOut}
+                path="/search"
+                component={SearchViewContainer}
               />
 
               <PrivateRoute
