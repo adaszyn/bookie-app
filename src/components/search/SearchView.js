@@ -12,7 +12,7 @@ import 'react-flags-select/css/react-flags-select.css';
 export class SearchView extends Component {
   constructor(props) {
     super(props);
-    this.searchDebounced = debounce(props.search, 500);
+    this.searchDebounced = debounce(props.search, 1000);
   }
   getNumberOfNotesByBookId = bookId => {
     return this.props.notes.filter( note => note.bookId === bookId).length;
@@ -27,7 +27,7 @@ export class SearchView extends Component {
     const newQuery = qs.parse(newProps.location.search).q;
     if (newQuery !== oldQuery) {
       this.props.setSearchPhrase(newQuery);
-      this.props.search();
+      this.searchDebounced();
     }
   }
 
