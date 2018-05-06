@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Breadcrumb, Header, Button, List, Menu, Icon, Rating, Divider, Popup} from "semantic-ui-react";
+import { Grid, Breadcrumb, Header, Button, List, Menu, Icon, Rating, Divider, Popup, Container} from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { BookCard } from "../book-card/BookCard";
 import { NoteViewContainer } from "../note-card/NoteCard";
@@ -175,7 +175,7 @@ export class BookView extends Component {
         </Grid>
         <Header block as="h2">
           Notes
-          <Menu size="tiny" floated="right">
+          <Menu size="tiny" floated="right" className="stackable">
             <Menu.Item name='th-btn' active={this.state.activeItem === 'th-btn'} onClick={this.handleItemClick}>
               <Icon className='th'/>
             </Menu.Item>
@@ -183,7 +183,7 @@ export class BookView extends Component {
               <Icon name = 'list'/>
             </Menu.Item>
           </Menu>
-          <Menu size="tiny" floated="right">
+          <Menu size="tiny" floated="right" className="stackable">
               <FilterByTags 
                 onChange={(filter) => this.onTagsFilterChanged(filter)}
                 tags={tags}
@@ -206,8 +206,10 @@ export class BookView extends Component {
             </Link>
           </Menu>
         </Header>
-        {notes.length > 0 ? (<DraggableTagsContainer />): null}
-        <br/>
+        <Container text style={{ marginTop: "3em" }}>
+          {notes.length > 0 ? (<DraggableTagsContainer />): null}
+          <br/>
+        </Container>
         {this.renderNotes(notes)}
       </div>
     );
