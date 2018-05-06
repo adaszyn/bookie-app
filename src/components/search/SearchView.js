@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import {Grid, Input, Icon, Dimmer, Loader} from "semantic-ui-react";
-import qs from "query-string";
+import qs from "simple-query-string";
 import { debounce } from "lodash";
 import InfiniteScroll from "react-infinite-scroller";
 import { SearchResult } from "../search-result/SearchResult";

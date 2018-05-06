@@ -1,7 +1,7 @@
 import axios from "axios";
 import { findWhere } from "underscore";
 import {clearSpecialCharacters} from "../util/string.util";
-import qs from "query-string";
+import qs from "simple-query-string";
 
 const LIMIT = 5;
 const TOKEN = "AIzaSyDVy9lkJzUvrg6DFTgsO9q51uapMeuvfGA";
