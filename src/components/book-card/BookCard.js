@@ -24,9 +24,11 @@ export class BookCard extends React.Component {
     return (
       <Card link href={"/books/" + bookId}>
         <Card.Content>
-          <Card.Header>{title}</Card.Header>
+          <Card.Header style={{height: "60px", textAlign: "center", overflow: "hidden"}}>
+            <h4>{title}</h4>{title}
+          </Card.Header>
         </Card.Content>
-        <Image src={thumbnail}/>
+        <Image style={{height: "150px"}} src={thumbnail}/>
         <Card.Content extra textAlign="right">
           <Grid>
             <Grid.Column width="12" textAlign="left"> <Card.Meta> {numberOfNotes} notes  </Card.Meta> </Grid.Column>
