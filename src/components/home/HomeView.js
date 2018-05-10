@@ -54,7 +54,7 @@ export class HomeView extends Component {
                   noteId={note.id}
                   title={note.title}
                   isFav={note.isFav}
-                  meta={note.dateModified}
+                  meta={note.dateCreated}
                   description={note.content}
                   tags={note.tags}
                 />
