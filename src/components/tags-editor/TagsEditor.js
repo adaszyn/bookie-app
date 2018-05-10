@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Header, Label, Input, Icon, Divider} from 'semantic-ui-react';
+import {Header, Label, Input, Icon, Divider, Form} from 'semantic-ui-react';
 import { getTagColor } from "../../util/tags.util"
 
 export class TagsEditor extends Component {
@@ -70,14 +70,15 @@ export class TagsEditor extends Component {
 						</Label>)
 				})}
 				<Divider/>
-				 <Input
-				 	size = "mini"
-				 	focus
-			    action = {{ content: 'Add', onClick: () => this.onTagAdded(this.state.tags)}}
-			    iconPosition="left"
-			    labelPosition="right" 
-			    value = {textInput}
-			    onChange = {this.onInputChange.bind(this)}/>
+				<Form size="small" onSubmit={() => this.onTagAdded(this.state.tags)}>
+	        <Form.Group>
+           	<Form.Input
+           	placeholder = "tag name"
+				    value = {textInput}
+				    onChange = {this.onInputChange.bind(this)}/>
+	          <Form.Button content='Add' />
+	        </Form.Group>
+    		</Form>
 			</div>
 		);
 	}
