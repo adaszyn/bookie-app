@@ -40,7 +40,7 @@ export class NotesStore {
   }
   @computed
   get allTags () {
-    return uniq(flatten(this.notes.map(note => note.tags.split(",").filter(isNonEmpty))));
+    return uniq(flatten(this.notes.map(note => note.tags.split(",").filter(isNonEmpty)))).sort();
   }
   @computed
   get bookIds () {
