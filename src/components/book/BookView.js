@@ -36,6 +36,7 @@ export class BookView extends Component {
     });
   };
   renderDescription(book) {
+    if(!book.fullDescription) return null;
     if (this.state.descriptionExpanded) {
       return <p>{book.fullDescription}</p>;
     } else {
@@ -166,7 +167,7 @@ export class BookView extends Component {
           <Grid.Column computer={9}>
             <Header as="h2">{book.title} 
               <Header.Subheader>
-                by {book.authors.join(', ')} 
+                by {book.authors? book.authors.join(', '): 'Unknown Author'}
                 <Divider/>
                 <Rating disabled maxRating="5" rating={book.rating} /> {book.rating}
               </Header.Subheader>
