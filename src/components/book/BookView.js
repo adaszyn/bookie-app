@@ -42,11 +42,13 @@ export class BookView extends Component {
       return <p>{book.description}</p>;
     }
   }
-  renderToggleDescriptionButton() {
-    if (this.state.descriptionExpanded) {
-      return <Button size ="tiny" onClick={this.toggleDescription}> Show less </Button>;
-    } else {
-      return <Button size ="tiny" onClick={this.toggleDescription}>Show more </Button>;
+  renderToggleDescriptionButton(book) {
+    if(book.description && book.fullDescription && book.description !== book.fullDescription){
+      if (this.state.descriptionExpanded) {
+        return <Button size ="tiny" onClick={this.toggleDescription}> Show less </Button>;
+      } else {
+        return <Button size ="tiny" onClick={this.toggleDescription}>Show more </Button>;
+      }
     }
   }
 
@@ -170,7 +172,7 @@ export class BookView extends Component {
               </Header.Subheader>
             </Header>
             {this.renderDescription(book)}
-            {this.renderToggleDescriptionButton()}
+            {this.renderToggleDescriptionButton(book)}
           </Grid.Column>
         </Grid>
         <Header block as="h2">
@@ -198,10 +200,10 @@ export class BookView extends Component {
               content='Show only Favorite notes'
             />
           </Menu>
-          <Menu size="tiny" floated="right">
+          <Menu size="tiny" floated="right" className="stackable">
             <Link to={`/books/${book.isbn10}/create`}>
               <Menu.Item>
-                <Icon name = 'plus'/>
+               <Icon name = 'plus'/>
               </Menu.Item>
             </Link>
           </Menu>
