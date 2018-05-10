@@ -200,10 +200,10 @@ export class BookView extends Component {
               content='Show only Favorite notes'
             />
           </Menu>
-          <Menu size="tiny" floated="right" className="stackable">
+          <Menu size="tiny" floated="right">
             <Link to={`/books/${book.isbn10}/create`}>
               <Menu.Item>
-               <Icon name = 'plus'/>
+                <Icon name = 'plus'/>
               </Menu.Item>
             </Link>
           </Menu>

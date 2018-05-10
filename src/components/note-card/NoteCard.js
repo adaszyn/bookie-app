@@ -11,8 +11,8 @@ import { uniq } from "lodash";
 export class NoteCard extends React.Component {
   
   getFormattedDescription = description => {
-    description = description.substring(0,15);
-    if(description.length >= 15) description = description + " .."
+    description = description.substring(0,20);
+    if(description.length >= 20) description = description + " .."
     return description;
   };
 
@@ -58,6 +58,11 @@ export class NoteCard extends React.Component {
     return <Card.Content style={{paddingTop: 0, paddingBottom: 0}}>
         {this.getTagsArray(this.props.tags).map(tag => <Label name="" key={tag} color={getTagColor(tag)}/>)}
       </Card.Content>
+  }
+
+  trimUpdateDateString = (date) => {
+    var date_format = new Date(date);
+    return date_format.toDateString() + " at " + date_format.getHours()+ ":" + date_format.getMinutes();
   }
 
   renderNoteToolbar= () => {
@@ -106,7 +111,7 @@ export class NoteCard extends React.Component {
               <Card.Content>
                 <Header as="h4">{formattedTitle}</Header>
                 <Divider />
-                <Card.Content meta={this.props.meta} size="tiny" />
+                <Card.Content meta={this.trimUpdateDateString(this.props.meta)} style={{fontSize: "12px"}} />
                 <Card.Description>
                   {this.getFormattedDescription(this.props.description)}
                 </Card.Description>
