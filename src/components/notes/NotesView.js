@@ -29,7 +29,7 @@ export class NotesView extends Component {
     this.setState({
       title: note.title,
       isFav: note.isFav,
-      tags: note.tags.split(',')
+      tags: note.tags ? note.tags.split(',') : []
     });
   }
   onNoteChange = note => {
