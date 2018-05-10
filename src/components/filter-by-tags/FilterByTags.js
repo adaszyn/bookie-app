@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {Dropdown, Label} from 'semantic-ui-react';
-import {generateHash} from "../../util/string.util";
-import {COLORS} from "../../const/colors-const";
+import { getTagColor } from "../../util/tags.util"
 
 export class FilterByTags extends Component {
 
@@ -20,7 +19,7 @@ export class FilterByTags extends Component {
   }
 
   dropdownOptions = () => this.state.tags.map(tag => {
-    let color = COLORS[generateHash(tag) % COLORS.length];
+    let color = getTagColor(tag);
     return ({
       'key': tag, 
       'value': tag, 
@@ -30,7 +29,7 @@ export class FilterByTags extends Component {
   });
 
   renderLabel = (label) => {
-    let color = () => {return COLORS[generateHash(label.text) % COLORS.length]};
+    let color = getTagColor(label.text);
     return {
       color: color(),
       content: `${label.text}`,

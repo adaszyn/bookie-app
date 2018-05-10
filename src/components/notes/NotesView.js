@@ -1,14 +1,18 @@
 import React, { Component } from "react";
-import { Breadcrumb, Header, Button } from "semantic-ui-react";
+import { Breadcrumb, Button, Input, Grid, Popup, Icon } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { Link } from "react-router-dom";
+import { TagsEditor } from "../tags-editor/TagsEditor";
 import RichTextEditor from "react-rte";
 import {LoadingPlaceholder} from "../loading/LoadingPlaceholder";
 
 @observer
 export class NotesView extends Component {
   state = {
-    note: RichTextEditor.createEmptyValue()
+    title: "",
+    note: RichTextEditor.createEmptyValue(),
+    isFav: false,
+    tags: []
   };
   componentDidMount() {
     this.props.getNote(this.props.match.params.id);
@@ -19,28 +23,53 @@ export class NotesView extends Component {
     }
     if (note.content !== this.props.note.content) {
       this.setState({
-        note: RichTextEditor.createValueFromString(note.content, "markdown")
+        note: RichTextEditor.createValueFromString(note.content, "markdown"),
       });
     }
+    this.setState({
+      title: note.title,
+      isFav: note.isFav,
+      tags: note.tags.split(',')
+    });
   }
   onNoteChange = note => {
     this.setState({
       note
     });
   };
-
+  onTitleChange = e => {
+    this.setState({
+      'title': e.target.value
+    });
+  };
+  onTagsChanged = (updatedTagsArray) => {
+    this.setState({
+      tags: updatedTagsArray
+    })
+  };
+  onFavToggle = () => {
+    this.setState({
+      'isFav': !this.state.isFav
+    })
+  }
+  ifNoteIsEmpty = () => {
+   if(this.state.title.trim() === '' || this.state.note.toString("markdown").trim() === ''){
+      return true;
+    }
+    return false;
+  }
   ifNoteReallyChanged = () => {
    if(this.props.note.content && this.props.note.content.trim() !== this.state.note.toString("markdown").trim()){
       return true;
     }
     return false;
   }
-
-
   onSubmit = () => {
     const noteId = this.props.match.params.id;
+    const tagsCSV = this.state.tags.join(',');
     this.props
-      .updateNote(noteId, this.props.note.bookId, this.state.note.toString("markdown"), true)
+      .updateNote(noteId, this.props.note.bookId, this.state.title, this.state.note.toString("markdown"), this.state.isFav, tagsCSV)
+      .then(() => this.props.history.push(`/books/${this.props.note.bookId}/`));
   };
   renderNote(note) {
     return (
@@ -52,26 +81,56 @@ export class NotesView extends Component {
   }
   render() {
     const book = this.props.books.get(this.props.note.bookId);
+    const bookId = this.props.match.params.id;
+
     if (!book) {
       return <LoadingPlaceholder/>
     }
+
     return (
       <div>
         <Breadcrumb>
-          <Breadcrumb.Section><Link to="/">Home</Link></Breadcrumb.Section>
-          <Breadcrumb.Divider> > </Breadcrumb.Divider>
-          <Breadcrumb.Section>
-            <Link to={"/books/" + this.props.note.bookId}>
-              {book.title}
-            </Link>
-          </Breadcrumb.Section>
-          <Breadcrumb.Divider> > </Breadcrumb.Divider>
-          <div className="active section">Note {this.props.note.id}</div>
+            <Breadcrumb.Section><Link to="/">Home</Link></Breadcrumb.Section>
+            <Breadcrumb.Divider> > </Breadcrumb.Divider>
+            <Breadcrumb.Section>
+                <Link to={"/books/" + bookId}>
+                    {book.title}
+                </Link>
+            </Breadcrumb.Section>
+            <Breadcrumb.Divider> > </Breadcrumb.Divider>
+            <div className="active section">Edit note</div>
         </Breadcrumb>
-        <Header as="h1">Note {this.props.note.id}</Header>
-        {this.renderNote(this.props.note)}
-        <Button color="teal" disabled={!this.ifNoteReallyChanged()} onClick={this.onSubmit}>Save</Button>
-        <Link to={"/books/" + this.props.note.bookId}><Button>Cancel</Button></Link>
+        <br/>
+        <br/>
+
+        <Input
+          fluid
+          placeholder="Title .."
+          value={this.state.title}
+          onChange= {this.onTitleChange.bind(this)}/>
+        <br/>
+        <RichTextEditor value={this.state.note} onChange={this.onNoteChange} placeholder="Begin note here .."/>
+        <br/>
+        <Grid>
+        <Grid.Column width="10">
+          <Popup
+            on="click"
+            trigger={<Icon link size="large" name="tags" onClick={(e) => {e.preventDefault()}}/>}
+            position="bottom left">
+            <Popup.Content>
+             <TagsEditor
+              tags = {this.state.tags}
+              onTagAdded={(updatedTagsArray)=> this.onTagsChanged(updatedTagsArray)}
+              onTagRemoved={(updatedTagsArray)=> this.onTagsChanged(updatedTagsArray)}/>
+            </Popup.Content>
+          </Popup>
+          <Icon link name="heart" size="large" color={this.state.isFav ? "red" : "grey"} onClick={(e) => {this.onFavToggle(e)}} />
+        </Grid.Column>
+        <Grid.Column textAlign="right" verticalAlign="middle" width="6">
+          <Button color="teal" disabled={this.ifNoteIsEmpty()} onClick={this.onSubmit}>Save</Button>
+          <Link to={"/books/" + this.props.match.params.id}><Button>Cancel</Button></Link>
+        </Grid.Column>
+        </Grid>
       </div>
     );
   }

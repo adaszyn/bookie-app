@@ -53,7 +53,6 @@ export class NoteCreateView extends Component {
   onSubmit = () => {
     const bookId = this.props.match.params.id;
     const tagsCSV = this.state.tags.join(',');
-    console.log(tagsCSV);
     this.props
       .saveNote(bookId, this.state.title, this.state.note.toString("markdown"), this.state.isFav, tagsCSV)
       .then(() => this.props.history.push(`/books/${bookId}/`));
