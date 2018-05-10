@@ -39,7 +39,7 @@ export class BookView extends Component {
     if (this.state.descriptionExpanded) {
       return <p>{book.fullDescription}</p>;
     } else {
-      return <p>{book.description}</p>;
+      return <p>{book.fullDescription.slice(0, 50)}...</p>;
     }
   }
   renderToggleDescriptionButton(book) {
