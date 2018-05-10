@@ -1,0 +1,21 @@
+.navbar {
+  width: 100%;
+  padding: 5px 0;
+  flex-flow: row wrap;
+}
+
+.logo {
+  width: 100px;
+  margin-right: 1.5em
+}
+
+@media all and (max-width: 500px) {
+  .navbar {
+    flex-direction: column;
+  }
+
+  .logo {
+  	width: 50px;
+	margin-right: 0.5em
+  }
+}

@@ -1,33 +1,28 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Container, Image, Menu, Grid } from "semantic-ui-react";
+import { Container, Image, Menu } from "semantic-ui-react";
 import { BookSearchContainer } from "../book-search/BookSearch";
 import logo from "../../assets/logo_white.svg";
+import "./DashboardWrapper.css";
 
 export class DashboardWrapper extends Component {
+
   render() {
     return (
       <div className="App">
         <Menu fixed="top" inverted size="large">
-          <Container style={{ padding: "5px 0" }}>
-            <Grid style={{width: "100%"}}>
-              <Grid.Row className="doubling four column">
-                <Grid.Column computer={3}>
-                  <Menu.Item header>
-                    <Image
-                      as={Link} to='/'
-                      size="tiny"
-                      src={logo}
-                      style={{ marginRight: "1.5em" }}
-                    />
-                  </Menu.Item>
-                </Grid.Column>
-                <Grid.Column computer={7}><BookSearchContainer /></Grid.Column>
-                <Grid.Column computer={2}><Menu.Item name="Notes"  as={Link} to='/notes'/></Grid.Column>
-                <Grid.Column computer={2}><Menu.Item name="About"  as={Link} to='/about'/></Grid.Column>
-                <Grid.Column computer={2}><Menu.Item name="logout" onClick={this.props.logOut} /></Grid.Column>
-              </Grid.Row>
-            </Grid>
+          <Container className="navbar">
+            <Menu.Item header>
+              <Image
+                as={Link} to='/'
+                src={logo}
+                className="logo"
+              />
+            </Menu.Item>
+            <BookSearchContainer />
+            <Menu.Item position="right" name="Notes" as={Link} to='/notes'/>
+            <Menu.Item position="right" name="About" as={Link} to='/about'/>
+            <Menu.Item position="right" name="logout" onClick={this.props.logOut} />
           </Container>
         </Menu>
 

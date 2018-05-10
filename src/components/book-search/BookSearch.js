@@ -44,7 +44,6 @@ export class BookSearch extends Component {
         fluid
         onResultSelect={this.onResultSelect}
         aligned="left"
-        style={{width: "300px"}}
       />
     );
   }
