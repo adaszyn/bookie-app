@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {Header, Label, Input, Icon, Divider} from 'semantic-ui-react';
+import { getTagColor } from "../../util/tags.util"
 
 export class TagsEditor extends Component {
 
@@ -60,7 +61,7 @@ export class TagsEditor extends Component {
 				<Header> Tags </Header>
 				{tags.map((tag, idx) => {
 					return (
-						<Label key={idx} style={tagStyle}> 
+						<Label key={idx} style={tagStyle} color={getTagColor(tag)}> 
 							<Icon 
 								link
 								name="remove" 
