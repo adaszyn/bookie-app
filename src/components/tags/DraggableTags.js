@@ -8,7 +8,7 @@ import {Icon, Popup} from "semantic-ui-react";
 export class DraggableTags extends Component {
   render() {
     return (
-      <div style={{display: "flex"}}>
+      <div style={{display: "flex", flexWrap: "wrap"}}>
         {this.props.allTags.map(tag => <DraggableTag color={getTagColor(tag)} key={tag} header={tag} name={tag}/>)}
         <div style={{flexGrow: 1}}/>
         <div style={{cursor: "pointer", animation: "shake 0.82s cubic-bezier(.36,.07,.19,.97) both", animationDelay: "2s"}}>

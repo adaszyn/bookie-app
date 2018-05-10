@@ -10,6 +10,7 @@ const style = {
   cursor: 'move',
   marginLeft: "4px",
   marginRight: "4px",
+  marginTop: "4px"
 }
 
 const boxSource = {
