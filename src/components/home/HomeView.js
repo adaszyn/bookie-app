@@ -65,23 +65,23 @@ export class HomeView extends Component {
         />
         <Divider />
           {!!this.props.books.length && <Header block as="h2">My Books</Header>}
-        <Grid stackable>
-          {this.props.books.filter(this.hasSomeNotes).map(book => (
-            <Grid.Column computer={5} key={book.id}>
-                <BookCard
-                  key={book.id}
-                  bookId={book.isbn10}
-                  title={book.title}
-                  description={book.description}
-                  thumbnail={book.image}
-                  numberOfNotes={this.getNumberOfNotesByBookId(book.isbn10)}
-                  showDelete
-                />
-            </Grid.Column>
-          ))}
-        </Grid>
-        <Divider />
-
+        <Carousel
+          style={{minHeight: "280px", display:"block"}}
+          items={this.props.books.filter(this.hasSomeNotes)}
+          renderItem={book => (
+            <BookCard
+              key={book.id}
+              bookId={book.isbn10}
+              title={book.title}
+              description={book.description}
+              thumbnail={book.image}
+              numberOfNotes={this.getNumberOfNotesByBookId(book.isbn10)}
+              showDelete
+            />
+          )}
+          itemKey={"id"}
+          perPage={3}
+        />
       </div>
     );
   }
