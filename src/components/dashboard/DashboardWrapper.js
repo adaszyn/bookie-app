@@ -23,8 +23,9 @@ export class DashboardWrapper extends Component {
                   </Menu.Item>
                 </Grid.Column>
                 <Grid.Column computer={7}><BookSearchContainer /></Grid.Column>
-                <Grid.Column computer={3}><Menu.Item name="About"  as={Link} to='/about'/></Grid.Column>
-                <Grid.Column computer={3}><Menu.Item name="logout" onClick={this.props.logOut} /></Grid.Column>
+                <Grid.Column computer={2}><Menu.Item name="Notes"  as={Link} to='/notes'/></Grid.Column>
+                <Grid.Column computer={2}><Menu.Item name="About"  as={Link} to='/about'/></Grid.Column>
+                <Grid.Column computer={2}><Menu.Item name="logout" onClick={this.props.logOut} /></Grid.Column>
               </Grid.Row>
             </Grid>
           </Container>
