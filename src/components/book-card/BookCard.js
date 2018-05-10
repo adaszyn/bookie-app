@@ -25,7 +25,7 @@ export class BookCard extends React.Component {
       <Card link href={"/books/" + bookId}>
         <Card.Content>
           <Card.Header style={{height: "60px", textAlign: "center", overflow: "hidden"}}>
-            <h4>{title}</h4>{title}
+            <h4>{title}</h4>
           </Card.Header>
         </Card.Content>
         <Image style={{height: "150px"}} src={thumbnail}/>
