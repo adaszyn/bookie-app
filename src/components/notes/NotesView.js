@@ -81,7 +81,7 @@ export class NotesView extends Component {
   }
   render() {
     const book = this.props.books.get(this.props.note.bookId);
-    const bookId = this.props.match.params.id;
+    const bookId = this.props.note.bookId;
 
     if (!book) {
       return <LoadingPlaceholder/>
@@ -128,7 +128,7 @@ export class NotesView extends Component {
         </Grid.Column>
         <Grid.Column textAlign="right" verticalAlign="middle" width="6">
           <Button color="teal" disabled={this.ifNoteIsEmpty()} onClick={this.onSubmit}>Save</Button>
-          <Link to={"/books/" + this.props.match.params.id}><Button>Cancel</Button></Link>
+          <Link to={"/books/" + bookId}><Button>Cancel</Button></Link>
         </Grid.Column>
         </Grid>
       </div>
