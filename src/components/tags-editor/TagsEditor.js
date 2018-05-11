@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Header, Label, Input, Icon, Divider, Form} from 'semantic-ui-react';
+import {Header, Label, Icon, Divider, Form} from 'semantic-ui-react';
 import { getTagColor } from "../../util/tags.util"
 
 export class TagsEditor extends Component {

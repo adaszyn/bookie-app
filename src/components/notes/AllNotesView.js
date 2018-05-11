@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import {Breadcrumb, Header, Icon, Table} from "semantic-ui-react";
+import {Breadcrumb, Header, Icon, Menu, Popup, Table} from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { Link } from "react-router-dom";
 import dateFormat from "dateformat";
+import {FilterByTags} from "../filter-by-tags/FilterByTags";
+import {TagStrip} from "../tags/TagStrip";
 
 const CHAR_LIMIT = 14;
 
@@ -10,7 +12,8 @@ const CHAR_LIMIT = 14;
 export class AllNotesView extends Component {
   state = {
     sortedBy: 'updated',
-    order: 'ascending'
+    order: 'ascending',
+    filterByTags: [],
   }
   componentDidMount() {
     this.props.getAllNotes();
@@ -35,8 +38,8 @@ export class AllNotesView extends Component {
       order: column === this.state.sortedBy ? reversedOrder : currentOrder,
     })
   }
-  renderRow(note) {
-    const { title, content, dateCreated, isFav, dateModified } = note;
+  static renderRow(note) {
+    const { title, content, dateCreated, isFav, dateModified, tags } = note;
     return (
       <Table.Row key={note.id}>
         <Table.Cell>
@@ -46,13 +49,34 @@ export class AllNotesView extends Component {
           </Link>
         </Table.Cell>
         <Table.Cell>{content.substr(0, CHAR_LIMIT)}{content.length > CHAR_LIMIT && "..."}</Table.Cell>
-        <Table.Cell>{dateFormat(dateCreated, "dddd, mmmm dS")}</Table.Cell>
-        <Table.Cell>{dateFormat(dateModified, "dddd, mmmm dS")}</Table.Cell>
+        <Table.Cell width={3}>{dateFormat(dateCreated, "mmmm dS")}</Table.Cell>
+        <Table.Cell width={3}>{dateFormat(dateModified, "mmmm dS")}</Table.Cell>
+        <Table.Cell width={2} style={{paddingTop: 0, paddingBottom: 0}}>
+          {tags.split(',').map(tag => <TagStrip key={tag} tag={tag}/>)}
+          </Table.Cell>
       </Table.Row>
     )
   }
+  onTagsFilterChanged = (filter) => {
+    this.setState({
+      filterByTags: filter
+    })
+  }
+  toggleFav = () => {
+    this.setState({
+      showOnlyFav: !this.state.showOnlyFav
+    })
+  }
   render() {
-    const { sortedBy, order } = this.state;
+    const { sortedBy, order, filterByTags } = this.state;
+    const { allTags, notes } = this.props;
+    let filteredNotes = notes;
+    if(this.state.showOnlyFav){
+      filteredNotes = filteredNotes.filter(note => note.isFav)
+    }
+    if(filterByTags.length > 0){
+      filteredNotes = filteredNotes.filter(note => filterByTags.every(filter => note.tags.indexOf(filter) > -1));
+    }
     return (
       <div>
         <Breadcrumb>
@@ -61,7 +85,26 @@ export class AllNotesView extends Component {
           <Breadcrumb.Section>All notes</Breadcrumb.Section>
 
         </Breadcrumb>
-        <Header as="h1">Your notes</Header>
+
+        <Header block as="h2">
+          Your notes
+          <Menu size="tiny" floated="right" stackable>
+            <FilterByTags
+              onChange={(filter) => this.onTagsFilterChanged(filter)}
+              tags={allTags}
+            />
+            <Popup
+              trigger={
+                <Menu.Item
+                  active={this.state.showOnlyFav}
+                  onClick={this.toggleFav}>
+                  <Icon name="heart" />
+                </Menu.Item>}
+              content='Show only Favorite notes'
+            />
+          </Menu>
+        </Header>
+
         <Table sortable celled fixed>
           <Table.Header>
             <Table.Row>
@@ -74,21 +117,25 @@ export class AllNotesView extends Component {
                 Content
               </Table.HeaderCell>
               <Table.HeaderCell
+                width={3}
                 sorted={sortedBy === 'created' ? order : null}
                 onClick={() => this.handleSort('created')}
               >
                 Created
               </Table.HeaderCell>
               <Table.HeaderCell
+                width={3}
                 sorted={sortedBy === 'updated' ? order : null}
                 onClick={() => this.handleSort('updated')}
               >
                 Updated
               </Table.HeaderCell>
-            </Table.Row>
+              <Table.HeaderCell width={2}>Tags</Table.HeaderCell>
+
+          </Table.Row>
           </Table.Header>
           <Table.Body>
-            {this.sortNotes(this.props.notes).map(this.renderRow)}
+            {this.sortNotes(filteredNotes).map(AllNotesView.renderRow)}
           </Table.Body>
         </Table>
       </div>
@@ -100,5 +147,6 @@ export const AllNotesViewContainer = inject(stores => {
     notes: stores.notesStore.notes,
     loading: stores.notesStore.loading,
     getAllNotes: stores.notesStore.getAllNotes,
+    allTags: stores.notesStore.allTags,
   };
 })(AllNotesView);

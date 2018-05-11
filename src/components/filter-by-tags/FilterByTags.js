@@ -10,6 +10,9 @@ export class FilterByTags extends Component {
 			tags: props.tags
 		};
 	}
+	componentWillReceiveProps ({tags}) {
+	  this.setState({tags});
+  }
 
   onTagsFilterChanged = (e, data) => {
     this.setState({
@@ -31,7 +34,7 @@ export class FilterByTags extends Component {
   renderLabel = (label) => {
     let color = getTagColor(label.text);
     return {
-      color: color(),
+      color,
       content: `${label.text}`,
     }
   }

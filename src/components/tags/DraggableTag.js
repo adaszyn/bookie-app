@@ -1,17 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
-import {Label} from "semantic-ui-react";
-import {generateHash} from "../../util/string.util";
-import {COLORS} from "../../const/colors-const";
-
-const style = {
-  border: '1px dashed gray',
-  cursor: 'move',
-  marginLeft: "4px",
-  marginRight: "4px",
-  marginTop: "4px"
-}
+import {TagBubble} from "./TagBubble";
 
 const boxSource = {
   beginDrag(props) {
@@ -29,7 +19,6 @@ export class DraggableTag extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
   }
-  getTagColor = (tag) => COLORS[generateHash(tag) % COLORS.length];
 
   render() {
     const { isDragging, connectDragSource } = this.props
@@ -38,8 +27,6 @@ export class DraggableTag extends Component {
     const transform = `scale(${isDragging ? "1.1, 1.1" : "1.0, 1.0"})`
 
 
-    return connectDragSource(<div>
-      <Label color={this.getTagColor(name)} style={{ ...style, opacity, transform }}>{name}</Label>
-    </div>)
+    return connectDragSource(<div><TagBubble tag={name} style={{ opacity, transform }} /></div>);
   }
 }
