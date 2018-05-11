@@ -21,12 +21,8 @@ export class NotesView extends Component {
     if (note) {
       this.props.fetchBookById(note.bookId);
     }
-    if (note.content !== this.props.note.content) {
-      this.setState({
-        note: RichTextEditor.createValueFromString(note.content, "markdown"),
-      });
-    }
     this.setState({
+      note: RichTextEditor.createValueFromString(note.content, "markdown"),
       title: note.title,
       isFav: note.isFav,
       tags: note.tags ? note.tags.split(',') : []
@@ -127,7 +123,7 @@ export class NotesView extends Component {
           <Icon link name="heart" size="large" color={this.state.isFav ? "red" : "grey"} onClick={(e) => {this.onFavToggle(e)}} />
         </Grid.Column>
         <Grid.Column textAlign="right" verticalAlign="middle" width="6">
-          <Button color="teal" disabled={this.ifNoteIsEmpty()} onClick={this.onSubmit}>Save</Button>
+          <Button color="teal" disabled={this.ifNoteIsEmpty() || !this.ifNoteReallyChanged()} onClick={this.onSubmit}>Save</Button>
           <Link to={"/books/" + bookId}><Button>Cancel</Button></Link>
         </Grid.Column>
         </Grid>
