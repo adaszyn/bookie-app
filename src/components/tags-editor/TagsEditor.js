@@ -46,7 +46,12 @@ export class TagsEditor extends Component {
 	}
 	
 	onInputChange = e => {
-		this.updateTextInputInState(e.target.value);
+	    if(e.target.value && !/^[a-zA-Z0-9]+$/.test(e.target.value)) {
+	      this.setState({ formError: "Woops! Alphabets and numbers only" });
+	    } else {
+	      this.setState({ formError: "" });
+	    }
+	    this.updateTextInputInState(e.target.value);
 	}
 
 	render(){
@@ -76,9 +81,10 @@ export class TagsEditor extends Component {
            	placeholder = "tag name"
 				    value = {textInput}
 				    onChange = {this.onInputChange.bind(this)}/>
-	          <Form.Button content='Add' />
+	          <Form.Button disabled={this.state.textInput === '' || this.state.formError !== ''} content='Add' />
 	        </Form.Group>
     		</Form>
+			{this.state.formError}
 			</div>
 		);
 	}
