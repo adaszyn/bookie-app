@@ -7,7 +7,7 @@ body {
 @media (max-width: 600px) {
   .ui.fluid.search .results {
     width: 100vw !important;
-    left: -120px !important;
+    /*left: -120px !important;*/
     height: 100vh;
     overflow-y: scroll;
   }
