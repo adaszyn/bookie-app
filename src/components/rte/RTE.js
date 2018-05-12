@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { DropTarget } from 'react-dnd'
-import RichTextEditor from "react-rte";
+import RichTextEditor from "react-rte" 
 
 const boxTarget = {
 	drop(props, monitor) {

@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import RTE from './RTE'
 import RichTextEditor from "react-rte";
+import { Progress } from "semantic-ui-react"
 import { API_BASE, uploadImage } from "../../services/api-service"
 
 export class RTEContainer extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			value: props.note ? props.note : RichTextEditor.createEmptyValue()
+			value: props.value ? props.value : RichTextEditor.createEmptyValue()
 		}
 		this.handleFileDrop = this.handleFileDrop.bind(this)
 	}
@@ -16,16 +17,25 @@ export class RTEContainer extends Component {
 	imageUploadSuccess = url => {
 		let updatedNote = this.state.value.toString("markdown") + `![](${API_BASE}${url})`;
 		this.setState({
+			'uploadInProgress': false,
 			'value': RichTextEditor.createValueFromString(updatedNote, "markdown")
 		})
 		if(this.props.onChange)
 			this.props.onChange(this.state.value);
 	}
 
+	imageUploadFail = () => {
+		this.setState({
+			uploadInProgress: false
+		})
+	}
+
 	onChange = value => {
 		this.setState({
 			value: value
 		});
+		if(this.props.onChange)
+			this.props.onChange(this.state.value);
 	}
 
 	handleFileDrop(item, monitor) {
@@ -35,9 +45,12 @@ export class RTEContainer extends Component {
 			let file = droppedFiles[0];
 
 			if(file && validTypes.indexOf(file.type) > -1) {
+				this.setState({
+					uploadInProgress: true
+				})
 				uploadImage(file)
 				.then(response => {this.imageUploadSuccess(response.data.url)})
-				.catch(err => console.log(err))
+				.catch(err => this.imageUploadFail());
 			} else {
 
 			}
@@ -48,11 +61,14 @@ export class RTEContainer extends Component {
 		const { FILE } = NativeTypes
 
 		return (
-				<RTE 
-					value = {this.state.value}
-					onChange = {this.onChange}
-					accepts={[FILE]} 
-					onDrop={this.handleFileDrop} />
+				<div>
+					<RTE 
+						value = {this.state.value}
+						onChange = {this.onChange}
+						accepts={[FILE]} 
+						onDrop={this.handleFileDrop} />
+					{this.state.uploadInProgress ? <Progress size="tiny" active percent="100" color="teal"/> : null}
+				</div>
 		)
 	}
 }

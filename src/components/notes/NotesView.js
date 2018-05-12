@@ -4,6 +4,7 @@ import { observer, inject } from "mobx-react";
 import { Link } from "react-router-dom";
 import { TagsEditor } from "../tags-editor/TagsEditor";
 import RichTextEditor from "react-rte";
+import { RTEContainer } from "../rte/RTEContainer"
 import {LoadingPlaceholder} from "../loading/LoadingPlaceholder";
 
 @observer
@@ -105,7 +106,9 @@ export class NotesView extends Component {
           value={this.state.title}
           onChange= {this.onTitleChange.bind(this)}/>
         <br/>
-        <RichTextEditor value={this.state.note} onChange={this.onNoteChange} placeholder="Begin note here .."/>
+        <RTEContainer 
+          value={this.state.note} 
+          onChange={this.onNoteChange} />
         <br/>
         <Grid>
         <Grid.Column width="10">
