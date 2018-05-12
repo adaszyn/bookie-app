@@ -49,8 +49,7 @@ export default class RTE extends Component {
 	}
 
 	render() {
-		const { canDrop, isOver, connectDropTarget } = this.props
-		const isActive = canDrop && isOver
+		const { connectDropTarget } = this.props
 
 		return connectDropTarget(
 			<div>
