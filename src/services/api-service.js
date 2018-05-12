@@ -97,3 +97,15 @@ export async function deleteNote(noteId, bookId) {
     withCredentials: true
   });
 }
+
+export async function uploadImage(file){
+  const data = new FormData();
+  data.append('file', file);
+  data.append('filename', file.name);
+  return Axios({
+    method: "POST",
+    data: data,
+    url: `${API_BASE}/images/`,
+    withCredentials: true
+  });
+}

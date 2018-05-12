@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import { Breadcrumb, Button, Input, Grid, Popup, Icon } from "semantic-ui-react";
-import RichTextEditor from "react-rte";
 import { TagsEditor } from "../tags-editor/TagsEditor";
 import {Link} from "react-router-dom";
 import {LoadingPlaceholder} from "../loading/LoadingPlaceholder";
-
+import RichTextEditor from "react-rte";
+import {RTEContainer} from "../rte/RTEContainer"
 @observer
 export class NoteCreateView extends Component {
 
@@ -85,7 +85,7 @@ export class NoteCreateView extends Component {
           placeholder="Title .."
           onChange= {this.onTitleChange.bind(this)}/>
         <br/>
-        <RichTextEditor value={this.state.note} onChange={this.onNoteChange} placeholder="Begin note here .."/>
+        <RTEContainer onChange = {this.onNoteChange} />
         <br/>
         <Grid>
         <Grid.Column width="10">
