@@ -47,12 +47,19 @@ export default class RTE extends Component {
 		if(this.props.onChange) 
 			this.props.onChange(value);
 	}
-
+	getContainerStyle () {
+		const { isOver } = this.props;
+		return {
+			transition: "0.2s linear border-color",
+			border: "2px solid",
+			borderColor: isOver ? "#636363" : "transparent"
+		}
+	}
 	render() {
 		const { connectDropTarget } = this.props
 
 		return connectDropTarget(
-			<div>
+			<div style={this.getContainerStyle()}>
 				<RichTextEditor
 				onChange = {this.onChange} 
 				value={this.state.value}
