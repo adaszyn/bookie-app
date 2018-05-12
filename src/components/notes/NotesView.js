@@ -55,12 +55,6 @@ export class NotesView extends Component {
     }
     return false;
   }
-  ifNoteReallyChanged = () => {
-   if(this.props.note.content && this.props.note.content.trim() !== this.state.note.toString("markdown").trim()){
-      return true;
-    }
-    return false;
-  }
   onSubmit = () => {
     const noteId = this.props.match.params.id;
     const tagsCSV = this.state.tags.join(',');
@@ -126,7 +120,7 @@ export class NotesView extends Component {
           <Icon link name="heart" size="large" color={this.state.isFav ? "red" : "grey"} onClick={(e) => {this.onFavToggle(e)}} />
         </Grid.Column>
         <Grid.Column textAlign="right" verticalAlign="middle" width="6">
-          <Button color="teal" disabled={this.ifNoteIsEmpty() || !this.ifNoteReallyChanged()} onClick={this.onSubmit}>Save</Button>
+          <Button color="teal" disabled={this.ifNoteIsEmpty()} onClick={this.onSubmit}>Save</Button>
           <Link to={"/books/" + bookId}><Button>Cancel</Button></Link>
         </Grid.Column>
         </Grid>
