@@ -14,6 +14,14 @@ export class RTEContainer extends Component {
 		this.handleFileDrop = this.handleFileDrop.bind(this)
 	}
 
+	componentWillReceiveProps(props){
+		if(!this.state.value._cache.markdown){
+			this.setState({
+				value: props.value
+			})
+		}
+	}
+
 	imageUploadSuccess = url => {
 		let updatedNote = this.state.value.toString("markdown") + `![](${API_BASE}${url})`;
 		this.setState({
