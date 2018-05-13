@@ -15,7 +15,7 @@ export class RTEContainer extends Component {
 	}
 
 	componentWillReceiveProps(props){
-		if(!this.state.value._cache.markdown){
+		if(props.value && !this.state.value._cache.markdown){
 			this.setState({
 				value: props.value
 			})
