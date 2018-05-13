@@ -14,7 +14,7 @@ export class NotesStore {
   @observable note = {};
   @computed
   get notes() {
-    return [...Object.values(this.notesById).sort(this.compareNotesByCreationDate)];
+    return [...Object.values(this.notesById).sort(this.compareNotesByModifiedDate)];
   }
   @observable notesById = {};
   @observable loading = false;
@@ -27,8 +27,8 @@ export class NotesStore {
     this.authStore = authStore;
   }
 
-  compareNotesByCreationDate (note1, note2) {
-    return new Date(note2.dateCreated).getTime() - new Date(note1.dateCreated).getTime();
+  compareNotesByModifiedDate (note1, note2) {
+    return new Date(note2.dateModified).getTime() - new Date(note1.dateModified).getTime();
   }
   @computed
   get notesByBookId() {
