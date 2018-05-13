@@ -47,7 +47,7 @@ export class NoteCreateView extends Component {
   }
   onImageUpload = (url) => {
     this.setState({
-      editedNoteContent: `![](${url}) ${this.state.editedNoteContent}`
+      editedNoteContent: `${this.state.editedNoteContent} ![](${url}) `
     })
   }
   onSubmit = () => {

@@ -61,7 +61,7 @@ export class NotesView extends Component {
   };
   onImageUpload = (url) => {
     this.setState({
-      editedNoteContent: `![](${url}) ${this.state.editedNoteContent}`
+      editedNoteContent: `${this.state.editedNoteContent} ![](${url}) `
     })
   }
   render() {
