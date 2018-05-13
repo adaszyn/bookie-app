@@ -1,40 +1,31 @@
 import React, { Component } from 'react'
 import { NativeTypes } from 'react-dnd-html5-backend'
-import RTE from './RTE'
-import RichTextEditor from "react-rte";
 import { Progress } from "semantic-ui-react"
 import { API_BASE, uploadImage } from "../../services/api-service"
+import {DroppableMarkdownEditor} from "../editor/DroppableMarkdownEditor";
+
+const { FILE } = NativeTypes
 
 export class RTEContainer extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			value: props.value ? props.value : RichTextEditor.createEmptyValue()
+      uploadInProgress: false,
 		}
 		this.handleFileDrop = this.handleFileDrop.bind(this)
 	}
 
-	componentWillReceiveProps(props){
-		if(props.value && !this.state.value._cache.markdown){
-			this.setState({
-				value: props.value
-			})
-		}
-	}
 
 	imageUploadSuccess = url => {
-		let updatedNote = this.state.value.toString("markdown") + `![](${API_BASE}${url})`;
+		this.props.onImageUpload(`${API_BASE}${url}`);
 		this.setState({
-			'uploadInProgress': false,
-			'value': RichTextEditor.createValueFromString(updatedNote, "markdown")
+      uploadInProgress: false,
 		})
-		if(this.props.onChange)
-			this.props.onChange(this.state.value);
 	}
 
 	imageUploadFail = () => {
 		this.setState({
-			uploadInProgress: false
+      uploadInProgress: false
 		})
 	}
 
@@ -42,8 +33,6 @@ export class RTEContainer extends Component {
 		this.setState({
 			value: value
 		});
-		if(this.props.onChange)
-			this.props.onChange(this.state.value);
 	}
 
 	handleFileDrop(item, monitor) {
@@ -58,21 +47,17 @@ export class RTEContainer extends Component {
 				})
 				uploadImage(file)
 				.then(response => {this.imageUploadSuccess(response.data.url)})
-				.catch(err => this.imageUploadFail());
-			} else {
-
+				.catch(this.imageUploadFail);
 			}
 		}
 	}
 
 	render() {
-		const { FILE } = NativeTypes
-
 		return (
 				<div>
-					<RTE 
-						value = {this.state.value}
-						onChange = {this.onChange}
+					<DroppableMarkdownEditor
+						value={this.props.value}
+						onChange = {this.props.onChange}
 						accepts={[FILE]} 
 						onDrop={this.handleFileDrop} />
 					{this.state.uploadInProgress ? <Progress size="tiny" active percent="100" color="teal"/> : null}

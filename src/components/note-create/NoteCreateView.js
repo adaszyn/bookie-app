@@ -4,7 +4,6 @@ import { Breadcrumb, Button, Input, Grid, Popup, Icon } from "semantic-ui-react"
 import { TagsEditor } from "../tags-editor/TagsEditor";
 import {Link} from "react-router-dom";
 import {LoadingPlaceholder} from "../loading/LoadingPlaceholder";
-import RichTextEditor from "react-rte";
 import {RTEContainer} from "../rte/RTEContainer"
 @observer
 export class NoteCreateView extends Component {
@@ -13,9 +12,9 @@ export class NoteCreateView extends Component {
     super(props);
     this.state = {
       title: "",
-      note: RichTextEditor.createEmptyValue(),
       isFav: false,
-      tags: []
+      tags: [],
+      editedNoteContent: '',
     };
   }
   componentDidMount () {
@@ -24,12 +23,12 @@ export class NoteCreateView extends Component {
   }
   onNoteChange = note => {
     this.setState({
-      'note': note
+      editedNoteContent: note,
     });
   };
-  onTitleChange = e => {
+  onTitleChange = ({target: {value}}) => {
     this.setState({
-      'title': e.target.value
+      title: value
     });
   };
   onTagsChanged = (updatedTagsArray) => {
@@ -44,20 +43,20 @@ export class NoteCreateView extends Component {
   }
 
   ifNoteIsEmpty = () => {
-   if(this.state.title.trim() === '' || this.state.note.toString("markdown").trim() === ''){
-      return true;
-    }
-    return false;
+   return this.state.title.trim() === '' || this.state.editedNoteContent.trim() === '';
   }
-
+  onImageUpload = (url) => {
+    this.setState({
+      editedNoteContent: `![](${url}) ${this.state.editedNoteContent}`
+    })
+  }
   onSubmit = () => {
     const bookId = this.props.match.params.id;
     const tagsCSV = this.state.tags.join(',');
     this.props
-      .saveNote(bookId, this.state.title, this.state.note.toString("markdown"), this.state.isFav, tagsCSV)
+      .saveNote(bookId, this.state.title, this.state.editedNoteContent, this.state.isFav, tagsCSV)
       .then(() => this.props.history.push(`/books/${bookId}/`));
   };
-
   render() {
       const bookId = this.props.match.params.id;
       const book = this.props.books.get(bookId);
@@ -85,7 +84,11 @@ export class NoteCreateView extends Component {
           placeholder="Title .."
           onChange= {this.onTitleChange.bind(this)}/>
         <br/>
-        <RTEContainer onChange = {this.onNoteChange} />
+        <RTEContainer
+          onImageUpload={this.onImageUpload}
+          onChange={this.onNoteChange}
+          value={this.state.editedNoteContent}
+        />
         <br/>
         <Grid>
         <Grid.Column width="10">

@@ -28,16 +28,17 @@ export default class RTE extends Component {
 
 	constructor(props){
 		super(props);
-		console.log(props.value);
 		this.state = {
-			'value': props.value ? props.value : RichTextEditor.createEmptyValue()
-		};
+      editorContent: RichTextEditor.createEmptyValue()
+    }
 	}
 
 	componentWillReceiveProps(props){
-		this.setState({
-			'value': props.value
-		})
+    if (this.props.value !== props.value) {
+      this.setState({
+        editorContent: RichTextEditor.createValueFromString(props.content, "markdown")
+      })
+    }
 	}
 
 	onChange = value => {
@@ -61,9 +62,9 @@ export default class RTE extends Component {
 		return connectDropTarget(
 			<div style={this.getContainerStyle()}>
 				<RichTextEditor
-				onChange = {this.onChange} 
-				value={this.state.value}
-				placeholder = "Drag and drop images onto this editor to add them to your note" />
+				  onChange = {this.props.onChange}
+				  value={this.props.value}
+				  placeholder = "Drag and drop images onto this editor to add them to your note" />
 			</div>
 		)
 	}
