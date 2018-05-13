@@ -63,7 +63,6 @@ export async function createNote(bookId, title, content, isFav, tags) {
   data.set("content", content);
   data.set("isFav", isFav);
   data.set("tags", tags);
-  console.log(bookId + title + content + isFav + tags);
   return Axios({
     method: "post",
     data: data,

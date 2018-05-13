@@ -3,7 +3,6 @@ import { Breadcrumb, Button, Input, Grid, Popup, Icon } from "semantic-ui-react"
 import { observer, inject } from "mobx-react";
 import { Link } from "react-router-dom";
 import { TagsEditor } from "../tags-editor/TagsEditor";
-import RichTextEditor from "react-rte";
 import { RTEContainer } from "../rte/RTEContainer"
 import {LoadingPlaceholder} from "../loading/LoadingPlaceholder";
 
@@ -11,9 +10,9 @@ import {LoadingPlaceholder} from "../loading/LoadingPlaceholder";
 export class NotesView extends Component {
   state = {
     title: "",
-    note: RichTextEditor.createEmptyValue(),
     isFav: false,
-    tags: []
+    tags: [],
+    editedNoteContent: '',
   };
   componentDidMount() {
     this.props.getNote(this.props.match.params.id);
@@ -23,7 +22,7 @@ export class NotesView extends Component {
       this.props.fetchBookById(note.bookId);
     }
     this.setState({
-      note: RichTextEditor.createValueFromString(note.content, "markdown"),
+      editedNoteContent: note.content,
       title: note.title,
       isFav: note.isFav,
       tags: note.tags ? note.tags.split(',') : []
@@ -31,7 +30,8 @@ export class NotesView extends Component {
   }
   onNoteChange = note => {
     this.setState({
-      note
+      note,
+      editedNoteContent: note,
     });
   };
   onTitleChange = e => {
@@ -50,25 +50,19 @@ export class NotesView extends Component {
     })
   }
   ifNoteIsEmpty = () => {
-   if(this.state.title.trim() === '' || this.state.note.toString("markdown").trim() === ''){
-      return true;
-    }
-    return false;
+    return this.state.title.trim() === '' || this.state.editedNoteContent.trim() === '';
   }
   onSubmit = () => {
     const noteId = this.props.match.params.id;
     const tagsCSV = this.state.tags.join(',');
     this.props
-      .updateNote(noteId, this.props.note.bookId, this.state.title, this.state.note.toString("markdown"), this.state.isFav, tagsCSV)
+      .updateNote(noteId, this.props.note.bookId, this.state.title, this.state.editedNoteContent, this.state.isFav, tagsCSV)
       .then(() => this.props.history.push(`/books/${this.props.note.bookId}/`));
   };
-  renderNote(note) {
-    return (
-      <div key={note.id}>
-        <p>{note.dateModified}</p>
-        <RichTextEditor value={this.state.note} onChange={this.onNoteChange} />
-      </div>
-    );
+  onImageUpload = (url) => {
+    this.setState({
+      editedNoteContent: `${this.state.editedNoteContent} ![](${url}) `
+    })
   }
   render() {
     const book = this.props.books.get(this.props.note.bookId);
@@ -100,8 +94,9 @@ export class NotesView extends Component {
           value={this.state.title}
           onChange= {this.onTitleChange.bind(this)}/>
         <br/>
-        <RTEContainer 
-          value={this.state.note} 
+        <RTEContainer
+          onImageUpload={this.onImageUpload}
+          value={this.state.editedNoteContent}
           onChange={this.onNoteChange} />
         <br/>
         <Grid>
