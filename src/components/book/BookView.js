@@ -207,13 +207,18 @@ export class BookView extends Component {
           </Menu>
           <Menu size="tiny" floated="right">
             <Link to={`/books/${book.isbn10}/create`}>
-              <Menu.Item>
-                <Icon name = 'plus'/>
-              </Menu.Item>
+                <Popup
+                trigger ={
+                  <Menu.Item>
+                    <Icon name = 'plus'/>
+                  </Menu.Item>
+                }
+                content="Create New Note"
+                />
             </Link>
           </Menu>
         </Header>
-        <Container text style={{ marginTop: "3em" }}>
+        <Container text style={{ marginTop: "0.5em" }}>
           {notes.length > 0 ? (<DraggableTagsContainer />): null}
           <br/>
         </Container>

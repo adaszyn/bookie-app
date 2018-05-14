@@ -11,7 +11,7 @@ export class NoteCreateView extends Component {
   constructor(props){
     super(props);
     this.state = {
-      title: "",
+      title: "Untitled",
       isFav: false,
       tags: [],
       editedNoteContent: '',
@@ -81,6 +81,7 @@ export class NoteCreateView extends Component {
 
         <Input
           fluid
+          value={this.state.title}
           placeholder="Title .."
           onChange= {this.onTitleChange.bind(this)}/>
         <br/>

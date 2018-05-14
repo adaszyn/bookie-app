@@ -2,21 +2,24 @@ import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import {DraggableTag} from "./DraggableTag";
 import {getTagColor} from "../../util/tags.util";
-import {Icon, Popup} from "semantic-ui-react";
+import {Icon, Popup, Divider} from "semantic-ui-react";
 
 @observer
 export class DraggableTags extends Component {
   render() {
     return (
-      <div style={{display: "flex", flexWrap: "wrap"}}>
-        {this.props.allTags.map(tag => <DraggableTag color={getTagColor(tag)} key={tag} header={tag} name={tag}/>)}
-        <div style={{flexGrow: 1}}/>
-        <div style={{cursor: "pointer", animation: "shake 0.82s cubic-bezier(.36,.07,.19,.97) both", animationDelay: "2s"}}>
-          <Popup
-            trigger={<Icon name='question' color='grey' size='small' />}
-            content='You can simply drag tag on your notes!'
-            position='top right'
-          />
+      <div>
+         <div style={{cursor: "pointer", animation: "shake 0.82s cubic-bezier(.36,.07,.19,.97) both", animationDelay: "2s", textAlign: "right"}}>
+            <Popup
+              trigger={<span> <Icon name='tags' color='grey' size='small' /> My Tags <Icon name='question' color='grey' size='small' /> </span>}
+              content='You can simply drag these tags onto your notes!'
+              position='top right'
+            />
+          </div>
+        <Divider fitted/>
+        <div style={{display: "flex", flexWrap: "wrap"}}>
+          {this.props.allTags.map(tag => <DraggableTag color={getTagColor(tag)} key={tag} header={tag} name={tag}/>)}
+          <div style={{flexGrow: 1}}/>
         </div>
       </div>
     );

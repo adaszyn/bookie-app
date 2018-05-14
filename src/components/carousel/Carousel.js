@@ -46,6 +46,9 @@ export class Carousel extends Component {
         <Row columns={16}>
           <Column verticalAlign="middle" width={1} only="computer tablet">
             <Icon
+              circular
+              inverted
+              color="teal"
               style={{ visibility: canClickPrev ? "visible" : "hidden" }}
               onClick={this.onPrevious}
               name="arrow left"
@@ -65,6 +68,9 @@ export class Carousel extends Component {
           </Column>
           <Column verticalAlign="middle" width={1} only="computer tablet">
             <Icon
+              circular
+              inverted
+              color="teal"
               onClick={this.onNext}
               style={{ visibility: canClickNext ? "visible" : "hidden" }}
               name="arrow right"
