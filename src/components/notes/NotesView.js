@@ -116,7 +116,7 @@ export class NotesView extends Component {
         </Grid.Column>
         <Grid.Column textAlign="right" verticalAlign="middle" width="6">
           <Button color="teal" disabled={this.ifNoteIsEmpty()} onClick={this.onSubmit}>Save</Button>
-          <Link to={"/books/" + bookId}><Button>Cancel</Button></Link>
+          <Button onClick={() => window.history.back()}>Cancel</Button>
         </Grid.Column>
         </Grid>
       </div>
