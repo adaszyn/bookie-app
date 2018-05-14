@@ -21,7 +21,7 @@ export class AuthStore {
   logIn = (email, password) => {
     authenticate(email, password)
       .then(this.logInSuccess)
-      .catch(this.logInFail);
+      .catch((error) => this.logInFail(error.response));
   };
   @action
   logInSuccess = response => {
@@ -29,17 +29,17 @@ export class AuthStore {
       this.token = response.data.sessionToken;
       this.isLoggedIn = true;
       store.set('session-token', response.data.sessionToken);      
-    } else {
-      if (response.status === 401) {
-        this.loginErrorMessage = "Wrong username or password.";       
-      }
-      this.token = "";
-      this.isLoggedIn = false;
     }
   };
   @action
   logInFail = response => {
-    this.loginErrorMessage = "There was a problem with your request.";
+    if(response.status === 401) {
+      this.loginErrorMessage = "Wrong username and/or password."; 
+    } else {
+      this.loginErrorMessage = "There was a problem with your request.";
+    }
+    this.token = "";
+    this.isLoggedIn = false;
   };
   @action
   logOut = () => {

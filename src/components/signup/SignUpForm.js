@@ -66,7 +66,7 @@ export class SignUpForm extends Component {
               <Image style={{ width: "140px" }} src={logo} />
               <br />
               <br />
-               Create your account
+              Create your account
             </Header>
             <Form size="large">
               <Segment stacked>
@@ -108,10 +108,12 @@ export class SignUpForm extends Component {
                 </Button>
               </Segment>
             </Form>
-            <Message style={{ color: "red" }}>
-              {this.props.errorMessage}
-              {this.state.formError}
-            </Message>
+            {this.props.errorMessage || this.state.formError ? (
+              <Message style={{ color: "red" }}>
+                {this.props.errorMessage}
+                {this.state.formError}
+              </Message>
+            ) : null}
             <Message>
               Back to <Link to="/login"> Log In</Link>
             </Message>
