@@ -75,7 +75,11 @@ export class AllNotesView extends Component {
       filteredNotes = filteredNotes.filter(note => note.isFav)
     }
     if(filterByTags.length > 0){
-      filteredNotes = filteredNotes.filter(note => filterByTags.every(filter => note.tags.indexOf(filter) > -1));
+      filteredNotes = filteredNotes.filter(note => {
+        return filterByTags.some(filter => {
+          return note.tags.indexOf(filter) > -1
+        })
+      })
     }
     return (
       <div>
