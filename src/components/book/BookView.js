@@ -142,7 +142,11 @@ export class BookView extends Component {
       notes = notes.filter(note => note.isFav)
     }
     if(filterByTags.length > 0){
-      notes = notes.filter(note => filterByTags.every(filter => note.tags.indexOf(filter) > -1));
+      notes = notes.filter(note => {
+        return filterByTags.some(filter => {
+          return note.tags.indexOf(filter) > -1
+        })
+      })
     }
 
     return (
