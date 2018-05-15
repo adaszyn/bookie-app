@@ -81,7 +81,13 @@ export class NoteCard extends React.Component {
     return (
       <Card.Content style={{ paddingTop: 0, paddingBottom: 0 }}>
         {tagsArray.map(tag => (
-          <Label size="tiny" name="" key={tag} color={getTagColor(tag)} />
+          <Popup 
+            position="top center"
+            trigger = { 
+              <Label size="tiny" name="" key={tag} color={getTagColor(tag)} />
+            }
+            content={tag}
+            />
         ))}
       </Card.Content>
     );

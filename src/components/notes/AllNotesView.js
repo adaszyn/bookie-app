@@ -5,13 +5,15 @@ import {
   Icon,
   Menu,
   Popup,
-  Table
+  Table, 
+  Label
 } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { Link } from "react-router-dom";
 import dateFormat from "dateformat";
 import { FilterByTags } from "../filter-by-tags/FilterByTags";
-import { TagStrip } from "../tags/TagStrip";
+import { TagBubble } from "../tags/TagBubble";
+import { getTagColor } from "../../util/tags.util";
 
 const CHAR_LIMIT = 14;
 
@@ -69,10 +71,10 @@ export class AllNotesView extends Component {
           {content.substr(0, CHAR_LIMIT)}
           {content.length > CHAR_LIMIT && "..."}
         </Table.Cell>
-        <Table.Cell width={3}>{dateFormat(dateCreated, "mmmm dS")}</Table.Cell>
-        <Table.Cell width={3}>{dateFormat(dateModified, "mmmm dS")}</Table.Cell>
-        <Table.Cell width={2} style={{ paddingTop: 0, paddingBottom: 0 }}>
-          {tags.split(",").map(tag => <TagStrip key={tag} tag={tag} />)}
+        <Table.Cell width={3}>{dateFormat(dateCreated, "mmmm dS 'yy")}</Table.Cell>
+        <Table.Cell width={3}>{dateFormat(dateModified, "mmmm dS 'yy")}</Table.Cell>
+        <Table.Cell width={2} style={{ padding: 5 }}>
+          {tags.split(",").map(tag => <Label style={{margin: 5}} size="mini" key={tag} color={getTagColor(tag)}>{tag} </Label>)}
         </Table.Cell>
       </Table.Row>
     );
@@ -132,7 +134,7 @@ export class AllNotesView extends Component {
           </Menu>
         </Header>
 
-        <Table sortable celled fixed>
+        <Table sortable celled fixed selectable>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Title</Table.HeaderCell>
