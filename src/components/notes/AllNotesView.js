@@ -1,110 +1,133 @@
 import React, { Component } from "react";
-import {Breadcrumb, Header, Icon, Menu, Popup, Table} from "semantic-ui-react";
+import {
+  Breadcrumb,
+  Header,
+  Icon,
+  Menu,
+  Popup,
+  Table
+} from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { Link } from "react-router-dom";
 import dateFormat from "dateformat";
-import {FilterByTags} from "../filter-by-tags/FilterByTags";
-import {TagStrip} from "../tags/TagStrip";
+import { FilterByTags } from "../filter-by-tags/FilterByTags";
+import { TagStrip } from "../tags/TagStrip";
 
 const CHAR_LIMIT = 14;
 
 @observer
 export class AllNotesView extends Component {
   state = {
-    sortedBy: 'updated',
-    order: 'ascending',
-    filterByTags: [],
-  }
+    sortedBy: "updated",
+    order: "ascending",
+    filterByTags: []
+  };
   componentDidMount() {
     this.props.getAllNotes();
   }
   sortNotes(notes) {
-    const reversed = this.state.order === 'ascending' ? 1 : -1
-    if (this.state.sortedBy === 'updated') {
+    const reversed = this.state.order === "ascending" ? 1 : -1;
+    if (this.state.sortedBy === "updated") {
       return notes.sort((note1, note2) => {
-        return (new Date(note1.dateModified) - new Date(note2.dateModified)) * reversed;
-      })
+        return (
+          (new Date(note1.dateModified) - new Date(note2.dateModified)) *
+          reversed
+        );
+      });
     } else {
       return notes.sort((note1, note2) => {
-        return (new Date(note1.dateCreated) - new Date(note2.dateCreated)) * reversed;
-      })
+        return (
+          (new Date(note1.dateCreated) - new Date(note2.dateCreated)) * reversed
+        );
+      });
     }
   }
-  handleSort (column) {
+  handleSort(column) {
     const currentOrder = this.state.order;
-    const reversedOrder = currentOrder === "ascending" ? "descending" : "ascending"
+    const reversedOrder =
+      currentOrder === "ascending" ? "descending" : "ascending";
     this.setState({
       sortedBy: column,
-      order: column === this.state.sortedBy ? reversedOrder : currentOrder,
-    })
+      order: column === this.state.sortedBy ? reversedOrder : currentOrder
+    });
   }
   static renderRow(note) {
     const { title, content, dateCreated, isFav, dateModified, tags } = note;
     return (
       <Table.Row key={note.id}>
         <Table.Cell>
-          <Icon name="heart" color={isFav ? "red" : "grey"} style={{marginRight: "10px"}}/>
+          <Icon
+            name="heart"
+            color={isFav ? "red" : "grey"}
+            style={{ marginRight: "10px" }}
+          />
           <Link to={`/notes/${note.id}`}>
             {title.substr(0, CHAR_LIMIT)} {title.length > CHAR_LIMIT && "..."}
           </Link>
         </Table.Cell>
-        <Table.Cell>{content.substr(0, CHAR_LIMIT)}{content.length > CHAR_LIMIT && "..."}</Table.Cell>
+        <Table.Cell>
+          {content.substr(0, CHAR_LIMIT)}
+          {content.length > CHAR_LIMIT && "..."}
+        </Table.Cell>
         <Table.Cell width={3}>{dateFormat(dateCreated, "mmmm dS")}</Table.Cell>
         <Table.Cell width={3}>{dateFormat(dateModified, "mmmm dS")}</Table.Cell>
-        <Table.Cell width={2} style={{paddingTop: 0, paddingBottom: 0}}>
-          {tags.split(',').map(tag => <TagStrip key={tag} tag={tag}/>)}
-          </Table.Cell>
+        <Table.Cell width={2} style={{ paddingTop: 0, paddingBottom: 0 }}>
+          {tags.split(",").map(tag => <TagStrip key={tag} tag={tag} />)}
+        </Table.Cell>
       </Table.Row>
-    )
+    );
   }
-  onTagsFilterChanged = (filter) => {
+  onTagsFilterChanged = filter => {
     this.setState({
       filterByTags: filter
-    })
-  }
+    });
+  };
   toggleFav = () => {
     this.setState({
       showOnlyFav: !this.state.showOnlyFav
-    })
-  }
+    });
+  };
   render() {
     const { sortedBy, order, filterByTags } = this.state;
     const { allTags, notes } = this.props;
     let filteredNotes = notes;
-    if(this.state.showOnlyFav){
-      filteredNotes = filteredNotes.filter(note => note.isFav)
+    if (this.state.showOnlyFav) {
+      filteredNotes = filteredNotes.filter(note => note.isFav);
     }
-    if(filterByTags.length > 0){
+    if (filterByTags.length > 0) {
       filteredNotes = filteredNotes.filter(note => {
         return filterByTags.some(filter => {
-          return note.tags.indexOf(filter) > -1
-        })
-      })
+          return note.tags.indexOf(filter) > -1;
+        });
+      });
     }
     return (
       <div>
         <Breadcrumb>
-          <Breadcrumb.Section><Link to="/">Home</Link></Breadcrumb.Section>
+          <Breadcrumb.Section>
+            <Link to="/">Home</Link>
+          </Breadcrumb.Section>
           <Breadcrumb.Divider> > </Breadcrumb.Divider>
           <Breadcrumb.Section>All notes</Breadcrumb.Section>
-
         </Breadcrumb>
 
         <Header block as="h2">
           Your notes
           <Menu size="tiny" floated="right" stackable>
             <FilterByTags
-              onChange={(filter) => this.onTagsFilterChanged(filter)}
+              onChange={filter => this.onTagsFilterChanged(filter)}
               tags={allTags}
             />
             <Popup
               trigger={
                 <Menu.Item
                   active={this.state.showOnlyFav}
-                  onClick={this.toggleFav}>
+                  onClick={this.toggleFav}
+                >
                   <Icon name="heart" />
-                </Menu.Item>}
-              content='Show only Favorite notes'
+                </Menu.Item>
+              }
+              content="Show only Favorite notes"
             />
           </Menu>
         </Header>
@@ -112,31 +135,24 @@ export class AllNotesView extends Component {
         <Table sortable celled fixed>
           <Table.Header>
             <Table.Row>
-
-              <Table.HeaderCell
-              >
-                Title
-              </Table.HeaderCell>
-              <Table.HeaderCell>
-                Content
-              </Table.HeaderCell>
+              <Table.HeaderCell>Title</Table.HeaderCell>
+              <Table.HeaderCell>Content</Table.HeaderCell>
               <Table.HeaderCell
                 width={3}
-                sorted={sortedBy === 'created' ? order : null}
-                onClick={() => this.handleSort('created')}
+                sorted={sortedBy === "created" ? order : null}
+                onClick={() => this.handleSort("created")}
               >
                 Created
               </Table.HeaderCell>
               <Table.HeaderCell
                 width={3}
-                sorted={sortedBy === 'updated' ? order : null}
-                onClick={() => this.handleSort('updated')}
+                sorted={sortedBy === "updated" ? order : null}
+                onClick={() => this.handleSort("updated")}
               >
                 Updated
               </Table.HeaderCell>
               <Table.HeaderCell width={2}>Tags</Table.HeaderCell>
-
-          </Table.Row>
+            </Table.Row>
           </Table.Header>
           <Table.Body>
             {this.sortNotes(filteredNotes).map(AllNotesView.renderRow)}
@@ -151,6 +167,6 @@ export const AllNotesViewContainer = inject(stores => {
     notes: stores.notesStore.notes,
     loading: stores.notesStore.loading,
     getAllNotes: stores.notesStore.getAllNotes,
-    allTags: stores.notesStore.allTags,
+    allTags: stores.notesStore.allTags
   };
 })(AllNotesView);

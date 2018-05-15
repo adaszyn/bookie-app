@@ -1,10 +1,17 @@
 import React, { Component } from "react";
-import { Breadcrumb, Button, Input, Grid, Popup, Icon } from "semantic-ui-react";
+import {
+  Breadcrumb,
+  Button,
+  Input,
+  Grid,
+  Popup,
+  Icon
+} from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { Link } from "react-router-dom";
 import { TagsEditor } from "../tags-editor/TagsEditor";
-import { RTEContainer } from "../rte/RTEContainer"
-import {LoadingPlaceholder} from "../loading/LoadingPlaceholder";
+import { RTEContainer } from "../rte/RTEContainer";
+import { LoadingPlaceholder } from "../loading/LoadingPlaceholder";
 
 @observer
 export class NotesView extends Component {
@@ -12,7 +19,7 @@ export class NotesView extends Component {
     title: "",
     isFav: false,
     tags: [],
-    editedNoteContent: '',
+    editedNoteContent: ""
   };
   componentDidMount() {
     this.props.getNote(this.props.match.params.id);
@@ -25,99 +32,140 @@ export class NotesView extends Component {
       editedNoteContent: note.content,
       title: note.title,
       isFav: note.isFav,
-      tags: note.tags ? note.tags.split(',') : []
+      tags: note.tags ? note.tags.split(",") : []
     });
   }
   onNoteChange = note => {
     this.setState({
       note,
-      editedNoteContent: note,
+      editedNoteContent: note
     });
   };
   onTitleChange = e => {
     this.setState({
-      'title': e.target.value
+      title: e.target.value
     });
   };
-  onTagsChanged = (updatedTagsArray) => {
+  onTagsChanged = updatedTagsArray => {
     this.setState({
       tags: updatedTagsArray
-    })
+    });
   };
   onFavToggle = () => {
     this.setState({
-      'isFav': !this.state.isFav
-    })
-  }
+      isFav: !this.state.isFav
+    });
+  };
   ifNoteIsEmpty = () => {
-    return this.state.title.trim() === '' || this.state.editedNoteContent.trim() === '';
-  }
+    return (
+      this.state.title.trim() === "" ||
+      this.state.editedNoteContent.trim() === ""
+    );
+  };
   onSubmit = () => {
     const noteId = this.props.match.params.id;
-    const tagsCSV = this.state.tags.join(',');
+    const tagsCSV = this.state.tags.join(",");
     this.props
-      .updateNote(noteId, this.props.note.bookId, this.state.title, this.state.editedNoteContent, this.state.isFav, tagsCSV)
+      .updateNote(
+        noteId,
+        this.props.note.bookId,
+        this.state.title,
+        this.state.editedNoteContent,
+        this.state.isFav,
+        tagsCSV
+      )
       .then(() => this.props.history.push(`/books/${this.props.note.bookId}/`));
   };
-  onImageUpload = (url) => {
+  onImageUpload = url => {
     this.setState({
       editedNoteContent: `${this.state.editedNoteContent} ![](${url}) `
-    })
-  }
+    });
+  };
   render() {
     const book = this.props.books.get(this.props.note.bookId);
     const bookId = this.props.note.bookId;
 
     if (!book) {
-      return <LoadingPlaceholder/>
+      return <LoadingPlaceholder />;
     }
 
     return (
       <div>
         <Breadcrumb>
-            <Breadcrumb.Section><Link to="/">Home</Link></Breadcrumb.Section>
-            <Breadcrumb.Divider> > </Breadcrumb.Divider>
-            <Breadcrumb.Section>
-                <Link to={"/books/" + bookId}>
-                    {book.title}
-                </Link>
-            </Breadcrumb.Section>
-            <Breadcrumb.Divider> > </Breadcrumb.Divider>
-            <div className="active section">Edit note</div>
+          <Breadcrumb.Section>
+            <Link to="/">Home</Link>
+          </Breadcrumb.Section>
+          <Breadcrumb.Divider> > </Breadcrumb.Divider>
+          <Breadcrumb.Section>
+            <Link to={"/books/" + bookId}>{book.title}</Link>
+          </Breadcrumb.Section>
+          <Breadcrumb.Divider> > </Breadcrumb.Divider>
+          <div className="active section">Edit note</div>
         </Breadcrumb>
-        <br/>
-        <br/>
+        <br />
+        <br />
 
         <Input
           fluid
           placeholder="Title .."
           value={this.state.title}
-          onChange= {this.onTitleChange.bind(this)}/>
-        <br/>
+          onChange={this.onTitleChange.bind(this)}
+        />
+        <br />
         <RTEContainer
           onImageUpload={this.onImageUpload}
           value={this.state.editedNoteContent}
-          onChange={this.onNoteChange} />
-        <br/>
+          onChange={this.onNoteChange}
+        />
+        <br />
         <Grid>
-        <Grid.Column width="10">
-          <Popup
-            on="click"
-            trigger={<Icon link size="large" name="tags" onClick={(e) => {e.preventDefault()}}/>}
-            position="bottom left">
-            <Popup.Content>
-             <TagsEditor
-              tags = {this.state.tags}
-              onTagAdded={(updatedTagsArray)=> this.onTagsChanged(updatedTagsArray)}
-              onTagRemoved={(updatedTagsArray)=> this.onTagsChanged(updatedTagsArray)}/>
-            </Popup.Content>
-          </Popup>
-          <Icon link name="heart" size="large" color={this.state.isFav ? "red" : "grey"} onClick={(e) => {this.onFavToggle(e)}} />
-        </Grid.Column>
-        <Grid.Column textAlign="right" verticalAlign="middle" width="6">
-          <Button color="teal" disabled={this.ifNoteIsEmpty()} onClick={this.onSubmit}>Save</Button>
-          <Button onClick={() => window.history.back()}>Cancel</Button>
-        </Grid.Column>
+          <Grid.Column width="10">
+            <Popup
+              on="click"
+              trigger={
+                <Icon
+                  link
+                  size="large"
+                  name="tags"
+                  onClick={e => {
+                    e.preventDefault();
+                  }}
+                />
+              }
+              position="bottom left"
+            >
+              <Popup.Content>
+                <TagsEditor
+                  tags={this.state.tags}
+                  onTagAdded={updatedTagsArray =>
+                    this.onTagsChanged(updatedTagsArray)
+                  }
+                  onTagRemoved={updatedTagsArray =>
+                    this.onTagsChanged(updatedTagsArray)
+                  }
+                />
+              </Popup.Content>
+            </Popup>
+            <Icon
+              link
+              name="heart"
+              size="large"
+              color={this.state.isFav ? "red" : "grey"}
+              onClick={e => {
+                this.onFavToggle(e);
+              }}
+            />
+          </Grid.Column>
+          <Grid.Column textAlign="right" verticalAlign="middle" width="6">
+            <Button
+              color="teal"
+              disabled={this.ifNoteIsEmpty()}
+              onClick={this.onSubmit}
+            >
+              Save
+            </Button>
+            <Button onClick={() => window.history.back()}>Cancel</Button>
+          </Grid.Column>
         </Grid>
       </div>
     );
