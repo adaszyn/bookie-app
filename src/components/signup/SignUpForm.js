@@ -22,6 +22,11 @@ export class SignUpForm extends Component {
   };
   onEmailChange = ({ target: { value } }) => {
     this.setState({ email: value });
+    if( /(.+)@(.+){2,}\.(.+){2,}/.test(this.state.email) ){
+      this.setState({ formError: "" });
+    } else{
+      this.setState({ formError: "Enter a valid email!" });
+    }
   };
   onPasswordChange = ({ target: { value } }) => {
     if (this.state.repeatedPassword !== value) {
@@ -45,7 +50,7 @@ export class SignUpForm extends Component {
 
   render() {
     const submitDisabled =
-      this.state.formError !== "" || this.state.repeatedPassword === "";
+      this.state.formError !== "" || this.state.email === "" || this.state.repeatedPassword === "";
     return (
       <div className="login-form">
         {/* //TODO: move styles to LoginForm.css   */}
