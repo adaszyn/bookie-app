@@ -27,7 +27,7 @@ export class DraggableTags extends Component {
             trigger={
               <span>
                 {" "}
-                <Icon name="tags" color="grey" size="small" /> My Tags{" "}
+                <Icon name="tags" color="grey" size="small" /> Tags{" "}
                 <Icon name="question" color="grey" size="small" />{" "}
               </span>
             }

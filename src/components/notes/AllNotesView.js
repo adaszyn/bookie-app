@@ -5,7 +5,7 @@ import {
   Icon,
   Menu,
   Popup,
-  Table, 
+  Table,
   Label
 } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
@@ -71,10 +71,23 @@ export class AllNotesView extends Component {
           {content.substr(0, CHAR_LIMIT)}
           {content.length > CHAR_LIMIT && "..."}
         </Table.Cell>
-        <Table.Cell width={3}>{dateFormat(dateCreated, "mmmm dS 'yy")}</Table.Cell>
-        <Table.Cell width={3}>{dateFormat(dateModified, "mmmm dS 'yy")}</Table.Cell>
+        <Table.Cell width={3}>
+          {dateFormat(dateCreated, "mmmm dS 'yy")}
+        </Table.Cell>
+        <Table.Cell width={3}>
+          {dateFormat(dateModified, "mmmm dS 'yy")}
+        </Table.Cell>
         <Table.Cell width={2} style={{ padding: 5 }}>
-          {tags.split(",").map(tag => <Label style={{margin: 5}} size="mini" key={tag} color={getTagColor(tag)}>{tag} </Label>)}
+          {tags.split(",").map(tag => (
+            <Label
+              style={{ margin: 5 }}
+              size="mini"
+              key={tag}
+              color={getTagColor(tag)}
+            >
+              {tag}{" "}
+            </Label>
+          ))}
         </Table.Cell>
       </Table.Row>
     );
