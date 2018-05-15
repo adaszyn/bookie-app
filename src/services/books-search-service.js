@@ -1,11 +1,11 @@
 import axios from "axios";
 import { findWhere } from "underscore";
-import {clearSpecialCharacters} from "../util/string.util";
+import { clearSpecialCharacters } from "../util/string.util";
 import qs from "simple-query-string";
 
 const LIMIT = 5;
 let TOKEN = "AIzaSyDu4kB0pi3srmAoCUIUfKg8j0kBzI_jFH0";
-TOKEN = "AIzaSyDVy9lkJzUvrg6DFTgsO9q51uapMeuvfGA"
+// TOKEN = "AIzaSyDVy9lkJzUvrg6DFTgsO9q51uapMeuvfGA"
 
 const trimText = (text = "", maxLength) => {
   if (text.length > maxLength) return text.slice(0, maxLength) + "...";
@@ -38,24 +38,26 @@ function formatBookResponse(result) {
 }
 export async function searchGoogleBooks(searchPhrase, options = {}) {
   try {
-    const phraseEscaped = clearSpecialCharacters(searchPhrase).split(" ").join("+");
+    const phraseEscaped = clearSpecialCharacters(searchPhrase)
+      .split(" ")
+      .join("+");
     if (phraseEscaped === "") {
-        return Promise.resolve([]);
+      return Promise.resolve([]);
     }
     options.maxResults = options.maxResults || LIMIT;
     options.langRestrict = options.langRestrict || "en";
     const params = qs.stringify({
       q: phraseEscaped,
       key: TOKEN,
-      ...options,
-    })
+      ...options
+    });
     const result = await axios.get(
       `https://www.googleapis.com/books/v1/volumes?${params}`
     );
 
     return result.data.items
       .map(formatBookResponse)
-      .filter(book => book.isbn10 || book.isbn13 || book.otherIdentifier)
+      .filter(book => book.isbn10 || book.isbn13 || book.otherIdentifier);
   } catch (exception) {
     return Promise.reject("Search exception", exception);
   }
