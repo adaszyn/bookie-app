@@ -6,67 +6,102 @@ import "./HomeView.css";
 import { BookCard } from "../book-card/BookCard";
 import { NoteViewContainer } from "../note-card/NoteCard";
 import { Carousel } from "../carousel/Carousel";
-import {DraggableTagsContainer} from "../tags/DraggableTags";
+import { DraggableTagsContainer } from "../tags/DraggableTags";
 
 @observer
 export class HomeView extends Component {
+  state = {
+    isTagDragging: false
+  };
   componentDidMount() {
     this.props.getAllNotes();
   }
-  
-  getNumberOfNotesByBookId = bookId => {
-    return this.props.notes.filter( note => note.bookId === bookId).length;
-  }
 
-  hasSomeNotes = book => this.props.notes.filter(note => note.bookId === book.isbn10).length !== 0
+  getNumberOfNotesByBookId = bookId => {
+    return this.props.notes.filter(note => note.bookId === bookId).length;
+  };
+
+  onTagsDragStateChange = isDragging => {
+    if (this.state.isTagDragging !== isDragging) {
+      this.setState({
+        isTagDragging: isDragging
+      });
+    }
+  };
+
+  getCarouselStyle = () => {
+    return {
+      minHeight: "280px",
+      display: "block",
+      border: "2px solid",
+      padding: "4px",
+      borderColor: this.state.isTagDragging ? "#636363" : "transparent"
+    };
+  };
+
+  hasSomeNotes = book =>
+    this.props.notes.filter(note => note.bookId === book.isbn10).length !== 0;
 
   render() {
     const { notes } = this.props;
-    if(!notes || notes.length === 0) {
+    if (!notes || notes.length === 0) {
       return (
         <Grid stretched textAlign="center">
           <Grid.Column>
             <Message size="massive"> Hi there! Welcome to Bookie</Message>
-            <Container size="big"> 
-              Bookie helps you create notes for your favorite books. 
-              To get started, search for a book in the search bar at the top of the page.
+            <Container size="big">
+              Bookie helps you create notes for your favorite books. To get
+              started, search for a book in the search bar at the top of the
+              page.
             </Container>
-          </Grid.Column> 
+          </Grid.Column>
         </Grid>
       );
     }
     return (
       <div>
-        <Header block as="h2">Recent Notes</Header>
+        <Header block as="h2">
+          Recent Notes
+        </Header>
         <Grid stackable>
           <Grid.Column>
-            {notes.length > 0 ? (<DraggableTagsContainer />): null}
+            {notes.length > 0 ? (
+              <DraggableTagsContainer
+                onDragStateChange={isDragging =>
+                  this.onTagsDragStateChange(isDragging)
+                }
+              />
+            ) : null}
           </Grid.Column>
         </Grid>
         <Carousel
-          style={{minHeight: "280px", display:"block"}}
+          style={this.getCarouselStyle()}
           items={this.props.notes}
           renderItem={note => (
-              <Link to={"/notes/" + note.id} key={note.id}>
-                <NoteViewContainer
-                  note={note}
-                  key={note.id}
-                  noteId={note.id}
-                  title={note.title}
-                  isFav={note.isFav}
-                  meta={note.dateModified}
-                  description={note.content}
-                  tags={note.tags}
-                />
-              </Link>
+            <Link to={"/notes/" + note.id} key={note.id}>
+              <NoteViewContainer
+                note={note}
+                key={note.id}
+                noteId={note.id}
+                title={note.title}
+                isFav={note.isFav}
+                meta={note.dateModified}
+                description={note.content}
+                tags={note.tags}
+              />
+            </Link>
           )}
           itemKey={"id"}
           perPage={3}
         />
         <Divider />
-          {!!this.props.books.length && <Header block as="h2">My Books</Header>}
+        {!!this.props.books.length && (
+          <Header block as="h2">
+            My Books
+          </Header>
+        )}
         <Carousel
-          style={{minHeight: "280px", display:"block"}}
+          style={{ minHeight: "280px", display: "block" }}
           items={this.props.books.filter(this.hasSomeNotes)}
           renderItem={book => (
             <BookCard
@@ -93,6 +128,6 @@ export const HomeViewContainer = inject(stores => {
     updateNote: stores.notesStore.updateNote,
     deleteNote: stores.notesStore.deleteNote,
     books: stores.booksStore.booksList,
-    allTags: stores.notesStore.allTags,
+    allTags: stores.notesStore.allTags
   };
 })(HomeView);

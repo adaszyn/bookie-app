@@ -74,13 +74,14 @@ export class NoteCard extends React.Component {
   };
   renderTagsToolbar = () => {
     const tags = this.props.tags;
+    const tagsArray = this.getTagsArray(tags).slice(0,6);
     if (!tags || tags.length === 0) {
       return null;
     }
     return (
       <Card.Content style={{ paddingTop: 0, paddingBottom: 0 }}>
-        {this.getTagsArray(this.props.tags).map(tag => (
-          <Label name="" key={tag} color={getTagColor(tag)} />
+        {tagsArray.map(tag => (
+          <Label size="tiny" name="" key={tag} color={getTagColor(tag)} />
         ))}
       </Card.Content>
     );
@@ -88,12 +89,14 @@ export class NoteCard extends React.Component {
 
   trimUpdateDateString = date => {
     var date_format = new Date(date);
+    var minutes = date_format.getMinutes();
+    minutes = minutes <= 9 ? "0" + minutes.toString() : minutes
     return (
       date_format.toDateString() +
       " at " +
       date_format.getHours() +
       ":" +
-      date_format.getMinutes()
+      minutes
     );
   };
 

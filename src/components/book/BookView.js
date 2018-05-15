@@ -1,5 +1,17 @@
 import React, { Component } from "react";
-import { Grid, Breadcrumb, Header, Button, List, Menu, Icon, Rating, Divider, Popup, Container} from "semantic-ui-react";
+import {
+  Grid,
+  Breadcrumb,
+  Header,
+  Button,
+  List,
+  Menu,
+  Icon,
+  Rating,
+  Divider,
+  Popup,
+  Container
+} from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { BookCard } from "../book-card/BookCard";
 import { NoteViewContainer } from "../note-card/NoteCard";
@@ -9,14 +21,14 @@ import { LoadingPlaceholder } from "../loading/LoadingPlaceholder";
 import { DraggableTagsContainer } from "../tags/DraggableTags";
 import { FilterByTags } from "../filter-by-tags/FilterByTags";
 
-
 @observer
 export class BookView extends Component {
   state = {
     descriptionExpanded: false,
-    activeItem: "th-btn", 
-    showOnlyFav: false, 
-    filterByTags: []
+    activeItem: "th-btn",
+    showOnlyFav: false,
+    filterByTags: [],
+    isTagDragging: false
   };
 
   componentWillReceiveProps(newProps) {
@@ -36,7 +48,7 @@ export class BookView extends Component {
     });
   };
   renderDescription(book) {
-    if(!book.fullDescription) return null;
+    if (!book.fullDescription) return null;
     if (this.state.descriptionExpanded) {
       return <p>{book.fullDescription}</p>;
     } else {
@@ -44,85 +56,124 @@ export class BookView extends Component {
     }
   }
   renderToggleDescriptionButton(book) {
-    if(book.description && book.fullDescription && book.description !== book.fullDescription){
+    if (
+      book.description &&
+      book.fullDescription &&
+      book.description !== book.fullDescription
+    ) {
       if (this.state.descriptionExpanded) {
-        return <Button size ="tiny" onClick={this.toggleDescription}> Show less </Button>;
+        return (
+          <Button size="tiny" onClick={this.toggleDescription}>
+            {" "}
+            Show less{" "}
+          </Button>
+        );
       } else {
-        return <Button size ="tiny" onClick={this.toggleDescription}>Show more </Button>;
+        return (
+          <Button size="tiny" onClick={this.toggleDescription}>
+            Show more{" "}
+          </Button>
+        );
       }
     }
   }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   toggleFav = () => {
     this.setState({
       showOnlyFav: !this.state.showOnlyFav
-    })
-  }
+    });
+  };
 
-  renderNotesCarousel = (notes) => {
-    return <Carousel
-        style={{minHeight: "280px", display:"block"}}
+  renderNotesCarousel = notes => {
+    return (
+      <Carousel
+        style={this.getCarouselStyle()}
         items={notes}
         renderItem={note => (
-            <Link to={"/notes/" + note.id} key={note.id}>
-                <NoteViewContainer
-                  key={note.id}
-                  noteId={note.id}
-                  title={note.title}
-                  isFav={note.isFav}
-                  meta={note.dateModified}
-                  description={note.content}
-                  tags={note.tags}
-                />
-            </Link>
+          <Link to={"/notes/" + note.id} key={note.id}>
+            <NoteViewContainer
+              key={note.id}
+              noteId={note.id}
+              title={note.title}
+              isFav={note.isFav}
+              meta={note.dateModified}
+              description={note.content}
+              tags={note.tags}
+            />
+          </Link>
         )}
         itemKey={"id"}
         perPage={3}
-    />
-  }
-  renderNotesList = (notes) => {
-    return  <List
-        style={{display:"block", width: "100%" }}>
+      />
+    );
+  };
+  renderNotesList = notes => {
+    return (
+      <List style={{ display: "block", width: "100%" }}>
         {notes.map(note => (
-            <Link to={"/notes/" + note.id} key={note.id}>
-                <NoteViewContainer
-                  key={note.id}
-                  noteId={note.id}
-                  listitem                   
-                  title={note.title}
-                  isFav={note.isFav}
-                  meta={note.dateModified}
-                  description={note.content}
-                  tags={note.tags}
-                />
-            </Link>
+          <Link to={"/notes/" + note.id} key={note.id}>
+            <NoteViewContainer
+              key={note.id}
+              noteId={note.id}
+              listitem
+              title={note.title}
+              isFav={note.isFav}
+              meta={note.dateModified}
+              description={note.content}
+              tags={note.tags}
+            />
+          </Link>
         ))}
-    </List>
-  }
-  onTagsFilterChanged = (filter) => {
+      </List>
+    );
+  };
+  onTagsDragStateChange = isDragging => {
+    if (this.state.isTagDragging !== isDragging) {
+      this.setState({
+        isTagDragging: isDragging
+      });
+    }
+  };
+
+  getCarouselStyle = () => {
+    return {
+      minHeight: "280px",
+      display: "block",
+      border: "2px solid",
+      padding: "4px",
+      borderColor: this.state.isTagDragging ? "#636363" : "transparent"
+    };
+  };
+  onTagsFilterChanged = filter => {
     this.setState({
       filterByTags: filter
-    })
-  }
-  renderNotes = (notes) => {
-    if((this.state.showOnlyFav || this.state.filterByTags.length > 0) && notes.length === 0){
+    });
+  };
+  renderNotes = notes => {
+    if (
+      (this.state.showOnlyFav || this.state.filterByTags.length > 0) &&
+      notes.length === 0
+    ) {
       return (
         <div>
           <Header as="h3"> No notes match your filter criteria</Header>
         </div>
-      )
+      );
     }
     if (notes.length === 0) {
-      return <Header as="h3">Click on the Plus (+) icon to start creating a new note</Header>
+      return (
+        <Header as="h3">
+          Click on the Plus (+) icon to start creating a new note
+        </Header>
+      );
     }
-    if (this.state.activeItem === 'th-btn') {
-      return this.renderNotesCarousel(notes)
+    if (this.state.activeItem === "th-btn") {
+      return this.renderNotesCarousel(notes);
     }
-    return this.renderNotesList(notes)
-
-  }
+    return this.renderNotesList(notes);
+  };
 
   render() {
     const book = this.props.books.get(this.props.match.params.id);
@@ -133,20 +184,18 @@ export class BookView extends Component {
       return <p>{this.props.bookFetchError}</p>;
     }
     if (!book) {
-      return ( 
-        <LoadingPlaceholder/>
-      );
+      return <LoadingPlaceholder />;
     }
     let notes = this.props.notesByBookId[book.isbn10] || [];
-    if(this.state.showOnlyFav){
-      notes = notes.filter(note => note.isFav)
+    if (this.state.showOnlyFav) {
+      notes = notes.filter(note => note.isFav);
     }
-    if(filterByTags.length > 0){
+    if (filterByTags.length > 0) {
       notes = notes.filter(note => {
         return filterByTags.some(filter => {
-          return note.tags.indexOf(filter) > -1
-        })
-      })
+          return note.tags.indexOf(filter) > -1;
+        });
+      });
     }
 
     return (
@@ -154,26 +203,30 @@ export class BookView extends Component {
         <Grid>
           <Grid.Row>
             <Breadcrumb>
-              <Breadcrumb.Section><Link to="/">Home</Link></Breadcrumb.Section>
+              <Breadcrumb.Section>
+                <Link to="/">Home</Link>
+              </Breadcrumb.Section>
               <Breadcrumb.Divider> > </Breadcrumb.Divider>
               <div className="active section">{book.title} </div>
             </Breadcrumb>
           </Grid.Row>
 
           <Grid.Column computer={5}>
-            <BookCard 
-              bookId={this.props.match.params.id} 
-              key={this.props.match.params.id} 
-              thumbnail={book.image} 
+            <BookCard
+              bookId={this.props.match.params.id}
+              key={this.props.match.params.id}
+              thumbnail={book.image}
               numberOfNotes={notes.length}
             />
           </Grid.Column>
           <Grid.Column computer={9}>
-            <Header as="h2">{book.title} 
+            <Header as="h2">
+              {book.title}
               <Header.Subheader>
-                by {book.authors? book.authors.join(', '): 'Unknown Author'}
-                <Divider/>
-                <Rating disabled maxRating="5" rating={book.rating} /> {book.rating}
+                by {book.authors ? book.authors.join(", ") : "Unknown Author"}
+                <Divider />
+                <Rating disabled maxRating="5" rating={book.rating} />{" "}
+                {book.rating}
               </Header.Subheader>
             </Header>
             {this.renderDescription(book)}
@@ -183,44 +236,60 @@ export class BookView extends Component {
         <Header block as="h2">
           Notes
           <Menu size="tiny" floated="right" className="stackable">
-            <Menu.Item name='th-btn' active={this.state.activeItem === 'th-btn'} onClick={this.handleItemClick}>
-              <Icon className='th'/>
+            <Menu.Item
+              name="th-btn"
+              active={this.state.activeItem === "th-btn"}
+              onClick={this.handleItemClick}
+            >
+              <Icon className="th" />
             </Menu.Item>
-            <Menu.Item name='list-btn' active={this.state.activeItem === 'list-btn'} onClick={this.handleItemClick}>
-              <Icon name = 'list'/>
+            <Menu.Item
+              name="list-btn"
+              active={this.state.activeItem === "list-btn"}
+              onClick={this.handleItemClick}
+            >
+              <Icon name="list" />
             </Menu.Item>
           </Menu>
           <Menu size="tiny" floated="right" className="stackable">
-              <FilterByTags 
-                onChange={(filter) => this.onTagsFilterChanged(filter)}
-                tags={tags}
-              />
-              <Popup
+            <FilterByTags
+              onChange={filter => this.onTagsFilterChanged(filter)}
+              tags={tags}
+            />
+            <Popup
               trigger={
-                <Menu.Item 
+                <Menu.Item
                   active={this.state.showOnlyFav}
-                  onClick={this.toggleFav}>
+                  onClick={this.toggleFav}
+                >
                   <Icon name="heart" />
-                </Menu.Item>}
-              content='Show only Favorite notes'
+                </Menu.Item>
+              }
+              content="Show only Favorite notes"
             />
           </Menu>
           <Menu size="tiny" floated="right">
-            <Link to={`/books/${book.isbn10}/create`}>
-                <Popup
-                trigger ={
+            <Popup
+              trigger={
+                <Link to={`/books/${book.isbn10}/create`}>
                   <Menu.Item>
-                    <Icon name = 'plus'/>
+                    <Icon name="plus" />
                   </Menu.Item>
-                }
-                content="Create New Note"
-                />
-            </Link>
+                </Link>
+              }
+              content="Create New Note"
+            />
           </Menu>
         </Header>
         <Container text style={{ marginTop: "0.5em" }}>
-          {notes.length > 0 ? (<DraggableTagsContainer />): null}
-          <br/>
+          {notes.length > 0 ? (
+            <DraggableTagsContainer
+              onDragStateChange={isDragging =>
+                this.onTagsDragStateChange(isDragging)
+              }
+            />
+          ) : null}
+          <br />
         </Container>
         {this.renderNotes(notes)}
       </div>
@@ -237,6 +306,6 @@ export const BookViewContainer = inject(stores => {
     fetchBookById: stores.booksStore.fetchBookById,
     books: stores.booksStore.books,
     bookFetchError: stores.booksStore.bookFetchError,
-    allTags: stores.notesStore.allTags,
+    allTags: stores.notesStore.allTags
   };
 })(BookView);
