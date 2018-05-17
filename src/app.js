@@ -1,17 +1,13 @@
 import React from "react";
 import { Provider } from "mobx-react";
 import { RoutesContainer } from "./routes";
-import { BooksStore } from "./stores/books-store";
-import { AuthStore } from "./stores/auth-store";
 import "semantic-ui-css/semantic.min.css";
-import { NotesStore } from "./stores/notes-store";
 import store from "store";
 import Axios from "axios";
 import {API_BASE} from './services/api-service';
 import {toast} from "react-semantic-toasts";
 import { DragDropContextProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
-import {SearchStore} from "./stores/search-store";
 import stores from './configure-stores';
 
 
