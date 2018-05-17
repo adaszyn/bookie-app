@@ -99,7 +99,7 @@ export class BookView extends Component {
               title={note.title}
               isFav={note.isFav}
               meta={note.dateModified}
-              description={note.content}
+              description={note.contentRaw}
               tags={note.tags}
             />
           </Link>
@@ -121,7 +121,7 @@ export class BookView extends Component {
               title={note.title}
               isFav={note.isFav}
               meta={note.dateModified}
-              description={note.content}
+              description={note.contentRaw}
               tags={note.tags}
             />
           </Link>

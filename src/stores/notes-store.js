@@ -9,6 +9,7 @@ import {
 } from "../services/api-service";
 import { uniq, flatten } from "lodash";
 import {isNonEmpty} from "../util/string.util";
+import cleanMarkdown from 'remove-markdown';
 
 export class NotesStore {
   @observable note = {};
@@ -75,7 +76,10 @@ export class NotesStore {
   @action
   getNotesSuccess = response => {
     this.notesById = response.data.notes.reduce((byId, note) => {
-      byId[note.id] = note;
+      byId[note.id] = {
+        ...note,
+        contentRaw: cleanMarkdown(note.content)
+      };
       return byId;
     }, {});
     this.notesFetchError = null;

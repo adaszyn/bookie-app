@@ -33,7 +33,7 @@ export const NoteTileItem = ({
   title,
   isFav,
   tags,
-  content,
+  contentRaw,
   dateCreated,
   dateModified,
   id,
@@ -53,7 +53,7 @@ export const NoteTileItem = ({
         <strong>Modified: </strong>
         {dateFormat(dateModified, "mmmm dS 'yy")}
       </Card.Meta>
-      <Card.Description>{limitLength(content, 40)}</Card.Description>
+      <Card.Description>{limitLength(contentRaw, 40)}</Card.Description>
     </Card.Content>
     <TagsToolbar tags={tags} />
   </Card>

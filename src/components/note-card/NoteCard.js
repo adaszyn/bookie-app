@@ -15,15 +15,10 @@ import { observer, inject } from "mobx-react";
 import { getTagColor } from "../../util/tags.util";
 import { TagsDropZone } from "../tags/TagsDropZone";
 import { uniq } from "lodash";
+import {limitLength} from "../../util/string.util";
 
 @observer
 export class NoteCard extends React.Component {
-  getFormattedDescription = description => {
-    description = description.substring(0, 20);
-    if (description.length >= 20) description = description + " ..";
-    return description;
-  };
-
   getFormattedTitle = title => {
     title = title.substring(0, 15);
     if (title.length >= 15) title = title + " ..";
@@ -184,7 +179,7 @@ export class NoteCard extends React.Component {
                 style={{ fontSize: "12px" }}
               />
               <Card.Description>
-                {this.getFormattedDescription(this.props.description)}
+                {limitLength(this.props.description, 20)}
               </Card.Description>
             </Card.Content>
             {this.renderTagsToolbar()}

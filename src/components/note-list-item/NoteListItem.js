@@ -16,7 +16,7 @@ export const NoteListItem = ({
   title,
   isFav,
   tags,
-  content,
+  contentRaw,
   book,
   dateCreated,
   dateModified,
@@ -45,7 +45,7 @@ export const NoteListItem = ({
         <strong> Modified: </strong>
         {dateFormat(dateModified, "mmmm dS 'yy")}
       </Card.Meta>
-      <Card.Description>{limitLength(content, 40)}</Card.Description>
+      <Card.Description>{limitLength(contentRaw, 40)}</Card.Description>
     </Card.Content>
     <Card.Content extra style={{ display: "flex" }}>
       {getTagsArray(tags).map(tag => (
