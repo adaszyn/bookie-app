@@ -5,12 +5,14 @@ import {
   Icon,
   Menu,
   Popup,
-  Dropdown, Segment, Responsive,
+  Card,
+  Dropdown, Responsive, Accordion,
 } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { Link } from "react-router-dom";
 import { FilterByTags } from "../filter-by-tags/FilterByTags";
 import { NoteListItem } from "../note-list-item/NoteListItem";
+import {NoteTileItem} from "../note-tile-item/NoteTileItem";
 
 @observer
 export class AllNotesView extends Component {
@@ -18,6 +20,8 @@ export class AllNotesView extends Component {
     sortedBy: "updated",
     order: "ascending",
     filterByTags: [],
+    noteViewType: 'list',
+    optionsVisible: false,
   };
   componentDidMount() {
     this.props.getAllNotes();
@@ -58,11 +62,20 @@ export class AllNotesView extends Component {
       showOnlyFav: !this.state.showOnlyFav,
     });
   };
+  changeToListView = () => {
+    this.setState({
+      noteViewType: "list"
+    })
+  }
+  changeToTileView = () => {
+    this.setState({
+      noteViewType: "tile"
+    })
+  }
   renderFilters() {
     const { allTags } = this.props;
     return (
       <React.Fragment>
-
         <Menu.Item>
           <Dropdown
             renderLabel={this.renderLabel}
@@ -113,12 +126,26 @@ export class AllNotesView extends Component {
           }
           content="Show only Favorite notes"
         />
+        <Menu.Item
+          name="th-btn"
+          active={this.state.noteViewType === "tile"}
+          onClick={this.changeToTileView}
+        >
+          <Icon className="th" />
+        </Menu.Item>
+        <Menu.Item
+          name="list-btn"
+          active={this.state.noteViewType === "list"}
+          onClick={this.changeToListView}
+        >
+          <Icon name="list" />
+        </Menu.Item>
       </React.Fragment>
     );
   }
-  render() {
+  renderNoteList = () => {
     const { filterByTags } = this.state;
-    const { allTags, notesWithBook } = this.props;
+    const { notesWithBook } = this.props;
     let filteredNotes = notesWithBook;
     if (this.state.showOnlyFav) {
       filteredNotes = filteredNotes.filter(note => note.isFav);
@@ -130,6 +157,20 @@ export class AllNotesView extends Component {
         });
       });
     }
+    return <Card.Group centered>
+      {this.sortNotes(filteredNotes)
+        .map(this.renderNote)}
+    </Card.Group>
+
+  }
+  renderNote = (note) => {
+    if (this.state.noteViewType === "list") {
+      return NoteListItem(note);
+    }
+    return NoteTileItem(note);
+  }
+  render() {
+    const { optionsVisible } = this.state;
     return (
       <div>
         <Breadcrumb>
@@ -147,9 +188,17 @@ export class AllNotesView extends Component {
             </Responsive>
         </Header>
         <Responsive as={Menu} stackable maxWidth={720}>
-          {this.renderFilters()}
+          <Accordion>
+            <Accordion.Title active={optionsVisible} index={0} onClick={() => this.setState({optionsVisible: !optionsVisible})}>
+              <Icon name='dropdown' />
+              Filters and Options
+            </Accordion.Title>
+            <Accordion.Content active={optionsVisible}>
+              {this.renderFilters()}
+            </Accordion.Content>
+          </Accordion>
         </Responsive>
-        {this.sortNotes(filteredNotes).map(NoteListItem)}
+        {this.renderNoteList()}
       </div>
     );
   }
