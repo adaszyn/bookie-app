@@ -22,7 +22,7 @@ export class BookCard extends React.Component {
     const numberOfNotes = this.props.numberOfNotes;
 
     return (
-      <Card link href={"/books/" + bookId}>
+      <Card link href={"/books/" + bookId} className="bounce-in">
         <Card.Content>
           <Card.Header style={{height: "60px", textAlign: "center", overflow: "hidden"}}>
             <h4>{title}</h4>

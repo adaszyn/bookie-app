@@ -42,7 +42,7 @@ export class Carousel extends Component {
       this.state.selectedChunkIndex !== this.state.chunks.length - 1;
     const canClickPrev = this.state.selectedChunkIndex !== 0;
     return (
-      <Grid style={style} stackable>
+      <Grid style={{padding: "10px 12px 10px 10px", ...style}} stackable>
         <Row columns={16}>
           <Column verticalAlign="middle" width={1} only="computer tablet">
             <Icon

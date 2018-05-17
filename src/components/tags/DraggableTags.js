@@ -36,7 +36,7 @@ export class DraggableTags extends Component {
           />
         </div>
         <Divider fitted />
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", padding: "2px 10px" }}>
           {this.props.allTags.map(tag => (
             <DraggableTag
               onDragStateChange={this.onDragStateChange}

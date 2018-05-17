@@ -4,8 +4,8 @@ import { clearSpecialCharacters } from "../util/string.util";
 import qs from "simple-query-string";
 
 const LIMIT = 5;
-let TOKEN = "AIzaSyDu4kB0pi3srmAoCUIUfKg8j0kBzI_jFH0";
-// TOKEN = "AIzaSyDVy9lkJzUvrg6DFTgsO9q51uapMeuvfGA"
+// let TOKEN = "AIzaSyDu4kB0pi3srmAoCUIUfKg8j0kBzI_jFH0";
+let TOKEN = "AIzaSyDVy9lkJzUvrg6DFTgsO9q51uapMeuvfGA"
 
 const trimText = (text = "", maxLength) => {
   if (text.length > maxLength) return text.slice(0, maxLength) + "...";

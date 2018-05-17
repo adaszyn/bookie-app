@@ -146,7 +146,7 @@ export class NoteCard extends React.Component {
     return (
       <TagsDropZone note={this.props.note} onTagDropped={this.onTagDropped}>
         {this.props.listitem ? (
-          <List.Item>
+          <List.Item className="bounce-in">
             <Card link style={{ width: "100%" }}>
               <Card.Content extra>
                 <Grid>
@@ -170,7 +170,7 @@ export class NoteCard extends React.Component {
             </Card>
           </List.Item>
         ) : (
-          <Card link style={{ height: "230px" }}>
+          <Card link style={{ height: "230px" }} className="bounce-in">
             <Card.Content>
               <Header as="h4">{formattedTitle}</Header>
               <Divider />

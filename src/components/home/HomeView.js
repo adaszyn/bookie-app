@@ -34,7 +34,7 @@ export class HomeView extends Component {
       minHeight: "280px",
       display: "block",
       border: "2px solid",
-      padding: "4px",
+      padding: "4px 11px",
       borderColor: this.state.isTagDragging ? "#636363" : "transparent"
     };
   };

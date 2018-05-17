@@ -157,7 +157,7 @@ export class AllNotesView extends Component {
         });
       });
     }
-    return <Card.Group centered>
+    return <Card.Group centered style={{width: "100%"}}>
       {this.sortNotes(filteredNotes)
         .map(this.renderNote)}
     </Card.Group>

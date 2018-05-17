@@ -39,6 +39,7 @@ export const NoteTileItem = ({
   id,
 }) => (
   <Card
+    className="bounce-in"
     href={`/notes/${id}`}
     link
     style={{ height: "230px" }}

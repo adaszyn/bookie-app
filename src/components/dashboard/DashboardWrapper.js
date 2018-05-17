@@ -10,7 +10,7 @@ export class DashboardWrapper extends Component {
   render() {
     return (
       <div className="App">
-        <Container className="navbar">
+        <Container className="navbar bookie-navbar">
         <Menu fixed="top" inverted size="large">
             <Menu.Item header>
               <Image as={Link} to="/" src={logo} className="logo" />
@@ -38,7 +38,7 @@ export class DashboardWrapper extends Component {
         </Menu>
         </Container>
 
-        <Container text style={{ marginTop: "7em" }}>
+        <Container text style={{ marginTop: "6em" }} className="bookie-container">
           {this.props.children}
         </Container>
       </div>

@@ -19,7 +19,7 @@ export class SearchView extends Component {
   }
   componentDidMount () {
     const { q } = qs.parse(this.props.location.search);
-    this.props.setSearchPhrase(q);
+    this.props.setSearchPhrase(q || "");
     this.props.search();
   }
   componentWillReceiveProps (newProps) {

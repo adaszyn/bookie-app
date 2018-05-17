@@ -6,7 +6,7 @@ export class About extends Component {
   state = {};
   render() {
     return (
-      <Grid stretched textAlign="left">
+      <Grid stretched textAlign="left" style={{padding: "24px"}}>
        <Grid.Row>
           <Breadcrumb>
             <Breadcrumb.Section><Link to="/">Home</Link></Breadcrumb.Section>

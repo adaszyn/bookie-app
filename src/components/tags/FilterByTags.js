@@ -48,7 +48,8 @@ export class FilterByTags extends Component {
       placeholder='Filter by tags' 
       multiple 
       search 
-      selection 
+      selection
+      style={{border: 'none'}}
       options={this.dropdownOptions()} 
       noResultsMessage="No more tags found"/>);
 	}

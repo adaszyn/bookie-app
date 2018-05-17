@@ -27,6 +27,7 @@ export const NoteListItem = ({
     link
     href={`/notes/${id}`}
     style={{ width: "100%" }}
+    className="bounce-in"
     color={isFav ? "red" : null}
   >
     <Card.Content>
@@ -47,7 +48,7 @@ export const NoteListItem = ({
       </Card.Meta>
       <Card.Description>{limitLength(contentRaw, 40)}</Card.Description>
     </Card.Content>
-    <Card.Content extra style={{ display: "flex" }}>
+    <Card.Content extra style={{ display: "flex", flexWrap: "wrap" }}>
       {getTagsArray(tags).map(tag => (
         <TagBubble tag={tag} key={tag} color={getTagColor(tag)} />
       ))}
