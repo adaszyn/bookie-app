@@ -22,11 +22,21 @@ export class NotesStore {
   @observable notesCreating = false;
   @observable notesUpdating = false;
 
+  @computed
+  get notesWithBook() {
+    return this.notes.map(note => ({
+      ...note,
+      book: this.booksStore.books.get(note.bookId)
+    }))
+  }
 
   constructor(authStore) {
     this.authStore = authStore;
+    this.booksStore = null;
   }
-
+  setBooksStore(booksStore) {
+    this.booksStore = booksStore;
+  }
   compareNotesByModifiedDate (note1, note2) {
     return new Date(note2.dateModified).getTime() - new Date(note1.dateModified).getTime();
   }

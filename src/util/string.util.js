@@ -18,3 +18,7 @@ export function isNonEmpty (str) {
 export function clearSpecialCharacters (str) {
   return str.replace(/[^a-zA-Z ]/g, "")
 }
+
+export function limitLength(str, maxLength) {
+  return str.substr(0, maxLength) + (str.length > maxLength ? "..." : "");
+}

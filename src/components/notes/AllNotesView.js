@@ -5,24 +5,19 @@ import {
   Icon,
   Menu,
   Popup,
-  Table,
-  Label
+  Dropdown,
 } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { Link } from "react-router-dom";
-import dateFormat from "dateformat";
 import { FilterByTags } from "../filter-by-tags/FilterByTags";
-import { TagBubble } from "../tags/TagBubble";
-import { getTagColor } from "../../util/tags.util";
-
-const CHAR_LIMIT = 14;
+import { NoteListItem } from "../note-list-item/NoteListItem";
 
 @observer
 export class AllNotesView extends Component {
   state = {
     sortedBy: "updated",
     order: "ascending",
-    filterByTags: []
+    filterByTags: [],
   };
   componentDidMount() {
     this.props.getAllNotes();
@@ -50,62 +45,61 @@ export class AllNotesView extends Component {
       currentOrder === "ascending" ? "descending" : "ascending";
     this.setState({
       sortedBy: column,
-      order: column === this.state.sortedBy ? reversedOrder : currentOrder
+      order: column === this.state.sortedBy ? reversedOrder : currentOrder,
     });
-  }
-  static renderRow(note) {
-    const { title, content, dateCreated, isFav, dateModified, tags } = note;
-    return (
-      <Table.Row key={note.id}>
-        <Table.Cell>
-          <Icon
-            name="heart"
-            color={isFav ? "red" : "grey"}
-            style={{ marginRight: "10px" }}
-          />
-          <Link to={`/notes/${note.id}`}>
-            {title.substr(0, CHAR_LIMIT)} {title.length > CHAR_LIMIT && "..."}
-          </Link>
-        </Table.Cell>
-        <Table.Cell>
-          {content.substr(0, CHAR_LIMIT)}
-          {content.length > CHAR_LIMIT && "..."}
-        </Table.Cell>
-        <Table.Cell width={3}>
-          {dateFormat(dateCreated, "mmmm dS 'yy")}
-        </Table.Cell>
-        <Table.Cell width={3}>
-          {dateFormat(dateModified, "mmmm dS 'yy")}
-        </Table.Cell>
-        <Table.Cell width={2} style={{ padding: 5 }}>
-          {tags.split(",").map(tag => (
-            <Label
-              style={{ margin: 5 }}
-              size="mini"
-              key={tag}
-              color={getTagColor(tag)}
-            >
-              {tag}{" "}
-            </Label>
-          ))}
-        </Table.Cell>
-      </Table.Row>
-    );
   }
   onTagsFilterChanged = filter => {
     this.setState({
-      filterByTags: filter
+      filterByTags: filter,
     });
   };
   toggleFav = () => {
     this.setState({
-      showOnlyFav: !this.state.showOnlyFav
+      showOnlyFav: !this.state.showOnlyFav,
     });
   };
+  renderFilters() {
+    return (
+      <React.Fragment>
+        <Menu.Item>
+          <Dropdown
+            renderLabel={this.renderLabel}
+            value={this.state.sortedBy}
+            options={[
+              { text: "Creation Date", value: "created" },
+              { text: "Modification Date", value: "updated" },
+            ]}
+            onChange={(_, { value }) => {
+              this.setState({ sortedBy: value });
+            }}
+            floated="right"
+            size="tiny"
+            placeholder="Filter by tags"
+          />
+        </Menu.Item>
+        <Menu.Item>
+          <Dropdown
+            renderLabel={this.renderLabel}
+            value={this.state.order}
+            options={[
+              { text: "Oldest", value: "ascending" },
+              { text: "Newest", value: "descending" },
+            ]}
+            onChange={(_, { value }) => {
+              this.setState({ order: value });
+            }}
+            floated="right"
+            size="tiny"
+            placeholder="Filter by tags"
+          />
+        </Menu.Item>
+      </React.Fragment>
+    );
+  }
   render() {
-    const { sortedBy, order, filterByTags } = this.state;
-    const { allTags, notes } = this.props;
-    let filteredNotes = notes;
+    const { filterByTags } = this.state;
+    const { allTags, notesWithBook } = this.props;
+    let filteredNotes = notesWithBook;
     if (this.state.showOnlyFav) {
       filteredNotes = filteredNotes.filter(note => note.isFav);
     }
@@ -129,6 +123,7 @@ export class AllNotesView extends Component {
         <Header block as="h2">
           Your notes
           <Menu size="tiny" floated="right" stackable>
+            {this.renderFilters()}
             <FilterByTags
               onChange={filter => this.onTagsFilterChanged(filter)}
               tags={allTags}
@@ -139,40 +134,17 @@ export class AllNotesView extends Component {
                   active={this.state.showOnlyFav}
                   onClick={this.toggleFav}
                 >
-                  <Icon name="heart" />
+                  <Icon
+                    name="heart"
+                    color={this.state.showOnlyFav ? "red" : "grey"}
+                  />
                 </Menu.Item>
               }
               content="Show only Favorite notes"
             />
           </Menu>
         </Header>
-
-        <Table sortable celled fixed selectable>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Title</Table.HeaderCell>
-              <Table.HeaderCell>Content</Table.HeaderCell>
-              <Table.HeaderCell
-                width={3}
-                sorted={sortedBy === "created" ? order : null}
-                onClick={() => this.handleSort("created")}
-              >
-                Created
-              </Table.HeaderCell>
-              <Table.HeaderCell
-                width={3}
-                sorted={sortedBy === "updated" ? order : null}
-                onClick={() => this.handleSort("updated")}
-              >
-                Updated
-              </Table.HeaderCell>
-              <Table.HeaderCell width={2}>Tags</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {this.sortNotes(filteredNotes).map(AllNotesView.renderRow)}
-          </Table.Body>
-        </Table>
+        {this.sortNotes(filteredNotes).map(NoteListItem)}
       </div>
     );
   }
@@ -182,6 +154,7 @@ export const AllNotesViewContainer = inject(stores => {
     notes: stores.notesStore.notes,
     loading: stores.notesStore.loading,
     getAllNotes: stores.notesStore.getAllNotes,
-    allTags: stores.notesStore.allTags
+    allTags: stores.notesStore.allTags,
+    notesWithBook: stores.notesStore.notesWithBook,
   };
 })(AllNotesView);

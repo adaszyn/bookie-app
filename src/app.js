@@ -12,12 +12,8 @@ import {toast} from "react-semantic-toasts";
 import { DragDropContextProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import {SearchStore} from "./stores/search-store";
+import stores from './configure-stores';
 
-const authStore = new AuthStore();
-const notesStore = new NotesStore(authStore);
-const booksStore = new BooksStore(notesStore);
-const searchStore = new SearchStore();
-const stores = { booksStore, notesStore, authStore, searchStore };
 
 Axios.defaults.withCredentials = true;
 
@@ -32,7 +28,7 @@ Axios.interceptors.response.use(null, function(error) {
   const isLoginRequest =  error.request.responseURL === API_BASE + "/login";
   if (!isLoginRequest && error.response.status === 401) {
     store.remove("session-token");
-    authStore.isLoggedIn = false;
+    stores.authStore.isLoggedIn = false;
     return Promise.reject(error);
   }
   return Promise.reject(error);
