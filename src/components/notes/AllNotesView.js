@@ -5,7 +5,7 @@ import {
   Icon,
   Menu,
   Popup,
-  Dropdown,
+  Dropdown, Segment, Responsive,
 } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { Link } from "react-router-dom";
@@ -59,8 +59,10 @@ export class AllNotesView extends Component {
     });
   };
   renderFilters() {
+    const { allTags } = this.props;
     return (
       <React.Fragment>
+
         <Menu.Item>
           <Dropdown
             renderLabel={this.renderLabel}
@@ -93,6 +95,24 @@ export class AllNotesView extends Component {
             placeholder="Filter by tags"
           />
         </Menu.Item>
+        <FilterByTags
+          onChange={filter => this.onTagsFilterChanged(filter)}
+          tags={allTags}
+        />
+        <Popup
+          trigger={
+            <Menu.Item
+              active={this.state.showOnlyFav}
+              onClick={this.toggleFav}
+            >
+              <Icon
+                name="heart"
+                color={this.state.showOnlyFav ? "red" : "grey"}
+              />
+            </Menu.Item>
+          }
+          content="Show only Favorite notes"
+        />
       </React.Fragment>
     );
   }
@@ -122,28 +142,13 @@ export class AllNotesView extends Component {
 
         <Header block as="h2">
           Your notes
-          <Menu size="tiny" floated="right" stackable>
-            {this.renderFilters()}
-            <FilterByTags
-              onChange={filter => this.onTagsFilterChanged(filter)}
-              tags={allTags}
-            />
-            <Popup
-              trigger={
-                <Menu.Item
-                  active={this.state.showOnlyFav}
-                  onClick={this.toggleFav}
-                >
-                  <Icon
-                    name="heart"
-                    color={this.state.showOnlyFav ? "red" : "grey"}
-                  />
-                </Menu.Item>
-              }
-              content="Show only Favorite notes"
-            />
-          </Menu>
+            <Responsive as={Menu} size="tiny" floated="right" stackable minWidth={720}>
+              {this.renderFilters()}
+            </Responsive>
         </Header>
+        <Responsive as={Menu} stackable maxWidth={720}>
+          {this.renderFilters()}
+        </Responsive>
         {this.sortNotes(filteredNotes).map(NoteListItem)}
       </div>
     );

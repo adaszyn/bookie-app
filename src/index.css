@@ -29,3 +29,6 @@ body {
     transform: translate3d(-2px, 0, 0);
   }
 }
+.App {
+  padding-bottom: 23px;
+}
