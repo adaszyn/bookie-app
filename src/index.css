@@ -63,6 +63,9 @@ body {
   background-color: white;
   box-shadow: 0px 10px 40px -10px rgba(0,64,128,0.2) !important;
 }
+.ui.text.container.bookie-container {
+  max-width: 780px !important;
+}
 .ui.block.header {
   color: #263646;
   font-family: 'Source Sans Pro', sans-serif;
