@@ -4,7 +4,7 @@ import {Grid, Input, Icon, Dimmer, Loader} from "semantic-ui-react";
 import qs from "simple-query-string";
 import { debounce } from "lodash";
 import InfiniteScroll from "react-infinite-scroller";
-import { SearchResult } from "../search-result/SearchResult";
+import { SearchResult } from "./SearchResult";
 import ReactFlagsSelect from "react-flags-select";
 import 'react-flags-select/css/react-flags-select.css';
 

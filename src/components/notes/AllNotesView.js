@@ -10,9 +10,9 @@ import {
 } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { Link } from "react-router-dom";
-import { FilterByTags } from "../filter-by-tags/FilterByTags";
-import { NoteListItem } from "../note-list-item/NoteListItem";
-import {NoteTileItem} from "../note-tile-item/NoteTileItem";
+import { FilterByTags } from "../tags/FilterByTags";
+import { NoteListItem } from "./NoteListItem";
+import {NoteTileItem} from "./NoteTileItem";
 
 @observer
 export class AllNotesView extends Component {

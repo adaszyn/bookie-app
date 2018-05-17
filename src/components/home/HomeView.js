@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { Grid, Header, Divider, Message, Container } from "semantic-ui-react";
 import "./HomeView.css";
-import { BookCard } from "../book-card/BookCard";
-import { NoteViewContainer } from "../note-card/NoteCard";
-import { Carousel } from "../carousel/Carousel";
+import { BookCard } from "../book/BookCard";
+import { NoteViewContainer } from "../notes/NoteCard";
+import { Carousel } from "../util/Carousel";
 import { DraggableTagsContainer } from "../tags/DraggableTags";
 
 @observer

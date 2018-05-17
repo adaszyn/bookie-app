@@ -1,7 +1,7 @@
 import React from "react";
 import { observer} from 'mobx-react';
 import { Grid, Card, Image} from "semantic-ui-react";
-import { ConfirmPopup } from "../confirm-popup/ConfirmPopup";
+import { ConfirmPopup } from "../util/ConfirmPopup";
 
 @observer 
 export class BookCard extends React.Component {

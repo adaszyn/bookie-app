@@ -13,13 +13,13 @@ import {
   Container
 } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
-import { BookCard } from "../book-card/BookCard";
-import { NoteViewContainer } from "../note-card/NoteCard";
+import { BookCard } from "./BookCard";
+import { NoteViewContainer } from "../notes/NoteCard";
 import { Link } from "react-router-dom";
-import { Carousel } from "../carousel/Carousel";
-import { LoadingPlaceholder } from "../loading/LoadingPlaceholder";
+import { Carousel } from "../util/Carousel";
+import { LoadingPlaceholder } from "../util/LoadingPlaceholder";
 import { DraggableTagsContainer } from "../tags/DraggableTags";
-import { FilterByTags } from "../filter-by-tags/FilterByTags";
+import { FilterByTags } from "../tags/FilterByTags";
 
 @observer
 export class BookView extends Component {

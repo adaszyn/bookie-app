@@ -9,8 +9,8 @@ import {
   Divider,
   Label
 } from "semantic-ui-react";
-import { TagsEditor } from "../tags-editor/TagsEditor";
-import { ConfirmPopup } from "../confirm-popup/ConfirmPopup";
+import { TagsEditor } from "../tags/TagsEditor";
+import { ConfirmPopup } from "../util/ConfirmPopup";
 import { observer, inject } from "mobx-react";
 import { getTagColor } from "../../util/tags.util";
 import { TagsDropZone } from "../tags/TagsDropZone";

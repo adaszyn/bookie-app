@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import { Progress } from "semantic-ui-react"
 import { API_BASE, uploadImage } from "../../services/api-service"
-import {DroppableMarkdownEditor} from "../editor/DroppableMarkdownEditor";
+import {DroppableMarkdownEditor} from "./DroppableMarkdownEditor";
 
 const { FILE } = NativeTypes
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Container, Image, Menu } from "semantic-ui-react";
-import { BookSearchContainer } from "../book-search/BookSearch";
+import { BookSearchContainer } from "../book/BookSearch";
 import logo from "../../assets/logo_white.svg";
 import "./DashboardWrapper.css";
 import Responsive from "semantic-ui-react/dist/es/addons/Responsive/Responsive";

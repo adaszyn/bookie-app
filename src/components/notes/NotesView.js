@@ -9,9 +9,9 @@ import {
 } from "semantic-ui-react";
 import { observer, inject } from "mobx-react";
 import { Link } from "react-router-dom";
-import { TagsEditor } from "../tags-editor/TagsEditor";
-import { RTEContainer } from "../rte/RTEContainer";
-import { LoadingPlaceholder } from "../loading/LoadingPlaceholder";
+import { TagsEditor } from "../tags/TagsEditor";
+import { RTEContainer } from "../editor/RTEContainer";
+import { LoadingPlaceholder } from "../util/LoadingPlaceholder";
 
 @observer
 export class NotesView extends Component {

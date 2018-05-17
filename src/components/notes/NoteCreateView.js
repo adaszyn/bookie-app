@@ -8,10 +8,10 @@ import {
   Popup,
   Icon
 } from "semantic-ui-react";
-import { TagsEditor } from "../tags-editor/TagsEditor";
+import { TagsEditor } from "../tags/TagsEditor";
 import { Link } from "react-router-dom";
-import { LoadingPlaceholder } from "../loading/LoadingPlaceholder";
-import { RTEContainer } from "../rte/RTEContainer";
+import { LoadingPlaceholder } from "../util/LoadingPlaceholder";
+import { RTEContainer } from "../editor/RTEContainer";
 
 @observer
 export class NoteCreateView extends Component {
