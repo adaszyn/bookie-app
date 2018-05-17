@@ -4,67 +4,76 @@
 
 [Bookie](https://bookie.adaszyn.site/) is a web-based editor for keeping notes or bookmarks for books that individuals are currently reading. The application uses [Google Books API](https://developers.google.com/books/) and [Bookie API](https://github.com/vshivam/bookie-api/) for authentication. 
 
-## Done  
 
-We have completed the following things thus far: 
+## Installation
+After installing Yarn package manager, running the app is simple:
+```bash
+yarn
+yarn start
+```
+By default Bookie will use development API (https://api.adaszyns.site/bookie).
 
-- Project setup
-    - React.js 
-    - MobX for state management
-- Views
-    - Login
-    - Sign Up 
-    - Not found page 
-    - Search Bar
-    - Book details
-    - Notes
-    - Recent notes
-- API integration
-    - Google Books API search call 
-    - Bookie API calls (login, sign up, notes)
-- Logo Created
-
-## To do
-- Notes management (creating, editing, adding)
-- Using in-browser persistent storage to keep notes (offline mode)
-- Notes export (PDF, epub)
-
-## Your project file structure:
+## Building
+To create production JS bundle, use:
+```bash
+yarn build
+```
+## Structure
 
 ### Components 
 ```
 src/components/
 ├── about
-│   └── About.js (about page)
+│   └── About.js
 ├── book
-│   └── BookView.js (detailed book view)
-├── book-card
-│   └── BookCard.js
-├── book-search
-│   └── BookSearch.js
+│   ├── BookCard.js
+│   ├── BookSearch.js
+│   └── BookView.js
 ├── dashboard
 │   └── DashboardWrapper.js
+├── editor
+│   ├── DroppableMarkdownEditor.js
+│   ├── MarkdownEditor.js
+│   ├── RTEContainer.js
+│   └── RTE.js
 ├── home
-│   └──  HomeView.js
+│   ├── HomeView.js
+│   └── sample-books.json
 ├── login
 │   └── LoginForm.js
-├── note-card
-│   └── NoteCard.js
-├── note-create
-│   └── NoteCreateView.js
 ├── notes
-│   └── NotesView.js
+│   ├── AllNotesView.js
+│   ├── NoteCard.js
+│   ├── NoteCreateView.js
+│   ├── NoteListItem.js
+│   ├── NotesView.js
+│   └── NoteTileItem.js
 ├── not-found
 │   └── NotFound.js
-├── private-route (restricting access to confidential data)
-│   └── PrivateRoute.js
-└── signup
-    └── SignUpForm.js
+├── search
+│   ├── SearchResult.js
+│   └── SearchView.js
+├── signup
+│   └── SignUpForm.js
+├── tags
+│   ├── DraggableTag.js
+│   ├── DraggableTags.js
+│   ├── FilterByTags.js
+│   ├── TagBubble.js
+│   ├── TagsDropZone.js
+│   ├── TagsEditor.js
+│   └── TagStrip.js
+└── util
+    ├── Carousel.js
+    ├── ConfirmPopup.js
+    ├── LoadingPlaceholder.js
+    └── PrivateRoute.js
+
 
 ```
 Each module exports one dumb react component. Additionally, some modules export container components. Using `mobx-react` library and React Context API we inject properties of preconfigured mobx stores.  
 
-### Services :
+### Services
 
 #### api-service 
 Defines the interface for calling the authentication API. 
@@ -77,11 +86,11 @@ There are three store classes for managing the state of the displayed books, aut
 
 Each file in the folder defines the class and its methods for setting the state for the given entity.
 
-### routes.js : 
+### routes.js
 
 This file contains the route definitions and which components should be rendered. 
 
-### app.js:
+### app.js
 
 Root component for the application. Initialising the state management stores and the rest of the application (routes.js).  
 
