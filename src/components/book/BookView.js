@@ -86,6 +86,10 @@ export class BookView extends Component {
     });
   };
 
+  createNewNote = bookId => {
+    this.props.history.push(`/books/${bookId}/create`);
+  };
+
   renderNotesCarousel = notes => {
     return (
       <Carousel
@@ -201,7 +205,7 @@ export class BookView extends Component {
     return (
       <div>
         <Grid>
-          <Grid.Row style={{padding: "20px"}}>
+          <Grid.Row style={{ padding: "20px" }}>
             <Breadcrumb>
               <Breadcrumb.Section>
                 <Link to="/">Home</Link>
@@ -268,18 +272,6 @@ export class BookView extends Component {
               content="Show only Favorite notes"
             />
           </Menu>
-          <Menu size="tiny" floated="right">
-            <Popup
-              trigger={
-                <Link to={`/books/${book.isbn10}/create`}>
-                  <Menu.Item>
-                    <Icon name="plus" />
-                  </Menu.Item>
-                </Link>
-              }
-              content="Create New Note"
-            />
-          </Menu>
         </Header>
         <Container text style={{ marginTop: "0.5em" }}>
           {notes.length > 0 ? (
@@ -292,6 +284,20 @@ export class BookView extends Component {
           <br />
         </Container>
         {this.renderNotes(notes)}
+        <div style={{ textAlign: "right" }}>
+          <Popup
+            trigger={
+              <Button
+                size="huge"
+                color="teal"
+                icon="plus"
+                circular
+                onClick={() => this.createNewNote(book.isbn10)}
+              />
+            }
+            content="Create New Note"
+          />
+        </div>
       </div>
     );
   }
