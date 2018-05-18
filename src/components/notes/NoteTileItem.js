@@ -18,6 +18,7 @@ const TagsToolbar = ({ tags }) => {
     <Card.Content style={{ paddingTop: 0, paddingBottom: 0 }}>
       {tagsArray.map(tag => (
         <Popup
+          key={tag}
           position="top center"
           trigger={
             <Label size="tiny" name="" key={tag} color={getTagColor(tag)} />
@@ -39,6 +40,7 @@ export const NoteTileItem = ({
   id,
 }) => (
   <Card
+    key={id}
     className="bounce-in"
     href={`/notes/${id}`}
     link
