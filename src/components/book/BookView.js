@@ -201,7 +201,7 @@ export class BookView extends Component {
     return (
       <div>
         <Grid>
-          <Grid.Row>
+          <Grid.Row style={{padding: "20px"}}>
             <Breadcrumb>
               <Breadcrumb.Section>
                 <Link to="/">Home</Link>

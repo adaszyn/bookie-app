@@ -65,6 +65,7 @@ body {
 }
 .ui.text.container.bookie-container {
   max-width: 780px !important;
+  padding: 10px 14px !important;
 }
 .ui.block.header {
   color: #263646;
@@ -79,4 +80,7 @@ body {
 }
 .arrow.link:active {
   animation: bounceIn 0.62s cubic-bezier(.36,.07,.19,.97) both;
+}
+.ui-alerts.top-right {
+  pointer-events: none;
 }
