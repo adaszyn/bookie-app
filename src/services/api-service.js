@@ -1,7 +1,6 @@
 import Axios from "axios";
 
-export let API_BASE = "https://api.adaszyn.site/bookie";
-API_BASE = "http://127.0.0.1:8083";
+export const API_BASE = "https://api.adaszyn.site/bookie";
 
 export async function authenticate(email, password) {
   const bodyFormData = new FormData();
