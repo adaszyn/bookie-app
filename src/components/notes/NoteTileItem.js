@@ -10,7 +10,7 @@ const getTagsArray = tags => {
 };
 
 const TagsToolbar = ({ tags }) => {
-  const tagsArray = getTagsArray(tags).slice(0, 6);
+  const tagsArray = getTagsArray(tags).slice(0, 10);
   if (!tags || tags.length === 0) {
     return null;
   }
