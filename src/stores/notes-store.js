@@ -5,30 +5,35 @@ import {
   getNotesByBookId,
   createNote,
   updateNote,
-  deleteNote
+  deleteNote,
+  deleteBook
 } from "../services/api-service";
 import { uniq, flatten } from "lodash";
-import {isNonEmpty} from "../util/string.util";
-import cleanMarkdown from 'remove-markdown';
+import { isNonEmpty } from "../util/string.util";
+import cleanMarkdown from "remove-markdown";
 
 export class NotesStore {
   @observable note = {};
   @computed
   get notes() {
-    return [...Object.values(this.notesById).sort(this.compareNotesByModifiedDate)];
+    return [
+      ...Object.values(this.notesById).sort(this.compareNotesByModifiedDate)
+    ];
   }
   @observable notesById = {};
   @observable loading = false;
   @observable notesFetchError = null;
   @observable notesCreating = false;
   @observable notesUpdating = false;
+  @observable noteDeleting = false;
+  @observable bookDeleting = false;
 
   @computed
   get notesWithBook() {
     return this.notes.map(note => ({
       ...note,
       book: this.booksStore.books.get(note.bookId)
-    }))
+    }));
   }
 
   constructor(authStore) {
@@ -38,8 +43,11 @@ export class NotesStore {
   setBooksStore(booksStore) {
     this.booksStore = booksStore;
   }
-  compareNotesByModifiedDate (note1, note2) {
-    return new Date(note2.dateModified).getTime() - new Date(note1.dateModified).getTime();
+  compareNotesByModifiedDate(note1, note2) {
+    return (
+      new Date(note2.dateModified).getTime() -
+      new Date(note1.dateModified).getTime()
+    );
   }
   @computed
   get notesByBookId() {
@@ -53,12 +61,14 @@ export class NotesStore {
     }, {});
   }
   @computed
-  get allTags () {
-    return uniq(flatten(this.notes.map(note => note.tags.split(",").filter(isNonEmpty)))).sort();
+  get allTags() {
+    return uniq(
+      flatten(this.notes.map(note => note.tags.split(",").filter(isNonEmpty)))
+    ).sort();
   }
   @computed
-  get bookIds () {
-      return new Set(this.notes.map(note => note.bookId))
+  get bookIds() {
+    return new Set(this.notes.map(note => note.bookId));
   }
 
   @action
@@ -151,6 +161,22 @@ export class NotesStore {
     return deleteNote(noteId, bookId)
       .then(this.deleteNoteSuccess)
       .then(this.getAllNotes)
-      .catch(this.deleteNoteFail)
+      .catch(this.deleteNoteFail);
+  };
+  @action
+  deleteBookSuccess = () => {
+    this.bookDeleting = false;
+  };
+  @action
+  deleteBookFail = () => {
+    this.bookDeleting = false;
+  };
+  @action
+  deleteBook = bookId => {
+    this.bookDeleting = true;
+    return deleteBook(bookId)
+      .then(this.deleteBookSuccess)
+      .then(this.getAllNotes)
+      .catch(this.deleteBookFail);
   };
 }

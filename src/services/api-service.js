@@ -1,6 +1,7 @@
 import Axios from "axios";
 
-export const API_BASE = "https://api.adaszyn.site/bookie";
+export let API_BASE = "https://api.adaszyn.site/bookie";
+API_BASE = "http://127.0.0.1:8083";
 
 export async function authenticate(email, password) {
   const bodyFormData = new FormData();
@@ -59,7 +60,7 @@ export async function getNotesByBookId(id) {
 export async function createNote(bookId, title, content, isFav, tags) {
   const data = new FormData();
   data.set("bookId", bookId);
-  data.set("title", title)
+  data.set("title", title);
   data.set("content", content);
   data.set("isFav", isFav);
   data.set("tags", tags);
@@ -77,7 +78,7 @@ export async function updateNote(noteId, bookId, title, content, isFav, tags) {
   data.set("title", title);
   data.set("content", content);
   data.set("isFav", isFav);
-  data.set('tags', tags);
+  data.set("tags", tags);
   return Axios({
     method: "put",
     data: data,
@@ -97,14 +98,22 @@ export async function deleteNote(noteId, bookId) {
   });
 }
 
-export async function uploadImage(file){
+export async function uploadImage(file) {
   const data = new FormData();
-  data.append('file', file);
-  data.append('filename', file.name);
+  data.append("file", file);
+  data.append("filename", file.name);
   return Axios({
     method: "POST",
     data: data,
     url: `${API_BASE}/images/`,
+    withCredentials: true
+  });
+}
+
+export async function deleteBook(bookId) {
+  return Axios({
+    method: "delete",
+    url: `${API_BASE}/book/${bookId}`,
     withCredentials: true
   });
 }
