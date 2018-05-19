@@ -39,8 +39,17 @@ export class SearchView extends Component {
   onSubmit = () => {
     this.props.search();
   }
+  renderResults () {
+    const { results } = this.props;
+    const filteredResults = results.filter(result => result.isbn10)
+    if (!filteredResults || filteredResults.length === 0) {
+      return <p>No results found.</p>
+    }
+    return filteredResults.map(result => <SearchResult key={result.id} {...result}/>)
+
+  }
   render() {
-    const { searchPhrase, results, hasMore, onLanguageChange, loading } = this.props;
+    const { searchPhrase, hasMore, onLanguageChange, loading } = this.props;
     return (
       <div>
         <Input
@@ -70,8 +79,7 @@ export class SearchView extends Component {
           loader={this.props.loading && <div className="loader" key={0}>Loading ...</div>}
         >
 
-          {results.map(result => result.isbn10? <SearchResult key={result.id} {...result}/>: null)}
-
+          {this.renderResults()}
         </InfiniteScroll>
         {loading && <Dimmer active inverted>
           <Loader inverted>Loading</Loader>
